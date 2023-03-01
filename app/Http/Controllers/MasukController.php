@@ -33,11 +33,21 @@ class MasukController extends Controller
             'tgl_surat'     => 'required',
             'tgl_diterima'  => 'required',
             'ditujukan'     => 'required',
+            'kategori'      => 'nullable',
+            'keterangan'    => 'nullable',
+            'image'         => 'image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
         //check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        }
+
+        //upload image
+        $image = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image->storeAs('public/posts', $image->hashName());
         }
 
         //create post
@@ -50,7 +60,7 @@ class MasukController extends Controller
             'ditujukan'     => $request->ditujukan,
             'kategori'      => $request->kategori,
             'keterangan'    => $request->keterangan,
-            'image'         => $request->image
+            'image'         => $image ? $image->hashName() : null
         ]);
 
         //return response
