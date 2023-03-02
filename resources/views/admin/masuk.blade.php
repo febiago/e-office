@@ -48,6 +48,7 @@
                                     <tbody id="table-masuk">
                                     @foreach($smasuk as $masuk)
                                         <tr id="index_{{ $masuk->id }}">
+                                            <td>{{ $masuk->id }}</td>
                                             <td>{{ $masuk->no_surat }}</td>
                                             <td>{{ $masuk->tgl_surat }}</td>
                                             <td>{{ $masuk->perihal }}</td>
@@ -80,7 +81,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @csrf
+                <form enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">No Surat</label>
@@ -161,7 +162,7 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="form-group col-md-6" >
+                  <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Gambar</label>
                         <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                         @error('image')
@@ -177,7 +178,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
                     <button type="button" class="btn btn-primary" id="store">SIMPAN</button>
                 </div>
-            
+            </form>
             </div>
         </div>
     </div>

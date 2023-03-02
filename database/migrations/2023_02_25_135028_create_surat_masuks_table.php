@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('ditujukan');
             $table->string('kategori');
             $table->string('keterangan');
-            $table->string('image');
+            $table->string('image')->default('no_image.jpg');;
             $table->timestamps();
         });
     }
