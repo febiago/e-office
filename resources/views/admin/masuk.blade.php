@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blank Page')
+@section('title', 'Surat Masuk')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
@@ -19,14 +19,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Blank Page</h1>
+                <h1>Arsip Surat Masuk</h1>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Basic DataTables</h4>
-                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <a href="javascript:void(0)" class="btn btn-success mb-2" id="btn-create-masuk">TAMBAH</a>
@@ -34,26 +31,26 @@
                                     id="table-1">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
-                                                No
-                                            </th>
+                                            <th class="text-center">No</th>
                                             <th>No Surat</th>
                                             <th>Tanggal</th>
                                             <th>Perihal</th>
                                             <th>Asal Surat</th>
                                             <th>Tanggal Penerimaan</th>
+                                            <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-masuk">
                                     @foreach($smasuk as $masuk)
                                         <tr id="index_{{ $masuk->id }}">
-                                            <td>{{ $masuk->id }}</td>
+                                            <td>{{ $loop->count - $loop->iteration + 1 }}</td>
                                             <td>{{ $masuk->no_surat }}</td>
                                             <td>{{ $masuk->tgl_surat }}</td>
                                             <td>{{ $masuk->perihal }}</td>
                                             <td>{{ $masuk->pengirim }}</td>
                                             <td>{{ $masuk->tgl_diterima }}</td>
+                                            <td>{{ $masuk->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-masuk" data-id="{{ $masuk->id }}" class="btn btn-primary btn-sm">EDIT</a>
                                                 <a href="javascript:void(0)" id="btn-delete-masuk" data-id="{{ $masuk->id }}" class="btn btn-danger btn-sm">DELETE</a>
@@ -85,91 +82,52 @@
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">No Surat</label>
-                        <input type="text" class="form-control @error('no_surat') is-invalid @enderror" id="no_surat" name="no_surat" required>
-                        @error('no_surat')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input type="text" class="form-control" id="no_surat" name="no_surat" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Asal Surat</label>
-                        <input type="text" class="form-control @error('pengirim') is-invalid @enderror" id="pengirim" name="pengirim" required>
-                        @error('pengirim')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input type="text" class="form-control" id="pengirim" name="pengirim" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim"></div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-3" >
                         <label for="name" class="control-label">Tanggal Surat</label>
-                        <input name="tgl_surat" id="tgl_surat" type="date" class="form-control datepicker @error('tgl_surat') is-invalid @enderror" required>
-                        @error('tgl_surat')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input name="tgl_surat" id="tgl_surat" type="date" class="form-control datepicker" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat"></div>
                     </div>
                     <div class="form-group col-md-3" >
                         <label for="name" class="control-label">Tanggal Diterima</label>
-                        <input name="tgl_diterima" id="tgl_diterima" type="date" class="form-control datepicker @error('tgl_diterima') is-invalid @enderror" required>
-                        @error('tgl_diterima')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input name="tgl_diterima" id="tgl_diterima" type="date" class="form-control datepicker" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Perihal</label>
                         <input type="text" class="form-control @error('perihal') is-invalid @enderror" id="perihal" name="perihal" required>
-                        @error('perihal')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal"></div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Ditujukan</label>
-                        <input type="text" class="form-control @error('ditujukan') is-invalid @enderror" id="ditujukan" name="ditujukan" required>
-                        @error('ditujukan')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input type="text" class="form-control" id="ditujukan" name="ditujukan" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Keterangan</label>
-                        <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan">
-                        @error('keterangan')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input type="text" class="form-control" id="keterangan" name="keterangan">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Kategori</label>
-                        <input type="text" class="form-control @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
-                        @error('kategori')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input type="text" class="form-control" id="kategori" name="kategori">
                     </div>
                   <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Gambar</label>
-                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
-                        @error('image')
-                            <div class="alert alert-danger mt-2">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <input type="file" class="form-control" name="image">
                     </div>
                 </div>
 
@@ -241,28 +199,8 @@
                     showConfirmButton: false,
                     timer: 3000
                 });
-
                 //data post
-                let smasuk = `
-                    <tr id="index_${response.data.id}">
-                        <td>${response.data.no_surat}</td>
-                        <td>${response.data.pengirim}</td>
-                        <td>${response.data.perihal}</td>
-                        <td>${response.data.tgl_surat}</td>
-                        <td>${response.data.tgl_diterima}</td>
-                        <td>${response.data.ditujukan}</td>
-                        <td>${response.data.kategori}</td>
-                        <td>${response.data.keterangan}</td>
-                        <td>${response.data.image}</td>
-                        <td class="text-center">
-                            <a href="javascript:void(0)" id="btn-edit-post" data-id="${response.data.id}" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="javascript:void(0)" id="btn-delete-post" data-id="${response.data.id}" class="btn btn-danger btn-sm">DELETE</a>
-                        </td>
-                    </tr>
-                `;
                 
-                //append to table
-                $('#table-masuk').prepend(smasuk);
                 
                 //clear form
                 $('#no_surat').val('');
@@ -277,11 +215,15 @@
 
                 //close modal
                 $('#masuk-create').modal('hide');
+
+                setTimeout(function(){
+		        	location.reload();
+		        }, 500);
                 
             },
             error:function(error){
                 
-                if(error.responseJSON.title[0]) {
+                if(error.responseJSON.no_surat[0]) {
 
                     //show alert
                     $('#alert-no_surat').removeClass('d-none');
@@ -289,6 +231,55 @@
 
                     //add message to alert
                     $('#alert-no_surat').html(error.responseJSON.no_surat[0]);
+                } 
+
+                if(error.responseJSON.pengirim[0]) {
+
+                    //show alert
+                    $('#alert-pengirim').removeClass('d-none');
+                    $('#alert-pengirim').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-pengirim').html(error.responseJSON.pengirim[0]);
+                }
+                if(error.responseJSON.perihal[0]) {
+
+                    //show alert
+                    $('#alert-perihal').removeClass('d-none');
+                    $('#alert-perihal').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-perihal').html(error.responseJSON.perihal[0]);
+                } 
+
+                if(error.responseJSON.tgl_surat[0]) {
+
+                    //show alert
+                    $('#alert-tgl_surat').removeClass('d-none');
+                    $('#alert-tgl_surat').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-tgl_surat').html(error.responseJSON.tgl_surat[0]);
+                }
+
+                if(error.responseJSON.tgl_diterima[0]) {
+
+                    //show alert
+                    $('#alert-tgl_diterima').removeClass('d-none');
+                    $('#alert-tgl_diterima').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-tgl_diterima').html(error.responseJSON.tgl_diterima[0]);
+                }
+                
+                if(error.responseJSON.ditujukan[0]) {
+
+                    //show alert
+                    $('#alert-ditujukan').removeClass('d-none');
+                    $('#alert-ditujukan').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-ditujukan').html(error.responseJSON.ditujukan[0]);
                 } 
             }
 

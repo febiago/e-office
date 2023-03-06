@@ -17,7 +17,7 @@ class MasukController extends Controller
     {
         //get all posts from Models
         $smasuk = Surat_masuk::latest()->get();
-        $data = ['type_menu' => 'layout'];
+        $data = ['type_menu' => 'surat-masuk'];
 
         //return view with data
         return view('admin.masuk',$data, compact('smasuk'));
