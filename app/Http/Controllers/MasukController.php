@@ -70,14 +70,23 @@ class MasukController extends Controller
         ]);
     }
 
-    public function show(Surat_masuk $masuk)
+    public function show($id)
     {
-        //return response
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail Data Surat Masuk',
-            'data'    => $masuk
-        ]); 
+        $masuk = Surat_masuk::find($id);
+            //return response
+        if($masuk){
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Data Surat Masuk',
+                'data'    => $masuk
+            ]); 
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Surat Masuk Tidak Ditemukan',
+                'data'    => null
+            ]); 
+        }
     }
     
     public function update(Request $request, Surat_masuk $masuk)
