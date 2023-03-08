@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <a href="javascript:void(0)" class="btn btn-success mb-2" id="btn-create-masuk">TAMBAH</a>
+                                <a href="javascript:void(0)" class="btn btn-success mb-2" id="btn-create-masuk">TAMBAH AGENDA SURAT</a>
                                 <table class="table-striped table"
                                     id="table-1">
                                     <thead>
@@ -95,17 +95,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-3" >
                         <label for="name" class="control-label">Tanggal Surat</label>
-                        <input name="tgl_surat" id="tgl_surat" type="date" class="form-control datepicker" required>
+                        <input name="tgl_surat" id="tgl_surat" type="date" class="form-control" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat"></div>
                     </div>
                     <div class="form-group col-md-3" >
                         <label for="name" class="control-label">Tanggal Diterima</label>
-                        <input name="tgl_diterima" id="tgl_diterima" type="date" class="form-control datepicker" required>
+                        <input name="tgl_diterima" id="tgl_diterima" type="date" class="form-control" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Perihal</label>
-                        <input type="text" class="form-control @error('perihal') is-invalid @enderror" id="perihal" name="perihal" required>
+                        <input type="text" class="form-control" id="perihal" name="perihal" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal"></div>
                     </div>
                 </div>
@@ -302,17 +302,48 @@
 
                     <input type="hidden" id="id_smasuk">
 
-                    <div class="form-group">
-                        <label for="name" class="control-label">No Surat</label>
-                        <input type="text" class="form-control" id="no_surat-edit">
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat-edit"></div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">No Surat</label>
+                            <input type="text" class="form-control" id="no_surat-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat-edit"></div>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">Pengirim</label>
+                            <input type="text" class="form-control" id="pengirim-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim-edit"></div>
+                        </div>
                     </div>
 
+                    <div class="form-row">
+                        <div class="form-group col-md-3" >
+                            <label for="name" class="control-label">Tanggal Surat</label>
+                            <input id="tgl_surat-edit" type="date" class="form-control" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat-edit"></div>
+                        </div>
+                        <div class="form-group col-md-3" >
+                            <label for="name" class="control-label">Tanggal Diterima</label>
+                            <input id="tgl_diterima-edit" type="date" class="form-control" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima-edit"></div>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">Perihal</label>
+                            <input type="text" class="form-control" id="perihal-edit" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal-edit"></div>
+                        </div>
+                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label">Pengirim</label>
-                        <textarea class="form-control" id="pengirim-edit" rows="4"></textarea>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim-edit"></div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">Ditujukan</label>
+                            <input type="text" class="form-control" id="ditujukan-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan-edit"></div>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">Keterangan</label>
+                            <input type="text" class="form-control" id="keterangan-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-keterangan-edit"></div>
+                        </div>
                     </div>
 
                 </div>
@@ -366,7 +397,7 @@
             let tgl_diterima= $('#tgl_diterima-edit').val();
             let ditujukan   = $('#ditujukan-edit').val();
             let keterangan  = $('#keterangan-edit').val();
-            let token   = $("meta[name='csrf-token']").attr("content");
+            let token       = $("meta[name='csrf-token']").attr("content");
 
             //ajax
             $.ajax({
@@ -375,9 +406,14 @@
                 type: "PUT",
                 cache: false,
                 data: {
-                    "title": title,
-                    "content": content,
-                    "_token": token
+                    "no_surat"      :no_surat,
+                    "pengirim"      :pengirim,
+                    "perihal"       :perihal,
+                    "tgl_surat"     :tgl_surat,
+                    "tgl_diterima"  :tgl_diterima,
+                    "ditujukan"     :ditujukan,
+                    "keterangan"    :keterangan,
+                    "_token"        :token
                 },
                 success:function(response){
 
@@ -387,27 +423,15 @@
                         icon: 'success',
                         title: `${response.message}`,
                         showConfirmButton: false,
-                        timer: 3000
+                        timer: 2000
                     });
-
-                    //data surat masuk
-                    let smasuk = `
-                        <tr id="index_${response.data.id}">
-                            <td>${response.data.title}</td>
-                            <td>${response.data.content}</td>
-                            <td class="text-center">
-                                <a href="javascript:void(0)" id="btn-edit-post" data-id="${response.data.id}" class="btn btn-primary btn-sm">EDIT</a>
-                                <a href="javascript:void(0)" id="btn-delete-post" data-id="${response.data.id}" class="btn btn-danger btn-sm">DELETE</a>
-                            </td>
-                        </tr>
-                    `;
-                    
-                    //append to post data
-                    $(`#index_${response.data.id}`).replaceWith(smasuk);
 
                     //close modal
                     $('#modal-edit').modal('hide');
-                    
+
+                 setTimeout(function(){
+		         	location.reload();
+		         }, 500);
 
                 },
                 error:function(error){
@@ -431,18 +455,61 @@
                         //add message to alert
                         $('#alert-content-edit').html(error.responseJSON.content[0]);
                     } 
-
                 }
-
             });
-
         });
 
+    //button create post event
+    $('body').on('click', '#btn-delete-masuk', function () {
+
+        let id_smasuk = $(this).data('id');
+        let token   = $("meta[name='csrf-token']").attr("content");
+
+        Swal.fire({
+            title: 'Apakah Kamu Yakin?',
+            text: "Ingin menghapus data ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'TIDAK',
+            confirmButtonText: 'YA, HAPUS!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                console.log('test');
+
+                //fetch to delete data
+                $.ajax({
+
+                    url: `/surat-masuk/${id_smasuk}`,
+                    type: "DELETE",
+                    cache: false,
+                    data: {
+                        "_token": token
+                    },
+                    success:function(response){ 
+
+                        //show success message
+                        Swal.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: `${response.message}`,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        //remove post on table
+                        $(`#index_${id_smasuk}`).remove();
+                    }
+                });
+            }
+        })
+        
+    });
     </script>
 
     <!-- JS Libraies -->
-    <script src="assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.6.1/js/dataTables.select.min.js"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>

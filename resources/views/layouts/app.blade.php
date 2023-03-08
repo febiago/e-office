@@ -60,11 +60,11 @@
 
     <!-- General JS Scripts -->
     <script src="{{ asset('library/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('library/popper.js/dist/umd/popper.js') }}"></script>
-    <script src="{{ asset('library/tooltip.js/dist/umd/tooltip.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltip.js/1.3.3/tooltip.js"></script>
     <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('library/jquery.nicescroll/dist/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('library/moment/min/moment.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
     <script src="{{ asset('js/stisla.js') }}"></script>
 
     @stack('scripts')

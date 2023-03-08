@@ -57,7 +57,7 @@ class MasukController extends Controller
             'tgl_surat'     => $request->tgl_surat,
             'tgl_diterima'  => $request->tgl_diterima,
             'ditujukan'     => $request->ditujukan,
-            'kategori'      => $request->filled('kategori') ? $request->kategori : 'null',
+            'kategori'      => $request->filled('kategori') ? $request->kategori : '-',
             'keterangan'    => $request->filled('keterangan') ? $request->kategori : 'null',
             'image'         => $request->filled('image') ? $request->kategori : 'null.jpg',
         ]);
@@ -89,7 +89,7 @@ class MasukController extends Controller
         }
     }
     
-    public function update(Request $request, Surat_masuk $masuk)
+    public function update(Request $request, $id_smasuk)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
@@ -99,36 +99,35 @@ class MasukController extends Controller
             'tgl_surat'     => 'required',
             'tgl_diterima'  => 'required',
             'ditujukan'     => 'required',
-            'kategori'      => 'nullable',
-            'keterangan'    => 'nullable',
-            'image'         => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'keterangan'    => 'nullable'
         ]);
 
         //check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
         //create post
-        $smasuk->update([
-            'no_surat'      => $request->no_surat,
-            'pengirim'      => $request->pengirim,
-            'perihal'       => $request->perihal,
-            'tgl_surat'     => $request->tgl_surat,
-            'tgl_diterima'  => $request->tgl_diterima,
-            'ditujukan'     => $request->ditujukan,
-            'kategori'      => $request->filled('kategori') ? $request->kategori : 'null',
-            'keterangan'    => $request->filled('keterangan') ? $request->kategori : 'null',
-            'image'         => $request->filled('image') ? $request->kategori : 'null.jpg',
+        $sMasuk = Surat_masuk::findOrFail($id_smasuk);
+        $sMasuk->update($request->all());
+
+        // Return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil di-update!',
+            'data' => $sMasuk,
         ]);
+    }
+
+    public function destroy($id)
+    {
+        //delete post by ID
+        Surat_masuk::where('id', $id)->delete();
 
         //return response
         return response()->json([
             'success' => true,
-            'message' => 'Data Berhasil Diudapte!',
-            'data'    => $smasuk  
-        ]);
+            'message' => 'Data Berhasil Dihapus!.',
+        ]); 
     }
-
 }
 
