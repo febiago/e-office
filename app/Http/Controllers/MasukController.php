@@ -15,7 +15,6 @@ class MasukController extends Controller
      */
     public function index()
     {
-        //get all posts from Models
         $smasuk = Surat_masuk::latest()->get();
         $data = ['type_menu' => 'surat-masuk'];
 
@@ -70,5 +69,57 @@ class MasukController extends Controller
             'data'    => $masuk  
         ]);
     }
+
+    public function show(Surat_masuk $masuk)
+    {
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Surat Masuk',
+            'data'    => $masuk
+        ]); 
+    }
+    
+    public function update(Request $request, Surat_masuk $masuk)
+    {
+        //define validation rules
+        $validator = Validator::make($request->all(), [
+            'no_surat'      => 'required',
+            'pengirim'      => 'required',
+            'perihal'       => 'required',
+            'tgl_surat'     => 'required',
+            'tgl_diterima'  => 'required',
+            'ditujukan'     => 'required',
+            'kategori'      => 'nullable',
+            'keterangan'    => 'nullable',
+            'image'         => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        //create post
+        $smasuk->update([
+            'no_surat'      => $request->no_surat,
+            'pengirim'      => $request->pengirim,
+            'perihal'       => $request->perihal,
+            'tgl_surat'     => $request->tgl_surat,
+            'tgl_diterima'  => $request->tgl_diterima,
+            'ditujukan'     => $request->ditujukan,
+            'kategori'      => $request->filled('kategori') ? $request->kategori : 'null',
+            'keterangan'    => $request->filled('keterangan') ? $request->kategori : 'null',
+            'image'         => $request->filled('image') ? $request->kategori : 'null.jpg',
+        ]);
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Diudapte!',
+            'data'    => $smasuk  
+        ]);
+    }
+
 }
 
