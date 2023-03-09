@@ -13,20 +13,25 @@ class KeluarController extends Controller
      *
      * @return void
      */
+
     public function index()
     {
         $skeluar = Surat_keluar::latest()->get();
         $data = ['type_menu' => 'surat-keluar'];
+        $suratKeluar = new Surat_keluar();
+        $jumlahSuratKeluar = $suratKeluar->getJumlahSuratKeluar();
+        $nomorSurat = $jumlahSuratKeluar + 1;
 
         //return view with data
-        return view('admin.keluar',$data, compact('skeluar'));
+        return view('admin.keluar',$data, compact('skeluar'))->with('nomorSurat', $nomorSurat);
     }
 
     public function store(Request $request)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'no_surat'      => 'required',
+            'no_surat1'     => 'required',
+            'no_surat2'     => 'required',
             'perihal'       => 'required',
             'tgl_surat'     => 'required',
             'tgl_dikirim'   => 'required',
@@ -49,8 +54,9 @@ class KeluarController extends Controller
         }
 
         //create post
+        $no_surat = $request->no_surat1.'/'.$request->no_surat2.'/408.63/2023';
         $keluar = Surat_keluar::create([
-            'no_surat'      => $request->no_surat,
+            'no_surat'      => $no_surat,
             'perihal'       => $request->perihal,
             'tgl_surat'     => $request->tgl_surat,
             'tgl_dikirim'   => $request->tgl_dikirim,

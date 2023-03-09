@@ -77,12 +77,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">No Surat</label>
-                        <input type="text" class="form-control" id="no_surat" name="no_surat" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat"></div>
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control text-right" id="no_surat1" name="no_surat" required>
+                            <input type="text" class="form-control text-right" id="no_surat2" value="{{ $nomorSurat }}" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">/408.63/2023</div>
+                        </div>
+                        </div>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat1"></div>
                     </div>
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">Kategori</label>
-                        <input type="text" class="form-control" id="kategori" name="kategori">
+                        <label for="name" class="control-label">Ditujukan</label>
+                        <input type="text" class="form-control" id="ditujukan" name="ditujukan" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan"></div>
                     </div>
                 </div>
 
@@ -105,17 +112,10 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">Ditujukan</label>
-                        <input type="text" class="form-control" id="ditujukan" name="ditujukan" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan"></div>
-                    </div>
-                    <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Keterangan</label>
                         <input type="text" class="form-control" id="keterangan" name="keterangan">
                     </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6" >
+                    <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Gambar</label>
                         <input type="file" class="form-control" name="image">
                     </div>
@@ -155,7 +155,8 @@
 
         e.preventDefault();
         //define variable
-        let no_surat        = $('#no_surat').val();
+        let no_surat1       = $('#no_surat1').val();
+        let no_surat2       = $('#no_surat2').val();
         let perihal         = $('#perihal').val();
         let tgl_surat       = $('#tgl_surat').val();
         let tgl_dikirim     = $('#tgl_dikirim').val();
@@ -171,7 +172,8 @@
             type: "POST",
             cache: false,
             data: {
-                "no_surat"      :no_surat,
+                "no_surat1"     :no_surat1,
+                "no_surat2"     :no_surat2,
                 "perihal"       :perihal,
                 "tgl_surat"     :tgl_surat,
                 "tgl_dikirim"   :tgl_dikirim,
@@ -195,7 +197,8 @@
                 
                 
                 //clear form
-                $('#no_surat').val('');
+                $('#no_surat1').val('');
+                $('#no_surat2').val('');
                 $('#perihal').val('');
                 $('#tgl_surat').val('');
                 $('#tgl_dikirim').val('');
@@ -217,11 +220,11 @@
                 if(error.responseJSON.no_surat[0]) {
 
                     //show alert
-                    $('#alert-no_surat').removeClass('d-none');
-                    $('#alert-no_surat').addClass('d-block');
+                    $('#alert-no_surat1').removeClass('d-none');
+                    $('#alert-no_surat1').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-no_surat').html(error.responseJSON.no_surat[0]);
+                    $('#alert-no_surat1').html(error.responseJSON.no_surat[0]);
                 } 
 
                 if(error.responseJSON.perihal[0]) {

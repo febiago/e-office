@@ -198,8 +198,6 @@
                     showConfirmButton: false,
                     timer: 3000
                 });
-                //data post
-                
                 
                 //clear form
                 $('#no_surat').val('');

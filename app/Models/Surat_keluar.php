@@ -20,6 +20,11 @@ class Surat_keluar extends Model
         'image'
     ];
 
+    public function getJumlahSuratKeluar()
+    {
+        return $this->count();
+    }
+
     public function sppd()
     {
     return $this->hasMany(Sppd::class);
