@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasukController;
+use App\Http\Controllers\KeluarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 
@@ -33,5 +34,6 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
         return view('admin.dashboard', ['type_menu' => 'dashboard']);
     })->name('dashboard');
     Route::resource('/surat-masuk', MasukController::class);
+    Route::resource('/surat-keluar', KeluarController::class);
 
 });

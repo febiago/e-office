@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Surat_masuk;
+use App\Models\Surat_keluar;
 use App\Models\Disposisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class MasukController extends Controller
+class KeluarController extends Controller
 {
     /**
      * index
@@ -15,11 +15,11 @@ class MasukController extends Controller
      */
     public function index()
     {
-        $smasuk = Surat_masuk::latest()->get();
-        $data = ['type_menu' => 'surat-masuk'];
+        $skeluar = Surat_keluar::latest()->get();
+        $data = ['type_menu' => 'surat-keluar'];
 
         //return view with data
-        return view('admin.masuk',$data, compact('smasuk'));
+        return view('admin.keluar',$data, compact('skeluar'));
     }
 
     public function store(Request $request)
@@ -27,10 +27,9 @@ class MasukController extends Controller
         //define validation rules
         $validator = Validator::make($request->all(), [
             'no_surat'      => 'required',
-            'pengirim'      => 'required',
             'perihal'       => 'required',
             'tgl_surat'     => 'required',
-            'tgl_diterima'  => 'required',
+            'tgl_dikirim'   => 'required',
             'ditujukan'     => 'required',
             'kategori'      => 'nullable',
             'keterangan'    => 'nullable',
@@ -50,15 +49,14 @@ class MasukController extends Controller
         }
 
         //create post
-        $masuk = Surat_masuk::create([
+        $keluar = Surat_keluar::create([
             'no_surat'      => $request->no_surat,
-            'pengirim'      => $request->pengirim,
             'perihal'       => $request->perihal,
             'tgl_surat'     => $request->tgl_surat,
-            'tgl_diterima'  => $request->tgl_diterima,
+            'tgl_dikirim'   => $request->tgl_dikirim,
             'ditujukan'     => $request->ditujukan,
             'kategori'      => $request->filled('kategori') ? $request->kategori : '-',
-            'keterangan'    => $request->filled('keterangan') ? $request->keterangan : '',
+            'keterangan'    => $request->filled('keterangan') ? $request->keterangan : '...',
             'image'         => $request->filled('image') ? $request->image : 'null.jpg',
         ]);
         
@@ -66,40 +64,38 @@ class MasukController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Data Berhasil Disimpan!',
-            'data'    => $masuk  
+            'data'    => $keluar  
         ]);
     }
 
     public function show($id)
     {
-        $masuk = Surat_masuk::find($id);
+        $keluar = Surat_keluar::find($id);
             //return response
-        if($masuk){
+        if($keluar){
             return response()->json([
                 'success' => true,
-                'message' => 'Detail Data Surat Masuk',
-                'data'    => $masuk
+                'message' => 'Detail Data Surat Keluar',
+                'data'    => $keluar
             ]); 
         }else{
             return response()->json([
                 'success' => false,
-                'message' => 'Data Surat Masuk Tidak Ditemukan',
+                'message' => 'Data Surat Keluar Tidak Ditemukan',
                 'data'    => null
             ]); 
         }
     }
     
-    public function update(Request $request, $id_smasuk)
+    public function update(Request $request, $id_skeluar)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
             'no_surat'      => 'required',
-            'pengirim'      => 'required',
             'perihal'       => 'required',
             'tgl_surat'     => 'required',
-            'tgl_diterima'  => 'required',
+            'tgl_dikirim'   => 'required',
             'ditujukan'     => 'required',
-            'keterangan'    => 'nullable'
         ]);
 
         //check if validation fails
@@ -107,21 +103,21 @@ class MasukController extends Controller
             return response()->json($validator->errors(), 422);
         }
         //create post
-        $sMasuk = Surat_masuk::findOrFail($id_smasuk);
-        $sMasuk->update($request->all());
+        $sKeluar = Surat_keluar::findOrFail($id_skeluar);
+        $sKeluar->update($request->all());
 
         // Return success response
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil di-update!',
-            'data' => $sMasuk,
+            'data' => $sKeluar,
         ]);
     }
 
     public function destroy($id)
     {
         //delete post by ID
-        Surat_masuk::where('id', $id)->delete();
+        Surat_keluar::where('id', $id)->delete();
 
         //return response
         return response()->json([

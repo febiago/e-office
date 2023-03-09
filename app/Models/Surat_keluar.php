@@ -8,8 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Surat_keluar extends Model
 {
     use HasFactory;
-}
-public function sppd()
-{
+
+    protected $fillable = [
+        'no_surat',
+        'perihal',
+        'tgl_surat',
+        'tgl_dikirim',
+        'ditujukan',
+        'kategori',
+        'keterangan',
+        'image'
+    ];
+
+    public function sppd()
+    {
     return $this->hasMany(Sppd::class);
+    }
 }

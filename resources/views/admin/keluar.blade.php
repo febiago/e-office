@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Surat Masuk')
+@section('title', 'Surat Keluar')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
@@ -14,14 +14,14 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Arsip Surat Masuk</h1>
+                <h1>Arsip Surat Keluar</h1>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <button class="btn btn-success mb-2" id="btn-create-masuk" data-toggle="modal" data-target="#masuk-create">TAMBAH SURAT MASUK</button>
+                                <button class="btn btn-success mb-2" id="btn-create-keluar" data-toggle="modal" data-target="#keluar-create">TAMBAH SURAT KELUAR</button>
                                 <table class="table-striped table"
                                     id="table-1">
                                     <thead>
@@ -30,25 +30,25 @@
                                             <th>No Surat</th>
                                             <th>Tanggal</th>
                                             <th>Perihal</th>
-                                            <th>Asal Surat</th>
+                                            <th>Tujuan Surat</th>
                                             <th>Tanggal Penerimaan</th>
                                             <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="table-masuk">
-                                    @foreach($smasuk as $masuk)
-                                        <tr id="index_{{ $masuk->id }}">
+                                    <tbody id="table-keluar">
+                                    @foreach($skeluar as $keluar)
+                                        <tr id="index_{{ $keluar->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
-                                            <td>{{ $masuk->no_surat }}</td>
-                                            <td>{{ $masuk->tgl_surat }}</td>
-                                            <td>{{ $masuk->perihal }}</td>
-                                            <td>{{ $masuk->pengirim }}</td>
-                                            <td>{{ $masuk->tgl_diterima }}</td>
-                                            <td>{{ $masuk->keterangan }}</td>
+                                            <td>{{ $keluar->no_surat }}</td>
+                                            <td>{{ $keluar->tgl_surat }}</td>
+                                            <td>{{ $keluar->perihal }}</td>
+                                            <td>{{ $keluar->ditujukan }}</td>
+                                            <td>{{ $keluar->tgl_dikirim }}</td>
+                                            <td>{{ $keluar->keterangan }}</td>
                                             <td class="text-center">
-                                                <a href="javascript:void(0)" id="btn-edit-masuk" data-id="{{ $masuk->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="javascript:void(0)" id="btn-delete-masuk" data-id="{{ $masuk->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="javascript:void(0)" id="btn-edit-keluar" data-id="{{ $keluar->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                                <a href="javascript:void(0)" id="btn-delete-keluar" data-id="{{ $keluar->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -63,11 +63,11 @@
     </div>
 
 <!-- Modal -->
-    <div class="modal fade" id="masuk-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="keluar-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH SURAT MASUK</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH SURAT KELUAR</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -81,9 +81,8 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat"></div>
                     </div>
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">Asal Surat</label>
-                        <input type="text" class="form-control" id="pengirim" name="pengirim" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim"></div>
+                        <label for="name" class="control-label">Kategori</label>
+                        <input type="text" class="form-control" id="kategori" name="kategori">
                     </div>
                 </div>
 
@@ -94,9 +93,9 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat"></div>
                     </div>
                     <div class="form-group col-md-3" >
-                        <label for="name" class="control-label">Tanggal Diterima</label>
-                        <input name="tgl_diterima" id="tgl_diterima" type="date" class="form-control" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima"></div>
+                        <label for="name" class="control-label">Tanggal Dikirim</label>
+                        <input name="tgl_dikirim" id="tgl_dikirim" type="date" class="form-control" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_dikirim"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Perihal</label>
@@ -116,10 +115,6 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">Kategori</label>
-                        <input type="text" class="form-control" id="kategori" name="kategori">
-                    </div>
                   <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Gambar</label>
                         <input type="file" class="form-control" name="image">
@@ -140,12 +135,12 @@
 @push('scripts')
     <script>
     $(document).ready(function(){
-        $('.btn-create-masuk').click(function(){
-           $('#masuk-create').modal('show');
+        $('.btn-create-keluar').click(function(){
+           $('#keluar-create').modal('show');
         });
     });
 
-    $('#masuk-create').on('hidden.bs.modal', function (e) {
+    $('#keluar-create').on('hidden.bs.modal', function (e) {
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
     });
@@ -161,10 +156,9 @@
         e.preventDefault();
         //define variable
         let no_surat        = $('#no_surat').val();
-        let pengirim        = $('#pengirim').val();
         let perihal         = $('#perihal').val();
         let tgl_surat       = $('#tgl_surat').val();
-        let tgl_diterima    = $('#tgl_diterima').val();
+        let tgl_dikirim     = $('#tgl_dikirim').val();
         let ditujukan       = $('#ditujukan').val();
         let kategori        = $('#kategori').val();
         let keterangan      = $('#keterangan').val();
@@ -173,15 +167,14 @@
         
         //ajax
         $.ajax({
-            url: '/surat-masuk',
+            url: '/surat-keluar',
             type: "POST",
             cache: false,
             data: {
                 "no_surat"      :no_surat,
-                "pengirim"      :pengirim,
                 "perihal"       :perihal,
                 "tgl_surat"     :tgl_surat,
-                "tgl_diterima"  :tgl_diterima,
+                "tgl_dikirim"   :tgl_dikirim,
                 "ditujukan"     :ditujukan,
                 "kategori"      :kategori,
                 "keterangan"    :keterangan,
@@ -203,17 +196,16 @@
                 
                 //clear form
                 $('#no_surat').val('');
-                $('#pengirim').val('');
                 $('#perihal').val('');
                 $('#tgl_surat').val('');
-                $('#tgl_diterima').val('');
+                $('#tgl_dikirim').val('');
                 $('#ditujukan').val('');
                 $('#kategori').val('');
                 $('#keterangan').val('');
                 $('#image').val('');
 
                 //close modal
-                $('#masuk-create').modal('hide');
+                $('#keluar-create').modal('hide');
 
                 setTimeout(function(){
 		        	location.reload();
@@ -232,15 +224,6 @@
                     $('#alert-no_surat').html(error.responseJSON.no_surat[0]);
                 } 
 
-                if(error.responseJSON.pengirim[0]) {
-
-                    //show alert
-                    $('#alert-pengirim').removeClass('d-none');
-                    $('#alert-pengirim').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-pengirim').html(error.responseJSON.pengirim[0]);
-                }
                 if(error.responseJSON.perihal[0]) {
 
                     //show alert
@@ -261,14 +244,14 @@
                     $('#alert-tgl_surat').html(error.responseJSON.tgl_surat[0]);
                 }
 
-                if(error.responseJSON.tgl_diterima[0]) {
+                if(error.responseJSON.tgl_dikirim[0]) {
 
                     //show alert
-                    $('#alert-tgl_diterima').removeClass('d-none');
-                    $('#alert-tgl_diterima').addClass('d-block');
+                    $('#alert-tgl_dikirim').removeClass('d-none');
+                    $('#alert-tgl_dikirim').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-tgl_diterima').html(error.responseJSON.tgl_diterima[0]);
+                    $('#alert-tgl_dikirim').html(error.responseJSON.tgl_dikirim[0]);
                 }
                 
                 if(error.responseJSON.ditujukan[0]) {
@@ -292,14 +275,14 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">EDIT SURAT MASUK</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">EDIT SURAT KELUAR</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <input type="hidden" id="id_smasuk">
+                    <input type="hidden" id="id_skeluar">
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
@@ -308,9 +291,9 @@
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat-edit"></div>
                         </div>
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Pengirim</label>
-                            <input type="text" class="form-control" id="pengirim-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim-edit"></div>
+                            <label for="name" class="control-label">Kategori</label>
+                            <input type="text" class="form-control" id="kategori-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kategori-edit"></div>
                         </div>
                     </div>
 
@@ -321,9 +304,9 @@
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat-edit"></div>
                         </div>
                         <div class="form-group col-md-3" >
-                            <label for="name" class="control-label">Tanggal Diterima</label>
-                            <input id="tgl_diterima-edit" type="date" class="form-control" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima-edit"></div>
+                            <label for="name" class="control-label">Tanggal Dikirim</label>
+                            <input id="tgl_dikirim-edit" type="date" class="form-control" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_dikirim-edit"></div>
                         </div>
                         <div class="form-group col-md-6" >
                             <label for="name" class="control-label">Perihal</label>
@@ -356,24 +339,24 @@
 
     <script>
         //button create post event
-        $(document).on('click', '#btn-edit-masuk', function() {
-            let id_smasuk = $(this).data('id');
+        $(document).on('click', '#btn-edit-keluar', function() {
+            let id_skeluar = $(this).data('id');
 
             //fetch detail post with ajax
             $.ajax({
-                url: `/surat-masuk/${id_smasuk}`,
+                url: `/surat-keluar/${id_skeluar}`,
                 type: "GET",
                 cache: false,
                 success:function(response){
 
                     //fill data to form
-                    $('#id_smasuk').val(response.data.id);
+                    $('#id_skeluar').val(response.data.id);
                     $('#no_surat-edit').val(response.data.no_surat);
-                    $('#pengirim-edit').val(response.data.pengirim);
                     $('#perihal-edit').val(response.data.perihal);
                     $('#tgl_surat-edit').val(response.data.tgl_surat);
-                    $('#tgl_diterima-edit').val(response.data.tgl_diterima);
+                    $('#tgl_dikirim-edit').val(response.data.tgl_dikirim);
                     $('#ditujukan-edit').val(response.data.ditujukan);
+                    $('#kategori-edit').val(response.data.kategori);
                     $('#keterangan-edit').val(response.data.keterangan);
 
                     //open modal
@@ -387,29 +370,29 @@
             e.preventDefault();
 
             //define variable
-            let id_smasuk   = $('#id_smasuk').val();
+            let id_skeluar   = $('#id_skeluar').val();
             let no_surat    = $('#no_surat-edit').val();
-            let pengirim    = $('#pengirim-edit').val();
             let perihal     = $('#perihal-edit').val();
             let tgl_surat   = $('#tgl_surat-edit').val();
-            let tgl_diterima= $('#tgl_diterima-edit').val();
+            let tgl_dikirim= $('#tgl_dikirim-edit').val();
             let ditujukan   = $('#ditujukan-edit').val();
+            let kategori    = $('#kategori-edit').val();
             let keterangan  = $('#keterangan-edit').val();
             let token       = $("meta[name='csrf-token']").attr("content");
 
             //ajax
             $.ajax({
 
-                url: `/surat-masuk/${id_smasuk}`,
+                url: `/surat-keluar/${id_skeluar}`,
                 type: "PUT",
                 cache: false,
                 data: {
                     "no_surat"      :no_surat,
-                    "pengirim"      :pengirim,
                     "perihal"       :perihal,
                     "tgl_surat"     :tgl_surat,
-                    "tgl_diterima"  :tgl_diterima,
+                    "tgl_dikirim"   :tgl_dikirim,
                     "ditujukan"     :ditujukan,
+                    "kategori"      :kategori,
                     "keterangan"    :keterangan,
                     "_token"        :token
                 },
@@ -458,9 +441,9 @@
         });
 
     //button create post event
-    $(document).on('click', '#btn-delete-masuk', function() {
+    $(document).on('click', '#btn-delete-keluar', function() {
 
-        let id_smasuk = $(this).data('id');
+        let id_skeluar = $(this).data('id');
         let token   = $("meta[name='csrf-token']").attr("content");
 
         Swal.fire({
@@ -478,7 +461,7 @@
                 //fetch to delete data
                 $.ajax({
 
-                    url: `/surat-masuk/${id_smasuk}`,
+                    url: `/surat-keluar/${id_skeluar}`,
                     type: "DELETE",
                     cache: false,
                     data: {
@@ -496,7 +479,7 @@
                         });
 
                         //remove post on table
-                        $(`#index_${id_smasuk}`).remove();
+                        $(`#index_${id_skeluar}`).remove();
                     }
                 });
             }
