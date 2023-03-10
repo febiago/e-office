@@ -22,22 +22,69 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4>HTML5 Form Basic</h4>
-                            </div>
+                    
                             <div class="card-body">
                             {!! Form::open(['url' => '/sppd/create']) !!}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     {!! Form::label('no_spt', 'No SPT') !!}
-                                    {!! Form::select('no_spt', $sppds, null, ['class' => 'form-control select2', 'placeholder' => 'Pilih No SPT']) !!}
+                                    {!! Form::select('no_spt', $sppds, null, ['class' => 'form-control select2', 'name' => 'surat_keluar_id', 'placeholder' => '']) !!}
                                 </div>
-                                <div class="form-group col-md-6" >
-                                    <label for="name" class="control-label">Asal Surat</label>
-                                    <input type="text" class="form-control" id="pengirim" name="pengirim" required>
-                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim"></div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('pegawai', 'Pegawai') !!}
+                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
                                 </div>
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('jenis', 'Jenis SPPD') !!}
+                                    {!! Form::select('jenis', $jenis, null, ['class' => 'form-control select2']) !!}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('kegiatan', 'Sub Kegiatan') !!}
+                                    {!! Form::select('kegiatan', $kegiatans, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3" >
+                                    <label for="name" class="control-label">Tanggal Berangkat</label>
+                                    <input name="tgl_berangkat" id="tgl_berangkat" type="date" class="form-control" required>
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_berangkat"></div>
+                                </div>
+                                <div class="form-group col-md-3" >
+                                    <label for="name" class="control-label">Tanggal Kembali</label>
+                                    <input name="tgl_kembali" id="tgl_kembali" type="date" class="form-control" required>
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_kembali"></div>
+                                </div>
+                                <div class="form-group col-md-6" >
+                                    <label for="name" class="control-label">Kendaraan</label>
+                                    <input type="text" class="form-control" id="kendaraan" name="kendaraan" required>
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6" >
+                                    <label for="name" class="control-label">Tujuan</label>
+                                    <input type="text" class="form-control" id="tujuan" name="tujuan" required>
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tujuan"></div>
+                                </div>
+                                
+                                <div class="form-group col-md-6" >
+                                    <label for="name" class="control-label">Keterangan</label>
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan" required>
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-keterangan"></div>
+                                </div>
+                            </div>
+                                <h4>Pengikut</h4>
+                                <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
+                            <div id="pengikut-container" class="form-row">
+                                
+
+                            </div>
+
                             
                               <button type="submit" class="btn btn-primary">Submit</button>
                             {!! Form::close() !!}
@@ -50,7 +97,27 @@
 @endsection
 
 @push('scripts')
+<script>
+    $(document).ready(function () {
+    $('#tambah-pengikut').on('click', function () {
+        var html = '<div class="form-group col-md-6" >' +
+            '<label for="name" class="control-label">Nama</label>'+
+            '<div class="input-group">'+
+            '{!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}' +
+            '<button type="button" class="btn btn-outline-danger" id="btn-remove-pengikut"><i class="fa-solid fa-trash"></i></button>' +
+            '</div>'+
+            '</div>';
 
+        $('#pengikut-container').append(html);
+    });
+
+      // Hapus Pengikut
+    $(document).on("click", ".btn-remove-pengikut", function() {
+      $(this).parents(".input-group").remove();
+    });
+});
+
+</script>
     <!-- JS Libraies -->
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
