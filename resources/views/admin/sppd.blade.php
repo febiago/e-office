@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Surat Keluar')
+@section('title', 'SPPD')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
@@ -14,44 +14,45 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Arsip Surat Keluar</h1>
+                <h1>SPPD</h1>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <button class="btn btn-success mb-2" id="btn-create-keluar" data-toggle="modal" data-target="#keluar-create">TAMBAH SURAT KELUAR</button>
+                                <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH</a>
+                                <button class="btn btn-success mb-2" id="btn-create-sppd" data-toggle="modal" data-target="#sppd-create">TAMBAH SURAT MASUK</button>
                                 <table class="table-striped table"
                                     id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th>No Surat</th>
+                                            <th>No SPT</th>
                                             <th>Tanggal</th>
                                             <th>Perihal</th>
-                                            <th>Tujuan Surat</th>
+                                            <th>Asal Surat</th>
                                             <th>Tanggal Penerimaan</th>
                                             <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="table-keluar">
+                                    <tbody id="table-sppd">
                                     @php
                                         use Carbon\Carbon;
                                     @endphp
-                                    @foreach($skeluar as $keluar)
-                                        <tr id="index_{{ $keluar->id }}">
+                                    @foreach($sppds as $sppd)
+                                        <tr id="index_{{ $sppd->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
-                                            <td>{{ $keluar->no_surat }}</td>
-                                            <td>{{ Carbon::parse($keluar->tgl_surat)->format('d-m-Y') }}</td>
-                                            <td>{{ $keluar->perihal }}</td>
-                                            <td>{{ $keluar->ditujukan }}</td>
-                                            <td>{{ Carbon::parse($keluar->tgl_dikirim)->format('d-m-Y') }}</td>
-                                            <td>{{ $keluar->keterangan }}</td>
+                                            <td>{{ $sppd->no_surat }}</td>
+                                            <td>{{ Carbon::parse($sppd->tgl_surat)->format('d-m-Y') }}</td>
+                                            <td>{{ $sppd->pegawai->nama }}</td>
+                                            <td>{{ $sppd->pengirim }}</td>
+                                            <td>{{ Carbon::parse($sppd->tgl_diterima)->format('d-m-Y') }}</td>
+                                            <td>{{ $sppd->keterangan }}</td>
                                             <td class="text-center">
-                                                <a href="javascript:void(0)" id="btn-edit-keluar" data-id="{{ $keluar->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="javascript:void(0)" id="btn-delete-keluar" data-id="{{ $keluar->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="javascript:void(0)" id="btn-edit-sppd" data-id="{{ $sppd->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                                <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $sppd->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -66,11 +67,11 @@
     </div>
 
 <!-- Modal -->
-    <div class="modal fade" id="keluar-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="sppd-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH SURAT KELUAR</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH SURAT MASUK</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -80,19 +81,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">No Surat</label>
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control text-right" id="no_surat1" name="no_surat" required>
-                            <input type="text" class="form-control text-right" id="no_surat2" value="{{ $nomorSurat }}" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">/408.63/2023</div>
-                        </div>
-                        </div>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat1"></div>
+                        <input type="text" class="form-control" id="no_surat" name="no_surat" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat"></div>
                     </div>
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">Ditujukan</label>
-                        <input type="text" class="form-control" id="ditujukan" name="ditujukan" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan"></div>
+                        <label for="name" class="control-label">Asal Surat</label>
+                        <input type="text" class="form-control" id="pengirim" name="pengirim" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim"></div>
                     </div>
                 </div>
 
@@ -103,9 +98,9 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat"></div>
                     </div>
                     <div class="form-group col-md-3" >
-                        <label for="name" class="control-label">Tanggal Dikirim</label>
-                        <input name="tgl_dikirim" id="tgl_dikirim" type="date" class="form-control" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_dikirim"></div>
+                        <label for="name" class="control-label">Tanggal Diterima</label>
+                        <input name="tgl_diterima" id="tgl_diterima" type="date" class="form-control" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Perihal</label>
@@ -115,10 +110,21 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6" >
+                        <label for="name" class="control-label">Ditujukan</label>
+                        <input type="text" class="form-control" id="ditujukan" name="ditujukan" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan"></div>
+                    </div>
+                    <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Keterangan</label>
                         <input type="text" class="form-control" id="keterangan" name="keterangan">
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group col-md-6" >
+                        <label for="name" class="control-label">Kategori</label>
+                        <input type="text" class="form-control" id="kategori" name="kategori">
+                    </div>
+                  <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Gambar</label>
                         <input type="file" class="form-control" name="image">
                     </div>
@@ -138,12 +144,12 @@
 @push('scripts')
     <script>
     $(document).ready(function(){
-        $('.btn-create-keluar').click(function(){
-           $('#keluar-create').modal('show');
+        $('.btn-create-sppd').click(function(){
+           $('#sppd-create').modal('show');
         });
     });
 
-    $('#keluar-create').on('hidden.bs.modal', function (e) {
+    $('#sppd-create').on('hidden.bs.modal', function (e) {
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
     });
@@ -158,11 +164,11 @@
 
         e.preventDefault();
         //define variable
-        let no_surat1       = $('#no_surat1').val();
-        let no_surat2       = $('#no_surat2').val();
+        let no_surat        = $('#no_surat').val();
+        let pengirim        = $('#pengirim').val();
         let perihal         = $('#perihal').val();
         let tgl_surat       = $('#tgl_surat').val();
-        let tgl_dikirim     = $('#tgl_dikirim').val();
+        let tgl_diterima    = $('#tgl_diterima').val();
         let ditujukan       = $('#ditujukan').val();
         let kategori        = $('#kategori').val();
         let keterangan      = $('#keterangan').val();
@@ -171,15 +177,15 @@
         
         //ajax
         $.ajax({
-            url: '/surat-keluar',
+            url: '/surat-sppd',
             type: "POST",
             cache: false,
             data: {
-                "no_surat1"     :no_surat1,
-                "no_surat2"     :no_surat2,
+                "no_surat"      :no_surat,
+                "pengirim"      :pengirim,
                 "perihal"       :perihal,
                 "tgl_surat"     :tgl_surat,
-                "tgl_dikirim"   :tgl_dikirim,
+                "tgl_diterima"  :tgl_diterima,
                 "ditujukan"     :ditujukan,
                 "kategori"      :kategori,
                 "keterangan"    :keterangan,
@@ -196,22 +202,20 @@
                     showConfirmButton: false,
                     timer: 3000
                 });
-                //data post
-                
                 
                 //clear form
-                $('#no_surat1').val('');
-                $('#no_surat2').val('');
+                $('#no_surat').val('');
+                $('#pengirim').val('');
                 $('#perihal').val('');
                 $('#tgl_surat').val('');
-                $('#tgl_dikirim').val('');
+                $('#tgl_diterima').val('');
                 $('#ditujukan').val('');
                 $('#kategori').val('');
                 $('#keterangan').val('');
                 $('#image').val('');
 
                 //close modal
-                $('#keluar-create').modal('hide');
+                $('#sppd-create').modal('hide');
 
                 setTimeout(function(){
 		        	location.reload();
@@ -223,13 +227,22 @@
                 if(error.responseJSON.no_surat[0]) {
 
                     //show alert
-                    $('#alert-no_surat1').removeClass('d-none');
-                    $('#alert-no_surat1').addClass('d-block');
+                    $('#alert-no_surat').removeClass('d-none');
+                    $('#alert-no_surat').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-no_surat1').html(error.responseJSON.no_surat[0]);
+                    $('#alert-no_surat').html(error.responseJSON.no_surat[0]);
                 } 
 
+                if(error.responseJSON.pengirim[0]) {
+
+                    //show alert
+                    $('#alert-pengirim').removeClass('d-none');
+                    $('#alert-pengirim').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-pengirim').html(error.responseJSON.pengirim[0]);
+                }
                 if(error.responseJSON.perihal[0]) {
 
                     //show alert
@@ -250,14 +263,14 @@
                     $('#alert-tgl_surat').html(error.responseJSON.tgl_surat[0]);
                 }
 
-                if(error.responseJSON.tgl_dikirim[0]) {
+                if(error.responseJSON.tgl_diterima[0]) {
 
                     //show alert
-                    $('#alert-tgl_dikirim').removeClass('d-none');
-                    $('#alert-tgl_dikirim').addClass('d-block');
+                    $('#alert-tgl_diterima').removeClass('d-none');
+                    $('#alert-tgl_diterima').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-tgl_dikirim').html(error.responseJSON.tgl_dikirim[0]);
+                    $('#alert-tgl_diterima').html(error.responseJSON.tgl_diterima[0]);
                 }
                 
                 if(error.responseJSON.ditujukan[0]) {
@@ -281,14 +294,14 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">EDIT SURAT KELUAR</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">EDIT SURAT MASUK</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <input type="hidden" id="id_skeluar">
+                    <input type="hidden" id="id_ssppd">
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
@@ -297,9 +310,9 @@
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat-edit"></div>
                         </div>
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Kategori</label>
-                            <input type="text" class="form-control" id="kategori-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kategori-edit"></div>
+                            <label for="name" class="control-label">Pengirim</label>
+                            <input type="text" class="form-control" id="pengirim-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim-edit"></div>
                         </div>
                     </div>
 
@@ -310,9 +323,9 @@
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat-edit"></div>
                         </div>
                         <div class="form-group col-md-3" >
-                            <label for="name" class="control-label">Tanggal Dikirim</label>
-                            <input id="tgl_dikirim-edit" type="date" class="form-control" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_dikirim-edit"></div>
+                            <label for="name" class="control-label">Tanggal Diterima</label>
+                            <input id="tgl_diterima-edit" type="date" class="form-control" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima-edit"></div>
                         </div>
                         <div class="form-group col-md-6" >
                             <label for="name" class="control-label">Perihal</label>
@@ -345,24 +358,24 @@
 
     <script>
         //button create post event
-        $(document).on('click', '#btn-edit-keluar', function() {
-            let id_skeluar = $(this).data('id');
+        $(document).on('click', '#btn-edit-sppd', function() {
+            let id_ssppd = $(this).data('id');
 
             //fetch detail post with ajax
             $.ajax({
-                url: `/surat-keluar/${id_skeluar}`,
+                url: `/surat-sppd/${id_ssppd}`,
                 type: "GET",
                 cache: false,
                 success:function(response){
 
                     //fill data to form
-                    $('#id_skeluar').val(response.data.id);
+                    $('#id_ssppd').val(response.data.id);
                     $('#no_surat-edit').val(response.data.no_surat);
+                    $('#pengirim-edit').val(response.data.pengirim);
                     $('#perihal-edit').val(response.data.perihal);
                     $('#tgl_surat-edit').val(response.data.tgl_surat);
-                    $('#tgl_dikirim-edit').val(response.data.tgl_dikirim);
+                    $('#tgl_diterima-edit').val(response.data.tgl_diterima);
                     $('#ditujukan-edit').val(response.data.ditujukan);
-                    $('#kategori-edit').val(response.data.kategori);
                     $('#keterangan-edit').val(response.data.keterangan);
 
                     //open modal
@@ -376,29 +389,29 @@
             e.preventDefault();
 
             //define variable
-            let id_skeluar   = $('#id_skeluar').val();
+            let id_ssppd   = $('#id_ssppd').val();
             let no_surat    = $('#no_surat-edit').val();
+            let pengirim    = $('#pengirim-edit').val();
             let perihal     = $('#perihal-edit').val();
             let tgl_surat   = $('#tgl_surat-edit').val();
-            let tgl_dikirim= $('#tgl_dikirim-edit').val();
+            let tgl_diterima= $('#tgl_diterima-edit').val();
             let ditujukan   = $('#ditujukan-edit').val();
-            let kategori    = $('#kategori-edit').val();
             let keterangan  = $('#keterangan-edit').val();
             let token       = $("meta[name='csrf-token']").attr("content");
 
             //ajax
             $.ajax({
 
-                url: `/surat-keluar/${id_skeluar}`,
+                url: `/surat-sppd/${id_ssppd}`,
                 type: "PUT",
                 cache: false,
                 data: {
                     "no_surat"      :no_surat,
+                    "pengirim"      :pengirim,
                     "perihal"       :perihal,
                     "tgl_surat"     :tgl_surat,
-                    "tgl_dikirim"   :tgl_dikirim,
+                    "tgl_diterima"  :tgl_diterima,
                     "ditujukan"     :ditujukan,
-                    "kategori"      :kategori,
                     "keterangan"    :keterangan,
                     "_token"        :token
                 },
@@ -447,9 +460,9 @@
         });
 
     //button create post event
-    $(document).on('click', '#btn-delete-keluar', function() {
+    $(document).on('click', '#btn-delete-sppd', function() {
 
-        let id_skeluar = $(this).data('id');
+        let id_ssppd = $(this).data('id');
         let token   = $("meta[name='csrf-token']").attr("content");
 
         Swal.fire({
@@ -467,7 +480,7 @@
                 //fetch to delete data
                 $.ajax({
 
-                    url: `/surat-keluar/${id_skeluar}`,
+                    url: `/surat-sppd/${id_ssppd}`,
                     type: "DELETE",
                     cache: false,
                     data: {
@@ -485,7 +498,7 @@
                         });
 
                         //remove post on table
-                        $(`#index_${id_skeluar}`).remove();
+                        $(`#index_${id_ssppd}`).remove();
                     }
                 });
             }

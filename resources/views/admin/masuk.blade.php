@@ -37,14 +37,17 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table-masuk">
+                                    @php
+                                        use Carbon\Carbon;
+                                    @endphp
                                     @foreach($smasuk as $masuk)
                                         <tr id="index_{{ $masuk->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
                                             <td>{{ $masuk->no_surat }}</td>
-                                            <td>{{ $masuk->tgl_surat }}</td>
+                                            <td>{{ Carbon::parse($masuk->tgl_surat)->format('d-m-Y') }}</td>
                                             <td>{{ $masuk->perihal }}</td>
                                             <td>{{ $masuk->pengirim }}</td>
-                                            <td>{{ $masuk->tgl_diterima }}</td>
+                                            <td>{{ Carbon::parse($masuk->tgl_diterima)->format('d-m-Y') }}</td>
                                             <td>{{ $masuk->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-masuk" data-id="{{ $masuk->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>

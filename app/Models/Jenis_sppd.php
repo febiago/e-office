@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Jenis_sppd extends Model
 {
     use HasFactory;
-}
-public function sppd()
-{
-    return $this->hasMany(Sppd::class);
+    public function sppd()
+    {
+        return $this->hasMany(Sppd::class);
+    }
 }

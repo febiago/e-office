@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('sppds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_surat_keluar')->references('id')->on('surat_keluars');
-            $table->foreignId('id_pegawai')->references('id')->on('pegawais');
-            $table->foreignId('id_jenis')->references('id')->on('jenis_sppds');
+            $table->foreignId('surat_keluar_id')->references('id')->on('surat_keluars');
+            $table->foreignId('pegawai_id')->references('id')->on('pegawais');
+            $table->foreignId('jenis_id')->references('id')->on('jenis_sppds');
+            $table->foreignId('kegiatan_id')->references('id')->on('kegiatans');
             $table->enum('jenis', ['inti', 'pengikut'])->default('inti');
-            $table->date('tgl_sppd');
-            $table->string('keperluan');
+            $table->string('kendaraan');
+            $table->date('tgl_berangkat');
+            $table->date('tgl_kembali');
+            $table->string('tujuan');
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });
