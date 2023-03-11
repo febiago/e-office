@@ -21,8 +21,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH</a>
-                                <button class="btn btn-success mb-2" id="btn-create-sppd" data-toggle="modal" data-target="#sppd-create">TAMBAH SURAT MASUK</button>
+                                <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SPPD</a>
                                 <table class="table-striped table"
                                     id="table-1">
                                     <thead>
@@ -44,7 +43,7 @@
                                     @foreach($sppds as $sppd)
                                         <tr id="index_{{ $sppd->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
-                                            <td>{{ $sppd->no_surat }}</td>
+                                            <td>{{ $sppd->surat_keluar->no_surat }}</td>
                                             <td>{{ Carbon::parse($sppd->tgl_surat)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->pegawai->nama }}</td>
                                             <td>{{ $sppd->pengirim }}</td>

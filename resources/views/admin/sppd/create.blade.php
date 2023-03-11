@@ -24,15 +24,26 @@
                         <div class="card">
                     
                             <div class="card-body">
-                            {!! Form::open(['url' => '/sppd/create']) !!}
+                            <form action="{{ route('sppd.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    {!! Form::label('no_spt', 'No SPT') !!}
-                                    {!! Form::select('no_spt', $sppds, null, ['class' => 'form-control select2', 'name' => 'surat_keluar_id', 'placeholder' => '']) !!}
+                                    {!! Form::label('surat_keluar_id', 'No SPT') !!}
+                                    {!! Form::select('surat_keluar_id', $sppds, null, ['class' => 'form-control select2' . ($errors->has('surat_keluar_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                                @error('surat_keluar_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    {!! Form::label('pegawai', 'Pegawai') !!}
-                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
+                                    {!! Form::label('pegawai_id', 'Pegawai') !!}
+                                    {!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                                @error('pegawai_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                             </div>
 
@@ -50,17 +61,17 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3" >
                                     <label for="name" class="control-label">Tanggal Berangkat</label>
-                                    <input name="tgl_berangkat" id="tgl_berangkat" type="date" class="form-control" required>
+                                    <input name="tgl_berangkat" id="tgl_berangkat" type="date" value="{{ old('tgl_berangkat') }}" class="form-control" required>
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_berangkat"></div>
                                 </div>
                                 <div class="form-group col-md-3" >
                                     <label for="name" class="control-label">Tanggal Kembali</label>
-                                    <input name="tgl_kembali" id="tgl_kembali" type="date" class="form-control" required>
+                                    <input name="tgl_kembali" id="tgl_kembali" type="date" value="{{ old('tgl_kembali') }}" class="form-control" required>
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_kembali"></div>
                                 </div>
                                 <div class="form-group col-md-6" >
                                     <label for="name" class="control-label">Kendaraan</label>
-                                    <input type="text" class="form-control" id="kendaraan" name="kendaraan" required>
+                                    <input type="text" class="form-control" id="kendaraan" value="{{ old('kendaraan') }}" name="kendaraan" required>
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan"></div>
                                 </div>
                             </div>
@@ -68,26 +79,25 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6" >
                                     <label for="name" class="control-label">Tujuan</label>
-                                    <input type="text" class="form-control" id="tujuan" name="tujuan" required>
+                                    <input type="text" class="form-control" id="tujuan" value="{{ old('tujuan') }}" name="tujuan" required>
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tujuan"></div>
                                 </div>
                                 
                                 <div class="form-group col-md-6" >
                                     <label for="name" class="control-label">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan" required>
+                                    <input type="text" class="form-control" id="keterangan" value="{{ old('keterangan') }}" name="keterangan">
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-keterangan"></div>
                                 </div>
                             </div>
                                 <h4>Pengikut</h4>
                                 <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
                             <div id="pengikut-container" class="form-row">
-                                
-
                             </div>
-
-                            
-                              <button type="submit" class="btn btn-primary">Submit</button>
-                            {!! Form::close() !!}
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
+                            </div>
+                              
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -102,10 +112,7 @@
     $('#tambah-pengikut').on('click', function () {
         var html = '<div class="form-group col-md-6" >' +
             '<label for="name" class="control-label">Nama</label>'+
-            '<div class="input-group">'+
-            '{!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}' +
-            '<button type="button" class="btn btn-outline-danger" id="btn-remove-pengikut"><i class="fa-solid fa-trash"></i></button>' +
-            '</div>'+
+            '{!! Form::select('pengikut', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pengikut[]']) !!}' +
             '</div>';
 
         $('#pengikut-container').append(html);

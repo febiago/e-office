@@ -6,6 +6,8 @@ use App\Models\Surat_keluar;
 use App\Models\Pegawai;
 use App\Models\Jenis_sppd;
 use App\Models\Kegiatan;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Request;
 
@@ -24,10 +26,6 @@ class SppdController extends Controller
     {
         $data = ['type_menu' => 'sppd'];
         $sppds = Surat_keluar::where('no_surat', 'like', '%090%')
-                ->whereNotIn('no_surat', function($query){
-                    $query->select('no_surat')
-                        ->from('sppds');
-                })
                 ->pluck('no_surat', 'id');
         
         $pegawais = Pegawai::pluck('nama', 'id');
@@ -39,25 +37,74 @@ class SppdController extends Controller
 
     public function store(Request $request)
     {
-      $validatedData = $request->validate([
-        'nama' => 'required|string|max:255',
-        'pengikut.*' => 'nullable|string|max:255'
-      ]);
+        $messages = [
+            'pegawai_id.unique' => 'Perjalanan Dinas Ganda',
+        ];
 
-      // Create Perjalanan Dinas
-      $perjalananDinas = new PerjalananDinas;
-      $perjalananDinas->nama = $validatedData['nama'];
-      $perjalananDinas->save();
+        $validator = Validator::make($request->all(), [
+          'surat_keluar_id'=> 'required',
+          'pegawai_id'       => [
+                                  'required',
+                                  Rule::unique('sppds')->where(function ($query) use ($request) {
+                                      return $query->where('tgl_berangkat', $request->tgl_berangkat);
+                                  })
+                              ],
+          'jenis'         => 'required',
+          'kegiatan'      => 'required',
+          'tgl_berangkat' => 'required|date',
+          'tgl_kembali'   => 'required|date',
+          'kendaraan'     => 'required',
+          'tujuan'        => 'required',
+          'keterangan'    => 'nullable',
+              ], $messages);
 
-      // Add Pengikut
-      if ($request->has('pengikut')) {
-        $pengikut = array_filter($validatedData['pengikut']);
-        foreach ($pengikut as $nama) {
-          $perjalananDinas->pengikut()->create(['nama' => $nama]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
-      }
 
-      return redirect()->route('perjalanan_dinas.index')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
+        $surat_keluar_id= $request->surat_keluar_id;
+        $pegawai_id        = $request->pegawai_id;
+        $jenis          = $request->jenis;
+        $kegiatan       = $request->kegiatan;
+        $tgl_berangkat  = $request->tgl_berangkat;
+        $tgl_kembali    = $request->tgl_kembali;
+        $kendaraan      = $request->kendaraan;
+        $tujuan         = $request->tujuan;
+        $keterangan     = $request->filled('keterangan') ? $request->keterangan : '-';
+
+        // Create Perjalanan Dinas
+        $sppd = Sppd::create([
+            'surat_keluar_id' => $surat_keluar_id,
+            'pegawai_id'      => $pegawai_id,
+            'jenis_id'        => $jenis,
+            'kegiatan_id'     => $kegiatan,
+            'jenis'           => 'inti',
+            'kendaraan'       => $kendaraan,
+            'tgl_berangkat'   => $tgl_berangkat,
+            'tgl_kembali'     => $tgl_kembali,
+            'tujuan'          => $tujuan,
+            'keterangan'      => $keterangan
+        ]);
+
+        $nama = $request->pengikut;
+        if (!empty($nama)) {
+        foreach ($nama as $pengikut) {
+        $data = Sppd::create([
+            'surat_keluar_id' => $surat_keluar_id,
+            'pegawai_id'      => $pengikut,
+            'jenis_id'        => $jenis,
+            'kegiatan_id'     => $kegiatan,
+            'jenis'           => 'pengikut',
+            'kendaraan'       => $kendaraan,
+            'tgl_berangkat'   => $tgl_berangkat,
+            'tgl_kembali'     => $tgl_kembali,
+            'tujuan'          => $tujuan,
+            'keterangan'      => $keterangan
+            ]);
+          }
+        }
+
+        return redirect()->route('sppd.index')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
     }
 
 }
