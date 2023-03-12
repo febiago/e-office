@@ -26,6 +26,10 @@ class SppdController extends Controller
     {
         $data = ['type_menu' => 'sppd'];
         $sppds = Surat_keluar::where('no_surat', 'like', '%090%')
+                ->whereNotIn('id', function($query) {
+                    $query->select('surat_keluar_id')
+                          ->from('sppds');
+                })
                 ->pluck('no_surat', 'id');
         
         $pegawais = Pegawai::pluck('nama', 'id');
@@ -33,6 +37,13 @@ class SppdController extends Controller
         $kegiatans = Kegiatan::pluck('sub_kegiatan', 'id');
 
         return view('admin.sppd.create', $data, compact('sppds','pegawais','jenis','kegiatans'));
+    }
+
+    public function getSisaAnggaran($id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+        $sisa_anggaran = $kegiatan->getSisaAnggaran();
+        return response()->json(['sisa_anggaran' => $sisa_anggaran]);
     }
 
     public function store(Request $request)

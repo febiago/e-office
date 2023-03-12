@@ -52,9 +52,13 @@
                                     {!! Form::label('jenis', 'Jenis SPPD') !!}
                                     {!! Form::select('jenis', $jenis, null, ['class' => 'form-control select2']) !!}
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     {!! Form::label('kegiatan', 'Sub Kegiatan') !!}
                                     {!! Form::select('kegiatan', $kegiatans, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="sisa_anggaran" class="control-label">Sisa Anggaran</label>
+                                    <input type="text" name="sisa_anggaran" id="sisa_anggaran" class="form-control" disabled>
                                 </div>
                             </div>
 
@@ -122,7 +126,24 @@
     $(document).on("click", ".btn-remove-pengikut", function() {
       $(this).parents(".input-group").remove();
     });
-});
+    });
+
+    $('#kegiatan').change(function() {
+        var id = $(this).val();
+        if (id != '') {
+            $.ajax({
+                url: 'create/sisa-anggaran/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var sisaAnggaran = data.sisa_anggaran;
+                    var formattedSisaAnggaran = sisaAnggaran.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+                    $('#sisa_anggaran').val(formattedSisaAnggaran);
+                }
+            });
+        }
+    });
+
 
 </script>
     <!-- JS Libraies -->

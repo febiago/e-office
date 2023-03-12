@@ -29,6 +29,11 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'create'])->name('register.create');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/disposisi', function () {
+    $data = ['type_menu' => 'disposisi'];
+        //return view with data
+    return view('pages.modules-datatables',$data);
+})->name('disposisi');
 
 Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/dashboard', function () {
@@ -37,5 +42,5 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::resource('/surat-masuk', MasukController::class);
     Route::resource('/surat-keluar', KeluarController::class);
     Route::resource('/sppd', SppdController::class);
-
+    Route::get('/sppd/create/sisa-anggaran/{id}', [SppdController::class, 'getSisaAnggaran'])->name('sisa-anggaran');
 });

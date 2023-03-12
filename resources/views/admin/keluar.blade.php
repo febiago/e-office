@@ -5,8 +5,6 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
@@ -22,8 +20,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <button class="btn btn-success mb-2" id="btn-create-keluar" data-toggle="modal" data-target="#keluar-create">TAMBAH SURAT KELUAR</button>
-                                <table class="table-striped table"
-                                    id="table-1">
+                                <table class="table-striped table" id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
@@ -220,14 +217,14 @@
             },
             error:function(error){
                 
-                if(error.responseJSON.no_surat[0]) {
+                if(error.responseJSON.no_surat1[0]) {
 
                     //show alert
                     $('#alert-no_surat1').removeClass('d-none');
                     $('#alert-no_surat1').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-no_surat1').html(error.responseJSON.no_surat[0]);
+                    $('#alert-no_surat1').html(error.responseJSON.no_surat1[0]);
                 } 
 
                 if(error.responseJSON.perihal[0]) {
