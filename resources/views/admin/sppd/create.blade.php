@@ -116,7 +116,7 @@
     $('#tambah-pengikut').on('click', function () {
         var html = '<div class="form-group col-md-6" >' +
             '<label for="name" class="control-label">Nama</label>'+
-            '{!! Form::select('pengikut', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pengikut[]']) !!}' +
+            '{!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]']) !!}' +
             '</div>';
 
         $('#pengikut-container').append(html);

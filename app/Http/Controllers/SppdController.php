@@ -67,6 +67,12 @@ class SppdController extends Controller
           'kendaraan'     => 'required',
           'tujuan'        => 'required',
           'keterangan'    => 'nullable',
+          'pengikut.*'       => [
+                                  'nullable',
+                                  Rule::unique('sppds')->where(function ($query) use ($request) {
+                                      return $query->where('tgl_berangkat', $request->tgl_berangkat);
+                                  })
+                              ],
               ], $messages);
 
         if ($validator->fails()) {
@@ -74,7 +80,7 @@ class SppdController extends Controller
         }
 
         $surat_keluar_id= $request->surat_keluar_id;
-        $pegawai_id        = $request->pegawai_id;
+        $pegawai_id       = $request->pegawai_id;
         $jenis          = $request->jenis;
         $kegiatan       = $request->kegiatan;
         $tgl_berangkat  = $request->tgl_berangkat;
@@ -116,6 +122,20 @@ class SppdController extends Controller
         }
 
         return redirect()->route('sppd.index')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
+    }
+
+
+
+    public function destroy($id)
+    {
+        //delete post by ID
+        Sppd::where('id', $id)->delete();
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Dihapus!.',
+        ]); 
     }
 
 }

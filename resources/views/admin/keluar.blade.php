@@ -36,10 +36,11 @@
                                     <tbody id="table-keluar">
                                     @php
                                         use Carbon\Carbon;
+                                        $no = 1;
                                     @endphp
                                     @foreach($skeluar as $keluar)
                                         <tr id="index_{{ $keluar->id }}">
-                                            <td>{{ $loop->count - $loop->iteration + 1 }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $keluar->no_surat }}</td>
                                             <td>{{ Carbon::parse($keluar->tgl_surat)->format('d-m-Y') }}</td>
                                             <td>{{ $keluar->perihal }}</td>

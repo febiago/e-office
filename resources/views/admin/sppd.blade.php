@@ -27,10 +27,10 @@
                                             <th class="text-center">No</th>
                                             <th>No SPT</th>
                                             <th>Tanggal</th>
+                                            <th>Nama</th>
                                             <th>Perihal</th>
-                                            <th>Asal Surat</th>
-                                            <th>Tanggal Penerimaan</th>
-                                            <th>Keterangan</th>
+                                            <th>Tujuan</th>
+                                            <th></th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -496,6 +496,51 @@
 
                         //remove post on table
                         $(`#index_${id_ssppd}`).remove();
+                    }
+                });
+            }
+        })
+        
+    });
+
+    $(document).on('click', '#btn-delete-sppd', function() {
+
+        let id_sppd = $(this).data('id');
+        let token   = $("meta[name='csrf-token']").attr("content");
+
+        Swal.fire({
+            title: 'Apakah Kamu Yakin?',
+            text: "Ingin menghapus data ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'TIDAK',
+            confirmButtonText: 'YA, HAPUS!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                console.log('test');
+
+                //fetch to delete data
+                $.ajax({
+
+                    url: `/sppd/${id_sppd}`,
+                    type: "DELETE",
+                    cache: false,
+                    data: {
+                        "_token": token
+                    },
+                    success:function(response){ 
+                        //show success message
+                        Swal.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: `${response.message}`,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        //remove post on table
+                        $(`#index_${id_sppd}`).remove();
                     }
                 });
             }

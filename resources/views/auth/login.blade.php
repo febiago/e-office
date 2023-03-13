@@ -36,6 +36,7 @@
                         type="username"
                         class="form-control"
                         name="username"
+                        value="{{ old('username') }}"
                         required
                         autofocus>
                     <div class="invalid-feedback">
@@ -59,6 +60,7 @@
                         class="form-control"
                         name="password"
                         tabindex="2"
+                        value="{{ old('password') }}"
                         required>
                     <div class="invalid-feedback">
                         please fill in your password
