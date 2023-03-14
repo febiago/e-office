@@ -8,6 +8,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
@@ -95,7 +96,12 @@
                             </div>
                                 <h4>Pengikut</h4>
                                 <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
+                                <div id="error"></div>
                             <div id="pengikut-container" class="form-row">
+                                <div class="form-group col-md-6" >
+                                <label for="name" class="control-label">Nama</label>
+                                {!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]', 'onchange' => 'cekUnique()']) !!}
+                            </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>
@@ -116,10 +122,11 @@
     $('#tambah-pengikut').on('click', function () {
         var html = '<div class="form-group col-md-6" >' +
             '<label for="name" class="control-label">Nama</label>'+
-            '{!! Form::select('pengikut', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pengikut[]']) !!}' +
+            '{!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]', 'onchange' => 'cekUnique()']) !!}' +
             '</div>';
-
+        
         $('#pengikut-container').append(html);
+        $(".select2").select2();
     });
 
       // Hapus Pengikut
@@ -144,6 +151,37 @@
         }
     });
 
+    function cekUnique() {
+        let tgl_berangkat = $('#tgl_berangkat').val();
+        let pengikut = $('select[name="pegawai_id[]"]').map(function() {
+          return $(this).val();
+        }).get();
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("check-unique") }}',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'tgl_berangkat': tgl_berangkat,
+                    'pegawai_id': pengikut,
+                },
+                success: function(data) {
+                    if (data.errors) {
+                        var errorHtml = '';
+                        $.each(data.errors, function(index, value) {
+                            errorHtml += '<div class="alert alert-danger"><strong>' + value + '</strong></div>';
+                        });
+                        $('#error').html(errorHtml); //menampilkan pesan error pada div dengan id "error"
+                    } else {
+                        $('#error').html('');
+                        console.log(data);
+                    }
+                }
+            });
+        };
+
+    $('select[name="pegawai_id[]"]').change(cekUnique);
+    
 
 </script>
     <!-- JS Libraies -->
