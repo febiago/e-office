@@ -46,6 +46,32 @@ class SppdController extends Controller
         return response()->json(['sisa_anggaran' => $sisa_anggaran]);
     }
 
+    public function checkUnique(Request $request)
+    {
+        $messages = [
+            'pegawai_id.*.unique' => 'Perjalanan Dinas Ganda',
+        ];
+
+        $pegawai_ids = $request->input('pegawai_id');
+
+        foreach ($pegawai_ids as $key => $value) {
+            $rules['pegawai_id.' . $key] = [
+                'nullable',
+                Rule::unique('sppds', 'pegawai_id')->where(function ($query) use ($request, $key) {
+                    $query->where('tgl_berangkat', $request->input('tgl_berangkat'))
+                          ->where('pegawai_id', $request->input('pegawai_id')[$key]);
+                }),
+            ];
+        }
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
     public function store(Request $request)
     {
         $messages = [
