@@ -167,6 +167,10 @@ class SppdController extends Controller
                  ->get();
         $keluar = Surat_keluar::where('id', $no_surat)
                  ->first();
+        $pengikut = Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd'])
+                 ->where('surat_keluar_id', $no_surat)
+                 ->where('jenis', 'pengikut')
+                 ->get();
 
         $camat = Pegawai::where('jabatan', 'Camat Punung')->first();
         $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->format('d F Y');
@@ -184,7 +188,8 @@ class SppdController extends Controller
             'tgl_kembali' => $tgl_kembali,
             'tgl_spt' => $tgl_spt,
             'camat' => $camat,
-            'hari' => $hari
+            'hari' => $hari,
+            'pengikut' => $pengikut
 
         ]);
         

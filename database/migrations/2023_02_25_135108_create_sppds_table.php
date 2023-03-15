@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('surat_keluar_id')->references('id')->on('surat_keluars');
             $table->foreignId('pegawai_id')->references('id')->on('pegawais');
-            $table->foreignId('jenis_id')->references('id')->on('jenis_sppds');
+            $table->foreignId('jenis_sppd_id')->references('id')->on('jenis_sppds');
             $table->foreignId('kegiatan_id')->references('id')->on('kegiatans');
             $table->enum('jenis', ['inti', 'pengikut'])->default('inti');
             $table->string('kendaraan');
