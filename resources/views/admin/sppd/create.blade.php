@@ -38,9 +38,9 @@
                                 @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    {!! Form::label('pegawai_id', 'Pegawai') !!}
-                                    {!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                                @error('pegawai_id')
+                                    {!! Form::label('pegawai', 'Pegawai') !!}
+                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                                @error('pegawai')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

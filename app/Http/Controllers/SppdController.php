@@ -8,8 +8,9 @@ use App\Models\Jenis_sppd;
 use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
+use PDF;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SppdController extends Controller
 {
@@ -75,14 +76,13 @@ class SppdController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'pegawai_id.unique' => 'Perjalanan Dinas Ganda',
+            'pegawai.unique' => 'Perjalanan Dinas Ganda',
         ];
 
         $validator = Validator::make($request->all(), [
           'surat_keluar_id'=> 'required',
-          'pegawai_id'       => [
-                                  'required',
-                                  Rule::unique('sppds')->where(function ($query) use ($request) {
+          'pegawai'       => ['required',
+                                  Rule::unique('sppds', 'pegawai_id')->where(function ($query) use ($request) {
                                       return $query->where('tgl_berangkat', $request->tgl_berangkat);
                                   })
                               ],
@@ -93,20 +93,14 @@ class SppdController extends Controller
           'kendaraan'     => 'required',
           'tujuan'        => 'required',
           'keterangan'    => 'nullable',
-          'pengikut.*'       => [
-                                  'nullable',
-                                  Rule::unique('sppds')->where(function ($query) use ($request) {
-                                      return $query->where('tgl_berangkat', $request->tgl_berangkat);
-                                  })
-                              ],
-              ], $messages);
+                            ], $messages);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $surat_keluar_id= $request->surat_keluar_id;
-        $pegawai_id       = $request->pegawai_id;
+        $pegawai_id     = $request->pegawai;
         $jenis          = $request->jenis;
         $kegiatan       = $request->kegiatan;
         $tgl_berangkat  = $request->tgl_berangkat;
@@ -129,7 +123,7 @@ class SppdController extends Controller
             'keterangan'      => $keterangan
         ]);
 
-        $nama = $request->pengikut;
+        $nama = $request->pegawai_id;
         if (!empty($nama)) {
         foreach ($nama as $pengikut) {
         $data = Sppd::create([
@@ -150,8 +144,6 @@ class SppdController extends Controller
         return redirect()->route('sppd.index')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
     }
 
-
-
     public function destroy($id)
     {
         //delete post by ID
@@ -162,6 +154,41 @@ class SppdController extends Controller
             'success' => true,
             'message' => 'Data Berhasil Dihapus!.',
         ]); 
+    }
+
+
+
+    public function printPDF($id)
+    {
+        $data = Sppd::find($id);
+        $no_surat = $data->surat_keluar_id;
+        $sppd = Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd'])
+                 ->where('surat_keluar_id', $no_surat)
+                 ->get();
+        $keluar = Surat_keluar::where('id', $no_surat)
+                 ->first();
+
+        $camat = Pegawai::where('jabatan', 'Camat Punung')->first();
+        $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->format('d F Y');
+        $tgl_kembali = Carbon::parse($data->tgl_kembali)->format('d F Y');
+        $tgl_spt = Carbon::parse($keluar->tgl_surat)->format('d F Y');
+
+
+        $carbonTglBerangkat = Carbon::createFromFormat('Y-m-d', $data->tgl_berangkat);
+        $carbonTglKembali = Carbon::createFromFormat('Y-m-d', $data->tgl_kembali);
+        $hari = $carbonTglKembali->diffInDays($carbonTglBerangkat);
+
+        $pdf = PDF::loadView('pdf.sppd', [
+            'data' => $sppd, 
+            'tgl_berangkat' => $tgl_berangkat, 
+            'tgl_kembali' => $tgl_kembali,
+            'tgl_spt' => $tgl_spt,
+            'camat' => $camat,
+            'hari' => $hari
+
+        ]);
+        
+        return $pdf->stream('sppd.pdf');
     }
 
 }

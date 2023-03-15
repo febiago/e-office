@@ -30,7 +30,7 @@
                                             <th>Nama</th>
                                             <th>Perihal</th>
                                             <th>Tujuan</th>
-                                            <th></th>
+                                            <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -42,13 +42,14 @@
                                         <tr id="index_{{ $sppd->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
                                             <td>{{ $sppd->surat_keluar->no_surat }}</td>
-                                            <td>{{ Carbon::parse($sppd->tgl_surat)->format('d-m-Y') }}</td>
+                                            <td>{{ Carbon::parse($sppd->tgl_berangkat)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->pegawai->nama }}</td>
                                             <td>{{ $sppd->pengirim }}</td>
                                             <td>{{ Carbon::parse($sppd->tgl_diterima)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-sppd" data-id="{{ $sppd->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                                <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm"><i class="far fa-print"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $sppd->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>
