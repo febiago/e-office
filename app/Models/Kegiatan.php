@@ -15,7 +15,7 @@ class Kegiatan extends Model
 
     public function getSisaAnggaran()
     {
-        $total_biaya = Sppd::join('jenis_sppds', 'sppds.jenis_id', '=', 'jenis_sppds.id')
+        $total_biaya = Sppd::join('jenis_sppds', 'sppds.jenis_sppd_id', '=', 'jenis_sppds.id')
                         ->where('sppds.kegiatan_id', $this->id)
                         ->sum('biaya');
     

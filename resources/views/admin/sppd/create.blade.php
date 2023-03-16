@@ -98,10 +98,7 @@
                                 <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
                                 <div id="error"></div>
                             <div id="pengikut-container" class="form-row">
-                                <div class="form-group col-md-6" >
-                                <label for="name" class="control-label">Nama</label>
-                                {!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]', 'onchange' => 'cekUnique()']) !!}
-                            </div>
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>

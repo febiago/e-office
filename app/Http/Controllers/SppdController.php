@@ -113,7 +113,7 @@ class SppdController extends Controller
         $sppd = Sppd::create([
             'surat_keluar_id' => $surat_keluar_id,
             'pegawai_id'      => $pegawai_id,
-            'jenis_id'        => $jenis,
+            'jenis_sppd_id'        => $jenis,
             'kegiatan_id'     => $kegiatan,
             'jenis'           => 'inti',
             'kendaraan'       => $kendaraan,
@@ -129,7 +129,7 @@ class SppdController extends Controller
         $data = Sppd::create([
             'surat_keluar_id' => $surat_keluar_id,
             'pegawai_id'      => $pengikut,
-            'jenis_id'        => $jenis,
+            'jenis_sppd_id'        => $jenis,
             'kegiatan_id'     => $kegiatan,
             'jenis'           => 'pengikut',
             'kendaraan'       => $kendaraan,
@@ -171,11 +171,14 @@ class SppdController extends Controller
                  ->where('surat_keluar_id', $no_surat)
                  ->where('jenis', 'pengikut')
                  ->get();
+        $jenis = Jenis_sppd::where('id', $data->jenis_sppd_id)->first();
+        $jumlah = count($sppd)*$jenis->biaya;
 
         $camat = Pegawai::where('jabatan', 'Camat Punung')->first();
-        $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->format('d F Y');
-        $tgl_kembali = Carbon::parse($data->tgl_kembali)->format('d F Y');
-        $tgl_spt = Carbon::parse($keluar->tgl_surat)->format('d F Y');
+        $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->isoFormat(('DD MMMM Y'));
+        $waktu = Carbon::parse($data->tgl_berangkat)->isoFormat(('dddd, DD MMMM Y'));
+        $tgl_kembali = Carbon::parse($data->tgl_kembali)->isoFormat(('DD MMMM Y'));
+        $tgl_spt = Carbon::parse($keluar->tgl_surat)->isoFormat(('DD MMMM Y'));
 
 
         $carbonTglBerangkat = Carbon::createFromFormat('Y-m-d', $data->tgl_berangkat);
@@ -189,10 +192,12 @@ class SppdController extends Controller
             'tgl_spt' => $tgl_spt,
             'camat' => $camat,
             'hari' => $hari,
-            'pengikut' => $pengikut
+            'pengikut' => $pengikut,
+            'jumlah' => $jumlah,
+            'waktu' => $waktu
 
         ]);
-        
+
         return $pdf->stream('sppd.pdf');
     }
 

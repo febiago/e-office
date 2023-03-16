@@ -447,18 +447,195 @@
         </tr>
         <tr>
             <td style="border-right: none;" width="2%">VII</td>
-            <td colspan="2">Perhatian</td>
+            <td colspan="2">PERHATIAN</td>
         </tr>
         <tr>
             <td style="text-align: justify;" colspan="3">
-                <br>
+            <br>
             Pejabat yang berwenang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan 
             tanggal berangkat / tiba serta Bendaharawan bertanggungjawab berdasarkan peraturan-peraturan Keuangan Negara 
-            apabila Negara mendapat rugi akibat kesalahan, kelalaian dan kealpaannya <br>
+            apabila Negara mendapat rugi akibat kesalahan, kelalaian dan kealpaannya 
+            <br>
             </td>
-        </tr>
-        
+        </tr> 
     </table>
     @endforeach
+    <div class="page_break"></div>
+    @foreach($data->take(1) as $kuitansi)
+    <center><b id="spt">RINCIAN BIAYA PERJALANAN DINAS DALAM DAERAH</b></center>
+    <br> <br>
+    <center><b id="kop">KUITANSI</b></center>
+    <table width="100%">
+        <tr>
+            <td style="vertical-align: middle;" height="20" width="20%">Nomor</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">: </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: middle;" height="20" width="20%">Sudah terima dari</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">: Bendahara Pengeluaran Kecamatan Punung</td>
+        </tr>
+        <tr>
+            <td style="vertical-align: middle;" height="20" width="20%">Jumlah Uang</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">: </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: middle;" height="20" width="20%">Guna Membayar</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">: Uang Transport {{ $kuitansi->surat_keluar->perihal }} di {{ $kuitansi->tujuan }} pada Tgl {{ $tgl_berangkat }}</td>
+        </tr>
+        <tr>
+            <td style="vertical-align: middle;" height="20" width="20%">Terbilang</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">:<b> Rp. {{ number_format($jumlah, 2) }} </b></td>
+        </tr>
+    </table>
+    @endforeach
+    <br>
+    <table border="1" width="100%">
+        <tr>
+            <td align="center" width="4%"><b>NO</td>
+            <td align="center" width="30%"><b>PERHITUNGAN BIAYA</td>
+            <td align="center" width="25%"><b>JUMLAH</td>
+            <td align="center" width="41%"><b>NAMA DAN TANDA TANGAN PENERIMA</td>
+        </tr>
+        <tr>
+            <td align="center"><i>1</i></td>
+            <td align="center"><i>2</i></td>
+            <td align="center"><i>3</i></td>
+            <td align="center"><i>4</i></td>
+        </tr>
+    @foreach($data as $sppd)
+        <tr>
+            <td align="center">{{ $loop->iteration }}</td>
+            <td align="center">
+                Uang Transport
+                <br>1 x Rp. {{ number_format($sppd->jenis_sppd->biaya, 2) }}
+            </td>
+            <td align="right">Rp. {{ number_format($sppd->jenis_sppd->biaya, 2) }}</td>
+            <td align="center"><br><br><br>{{ $sppd->pegawai->nama }}</td>
+        </tr>
+     @endforeach
+        <tr>
+            <td align="center" colspan="2"><b>JUMLAH SELURUHNYA</b></td>
+            <td align="right"><b> Rp. {{ number_format($jumlah, 2) }} </b></td>
+            <td></td>
+        </tr>
+    </table>
+    <br>
+    <table width="100%">
+        <tr>
+            <td width="50%" align="center">
+                <br>Mengetahui/menyetujui 
+                <br>Kuasa Pengguna Anggaran
+                <br><br><br><br><b><u>PUDJI HARYONO, S.Sos, M.Si</u></b>
+                <br>NIP. 19690216 199003 1 005
+            </td>
+            <td width="50%" align="center">
+                Lunas Dibayar
+                <br>Pada Tanggal : ..................................... 2023
+                <br>Bendahara Pengeluaran Kec. Punung
+                <br><br><br><br><b><u>DWI YANTA</u></b>
+                <br>NIP. 19700911 201001 1 001
+            </td>
+        </tr>
+    </table>
+    <div class="page_break"></div>
+    <center><b id="kop">LAPORAN PERJALANAN DINAS</b></center>
+    <P></P>
+    <table width="100%">
+        @foreach($data->take(1) as $lap)
+        <tr>
+            <td height="20" width="4%">I.</td>
+            <td width="28%">DASAR</td>
+            <td width="68%">: {{ $lap->surat_keluar->no_surat }}</td>
+        </tr>
+        <tr>
+            <td height="20" width="4%">II.</td>
+            <td width="28%">MAKSUD DAN TUJUAN</td>
+            <td width="68%">: {{ $lap->surat_keluar->perihal }}</td>
+        </tr>
+        <tr>
+            <td height="40" width="4%">III.</td>
+            <td width="28%">WAKTU PELAKSANAAN</td>
+            <td width="68%">: {{ $waktu }} Jam ............... WIB s/d ............... WIB</td>
+        </tr>
+        @foreach ($data as $petugas)
+        <tr>
+            <td height="20" width="4%">@if($loop->first)IV.@endif</td>
+            <td width="28%">@if($loop->first)NAMA PETUGAS @endif</td>
+            <td width="68%">: {{ $loop->iteration }}. {{ $petugas->pegawai->nama }}</td>
+        </tr>
+        @endforeach
+        <tr>
+            <td width="4%">V.</td>
+            <td width="28%">DAERAH TUJUAN/INSTANSI YANG DIKUNJUNGI</td>
+            <td width="68%">: {{ $lap->tujuan }}</td>
+        </tr>
+        @endforeach
+        <tr>
+            <td width="4%">VI.</td>
+            <td width="28%">HADIR DALAM PERTEMUAN</td>
+            <td width="68%">: </td>
+        </tr>
+        <tr>
+            <td width="4%">VII.</td>
+            <td width="28%">PETUNJUK / ARAHAN YANG DIBERIKAN</td>
+            <td width="68%" height="70" style="text-align: justify;">: ................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+        </td>
+        </tr>
+        <tr>
+            <td width="4%">VIII.</td>
+            <td width="28%">MASALAH / TEMUAN</td>
+            <td width="68%" height="70" style="text-align: justify;">: ................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+        </tr>
+        <tr>
+            <td width="4%">IX.</td>
+            <td width="28%">SARAN TINDAKAN</td>
+            <td width="68%" height="70" style="text-align: justify;">: ................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+        </tr>
+        <tr>
+            <td width="4%">X.</td>
+            <td width="28%">LAIN - LAIN</td>
+            <td width="68%" height="70" style="text-align: justify;">: ................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+            <br>..................................................................................................................................
+        </tr>
+    </table>
+    <br><br>
+    <table width="100%">
+        <tr>
+            <td width="50%"></td>
+            
+            <td align="center" width="50%">
+                Punung, {{ $tgl_berangkat }}
+                <br>Yang melaksanakan Perjalanan Dinas
+                <br><br><br><br><br>
+                @foreach ($data as $key => $petugas)
+                    @if ($key == 1)
+                        <b><u> {{ $petugas->pegawai->nama }} </u></b>
+                        <br> {{ $petugas->pegawai->nip }}
+                    @endif
+                @endforeach
+                @if (!isset($data[1]))
+                    <b><u> {{ $data[0]->pegawai->nama }} </u></b>
+                    <br> {{ $data[0]->pegawai->nip }}
+                @endif
+                
+            </td>
+            
+        </tr>
+    </table>
     </body>
 </html>
