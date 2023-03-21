@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('tgl_berangkat');
             $table->date('tgl_kembali');
             $table->string('tujuan');
+            $table->string('dasar');
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

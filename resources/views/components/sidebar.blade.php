@@ -87,12 +87,5 @@
             </li>
 
         </ul>
-
-        <div class="hide-sidebar-mini mb-4 p-3 mt-auto">
-            <a href="{{ route('logout') }}"
-                class="btn btn-danger btn-lg btn-block btn-icon-split">
-                <i class="fas fa-sign-out-alt"></i> Keluar
-            </a>
-        </div>
     </aside>
 </div>

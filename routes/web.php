@@ -44,5 +44,6 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::resource('/sppd', SppdController::class);
     Route::post('/sppd/create/check-unique', [SppdController::class, 'checkUnique'])->name('check-unique');
     Route::get('/sppd/create/sisa-anggaran/{id}', [SppdController::class, 'getSisaAnggaran'])->name('sisa-anggaran');
+    Route::get('/sppd/create/kendaraan', [SppdController::class, 'getKendaraan'])->name('kendaraan');
     Route::get('/sppd/print/{id}', [SppdController::class, 'printPDF'])->name('pdf.sppd');
 });

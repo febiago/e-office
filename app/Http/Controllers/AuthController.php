@@ -25,7 +25,7 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors([
+        return back()->withInput()->withErrors([
             'username' => 'Username atau password salah',
         ]);
     }

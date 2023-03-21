@@ -47,6 +47,12 @@ class SppdController extends Controller
         return response()->json(['sisa_anggaran' => $sisa_anggaran]);
     }
 
+    public function getKendaraan(Request $request)
+    {
+        $pegawai = Pegawai::findOrFail($request->id);
+        return $pegawai->kendaraan;
+    }
+
     public function checkUnique(Request $request)
     {
         $messages = [
@@ -92,6 +98,7 @@ class SppdController extends Controller
           'tgl_kembali'   => 'required|date',
           'kendaraan'     => 'required',
           'tujuan'        => 'required',
+          'dasar'         => 'nullable',
           'keterangan'    => 'nullable',
                             ], $messages);
 
@@ -107,32 +114,36 @@ class SppdController extends Controller
         $tgl_kembali    = $request->tgl_kembali;
         $kendaraan      = $request->kendaraan;
         $tujuan         = $request->tujuan;
+        $dasar          = $request->dasar;
         $keterangan     = $request->filled('keterangan') ? $request->keterangan : '-';
 
         // Create Perjalanan Dinas
         $sppd = Sppd::create([
             'surat_keluar_id' => $surat_keluar_id,
             'pegawai_id'      => $pegawai_id,
-            'jenis_sppd_id'        => $jenis,
+            'jenis_sppd_id'   => $jenis,
             'kegiatan_id'     => $kegiatan,
             'jenis'           => 'inti',
             'kendaraan'       => $kendaraan,
             'tgl_berangkat'   => $tgl_berangkat,
             'tgl_kembali'     => $tgl_kembali,
             'tujuan'          => $tujuan,
+            'dasar'           => $dasar,
             'keterangan'      => $keterangan
         ]);
 
         $nama = $request->pegawai_id;
+        $angkutan = $request->angkutan;
+
         if (!empty($nama)) {
-        foreach ($nama as $pengikut) {
+        foreach ($nama as $key => $pengikut) {
         $data = Sppd::create([
             'surat_keluar_id' => $surat_keluar_id,
             'pegawai_id'      => $pengikut,
-            'jenis_sppd_id'        => $jenis,
+            'jenis_sppd_id'   => $jenis,
             'kegiatan_id'     => $kegiatan,
             'jenis'           => 'pengikut',
-            'kendaraan'       => $kendaraan,
+            'kendaraan'       => $angkutan[$key],
             'tgl_berangkat'   => $tgl_berangkat,
             'tgl_kembali'     => $tgl_kembali,
             'tujuan'          => $tujuan,
@@ -155,8 +166,6 @@ class SppdController extends Controller
             'message' => 'Data Berhasil Dihapus!.',
         ]); 
     }
-
-
 
     public function printPDF($id)
     {

@@ -37,7 +37,7 @@
                                     </span>
                                 @enderror
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     {!! Form::label('pegawai', 'Pegawai') !!}
                                     {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                                 @error('pegawai')
@@ -45,6 +45,10 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="kendaraan" class="control-label">Kendaraan</label>
+                                    <input type="text" name="kendaraan" id="kendaraan" class="form-control">
                                 </div>
                             </div>
 
@@ -75,17 +79,17 @@
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_kembali"></div>
                                 </div>
                                 <div class="form-group col-md-6" >
-                                    <label for="name" class="control-label">Kendaraan</label>
-                                    <input type="text" class="form-control" id="kendaraan" value="{{ old('kendaraan') }}" name="kendaraan" required>
-                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan"></div>
+                                    <label for="name" class="control-label">Tujuan</label>
+                                    <input type="text" class="form-control" id="tujuan" value="{{ old('tujuan') }}" name="tujuan" required>
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tujuan"></div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6" >
-                                    <label for="name" class="control-label">Tujuan</label>
-                                    <input type="text" class="form-control" id="tujuan" value="{{ old('tujuan') }}" name="tujuan" required>
-                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tujuan"></div>
+                                    <label for="name" class="control-label">Dasar SPPD</label>
+                                    <input type="text" class="form-control" id="dasar" value="{{ old('dasar') }}" name="dasar">
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-dasar"></div>
                                 </div>
                                 
                                 <div class="form-group col-md-6" >
@@ -117,9 +121,14 @@
 <script>
     $(document).ready(function () {
     $('#tambah-pengikut').on('click', function () {
-        var html = '<div class="form-group col-md-6" >' +
+        var index = $('select[name="pegawai_id[]"]').length;
+        var html = '<div class="form-group col-md-4" >' +
             '<label for="name" class="control-label">Nama</label>'+
-            '{!! Form::select('pegawai_id', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]', 'onchange' => 'cekUnique()']) !!}' +
+            '{!! Form::select('pegawai_id[]', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]', 'onchange' => 'cekUnique(), getKendaraan(this)']) !!}' +
+            '</div>'+
+            '<div class="form-group col-md-2">'+
+            '<label for="angkutan" class="control-label">Kendaraan</label>'+
+            '<input type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">'+
             '</div>';
         
         $('#pengikut-container').append(html);
@@ -147,6 +156,43 @@
             });
         }
     });
+
+    $('#pegawai').change(function() {
+            var pegawaiId = $(this).val();
+            if (pegawaiId) {
+                $.ajax({
+                    url: '{{ route("kendaraan") }}',
+                    type: 'GET',
+                    data: {
+                        'id': pegawaiId
+                    },
+                    success: function(data) {
+                        $('#kendaraan').val(data);
+                    }
+                });
+            }
+        });
+
+    function getKendaraan(element) {
+        var pegawaiId = $(element).val();
+        var index = $('select[name="pegawai_id[]"]').index($(element));
+        var kendaraanElement = $('#kendaraan-' + index);
+
+        if (pegawaiId) {
+            $.ajax({
+                url: '{{ route("kendaraan") }}',
+                type: 'GET',
+                data: {
+                    'id': pegawaiId
+                },
+                success: function(data) {
+                    kendaraanElement.val(data);
+                }
+            });
+        } else {
+            kendaraanElement.val('');
+        }
+    }
 
     function cekUnique() {
         let tgl_berangkat = $('#tgl_berangkat').val();

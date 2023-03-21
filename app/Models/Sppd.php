@@ -12,13 +12,14 @@ class Sppd extends Model
     protected $fillable = [
         'surat_keluar_id',
         'pegawai_id',
-        'jenis_id',
+        'jenis_sppd_id',
         'kegiatan_id',
         'jenis',
         'kendaraan',
         'tgl_berangkat',
         'tgl_kembali',
         'tujuan',
+        'dasar',
         'keterangan'
     ];
 
