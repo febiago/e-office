@@ -66,6 +66,13 @@
                 <td>4. </td>
                 <td>Peraturan Daearah Kabupaten Pacitan Nomor 08 Tahun 2022 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2023 </td>
             </tr>
+            <tr>
+                <td width="60"></td>
+                <td>5. </td>
+                @foreach($data->take(1) as $dasar)
+                <td>{{ $dasar->dasar }}</td>
+                @endforeach
+            </tr>
         </table>
         <br>
         <center><b>MEMERINTAHKAN</b></center>

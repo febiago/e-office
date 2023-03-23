@@ -20,18 +20,16 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SPPD</a>
-                                <table class="table-striped table"
-                                    id="table-1">
+                                <table class="table-striped table" id="table-1" width="100%">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
-                                            <th>No SPT</th>
-                                            <th>Tanggal</th>
-                                            <th>Nama</th>
+                                            <th width="5%" class="text-center">No</th>
+                                            <th width="15%">No SPT</th>
+                                            <th width="10%">Tanggal Berangkat</th>
+                                            <th width="15%">Nama</th>
                                             <th>Perihal</th>
-                                            <th>Tujuan</th>
-                                            <th>Keterangan</th>
-                                            <th>Aksi</th>
+                                            <th width="15%">Tujuan</th>
+                                            <th width="12%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-sppd">
@@ -44,9 +42,8 @@
                                             <td>{{ $sppd->surat_keluar->no_surat }}</td>
                                             <td>{{ Carbon::parse($sppd->tgl_berangkat)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->pegawai->nama }}</td>
-                                            <td>{{ $sppd->pengirim }}</td>
-                                            <td>{{ Carbon::parse($sppd->tgl_diterima)->format('d-m-Y') }}</td>
-                                            <td>{{ $sppd->keterangan }}</td>
+                                            <td>{{ $sppd->surat_keluar->perihal }}</td>
+                                            <td>{{ $sppd->tujuan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-sppd" data-id="{{ $sppd->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm"><i class="far fa-print"></i></a>
