@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Surat_keluar;
-use App\Models\Disposisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
