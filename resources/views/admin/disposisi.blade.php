@@ -38,7 +38,7 @@
                                     @php
                                         use Carbon\Carbon;
                                     @endphp
-                                    @foreach($sdisposisi as $disposisi)
+                                    @foreach($diss as $disposisi)
                                         <tr id="index_{{ $disposisi->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
                                             <td>{{ $disposisi->no_surat }}</td>

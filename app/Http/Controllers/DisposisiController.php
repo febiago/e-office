@@ -13,6 +13,7 @@ class DisposisiController extends Controller
         $data = ['type_menu' => 'diposisi'];
 
         //return view with data
-        return view('admin.disposisi',$data, compact('disposisi'));
+        return view('admin.disposisi',$data, compact('diss'));
     }
+
 }
