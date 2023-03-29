@@ -20,17 +20,17 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <button class="btn btn-success mb-2" id="btn-create-keluar" data-toggle="modal" data-target="#keluar-create">TAMBAH SURAT KELUAR</button>
-                                <table class="table-striped table" id="table-1">
+                                <table class="table-striped table" id="table-1" width="100%">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
-                                            <th>No Surat</th>
-                                            <th>Tanggal</th>
+                                            <th width="4%" class="text-center">No</th>
+                                            <th width="16%">No Surat</th>
+                                            <th width="10%">Tanggal</th>
                                             <th>Perihal</th>
-                                            <th>Tujuan Surat</th>
-                                            <th>Tanggal Penerimaan</th>
-                                            <th>Keterangan</th>
-                                            <th>Aksi</th>
+                                            <th width="12%">Tujuan Surat</th>
+                                            <th width="10%">Tanggal Penerimaan</th>
+                                            <th width="8%">Keterangan</th>
+                                            <th width="10%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-keluar">

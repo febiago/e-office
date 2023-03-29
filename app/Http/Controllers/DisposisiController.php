@@ -9,11 +9,11 @@ class DisposisiController extends Controller
 {
     public function index()
     {
-        $smasuk = Disposisi::latest()->get();
+        $dispo = Disposisi::with(['surat_masuk'])->latest()->get();
         $data = ['type_menu' => 'diposisi'];
 
         //return view with data
-        return view('admin.disposisi',$data, compact('diss'));
+        return view('admin.disposisi',$data, compact('dispo'));
     }
 
 }

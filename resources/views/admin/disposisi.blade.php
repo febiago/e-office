@@ -19,7 +19,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <button class="btn btn-success mb-2" id="btn-create-disposisi" data-toggle="modal" data-target="#disposisi-create">TAMBAH SURAT MASUK</button>
                                 <table class="table-striped table"
                                     id="table-1">
                                     <thead>
@@ -29,7 +28,7 @@
                                             <th>Tanggal</th>
                                             <th>Perihal</th>
                                             <th>Asal Surat</th>
-                                            <th>Tanggal Penerimaan</th>
+                                            <th>Diteruskan Kepada</th>
                                             <th>Keterangan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -38,14 +37,14 @@
                                     @php
                                         use Carbon\Carbon;
                                     @endphp
-                                    @foreach($diss as $disposisi)
+                                    @foreach($dispo as $disposisi)
                                         <tr id="index_{{ $disposisi->id }}">
                                             <td>{{ $loop->count - $loop->iteration + 1 }}</td>
-                                            <td>{{ $disposisi->no_surat }}</td>
-                                            <td>{{ Carbon::parse($disposisi->tgl_surat)->format('d-m-Y') }}</td>
-                                            <td>{{ $disposisi->perihal }}</td>
-                                            <td>{{ $disposisi->pengirim }}</td>
-                                            <td>{{ Carbon::parse($disposisi->tgl_diterima)->format('d-m-Y') }}</td>
+                                            <td>{{ $disposisi->surat_masuk->no_surat }}</td>
+                                            <td>{{ Carbon::parse($disposisi->surat_masuk->tgl_surat)->format('d-m-Y') }}</td>
+                                            <td>{{ $disposisi->surat_masuk->perihal }}</td>
+                                            <td>{{ $disposisi->surat_masuk->pengirim }}</td>
+                                            <td>{{ $disposisi->ditersukan }}</td>
                                             <td>{{ $disposisi->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-disposisi" data-id="{{ $disposisi->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>

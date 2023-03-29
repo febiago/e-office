@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasukController;
 use App\Http\Controllers\KeluarController;
 use App\Http\Controllers\SppdController;
+use App\Http\Controllers\DisposisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 
