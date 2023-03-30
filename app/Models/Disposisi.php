@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Disposisi extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'surat_masuk_id',
+        'diteruskan',
+        'keterangan',
+        'image'
+    ];
     
     public function Surat_masuk()
     {

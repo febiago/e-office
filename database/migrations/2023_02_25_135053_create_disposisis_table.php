@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('disposisis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_surat_masuk')->references('id')->on('surat_masuks')->unique();
+            $table->foreignId('surat_masuk_id')->references('id')->on('surat_masuks')->unique();
             $table->string('diteruskan');
             $table->string('keterangan');
             $table->timestamps();

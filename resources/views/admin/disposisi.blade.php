@@ -29,7 +29,7 @@
                                             <th>Perihal</th>
                                             <th>Asal Surat</th>
                                             <th>Diteruskan Kepada</th>
-                                            <th>Keterangan</th>
+                                            <th>Isi Desposisi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -44,7 +44,7 @@
                                             <td>{{ Carbon::parse($disposisi->surat_masuk->tgl_surat)->format('d-m-Y') }}</td>
                                             <td>{{ $disposisi->surat_masuk->perihal }}</td>
                                             <td>{{ $disposisi->surat_masuk->pengirim }}</td>
-                                            <td>{{ $disposisi->ditersukan }}</td>
+                                            <td>{{ $disposisi->diteruskan }}</td>
                                             <td>{{ $disposisi->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-disposisi" data-id="{{ $disposisi->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>

@@ -48,6 +48,7 @@
                                             <td>{{ Carbon::parse($masuk->tgl_diterima)->format('d-m-Y') }}</td>
                                             <td>{{ $masuk->keterangan }}</td>
                                             <td class="text-center">
+                                                <a href="javascript:void(0)" id="btn-disposisi" data-id="{{ $masuk->id }}" class="btn btn-info btn-sm"><i class="fa-solid fa-paper-plane"></i></a>
                                                 <a href="javascript:void(0)" id="btn-edit-masuk" data-id="{{ $masuk->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-masuk" data-id="{{ $masuk->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
@@ -131,6 +132,43 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
                     <button type="button" class="btn btn-primary" id="store">SIMPAN</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="disposisi-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">DISPOSISI SURAT MASUK</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group col-md-12" >
+                        <label for="name" class="control-label">Diteruskan Kepada</label>
+                        <input type="text" class="form-control" id="surat_masuk_id" name="surat_masuk_id" required hidden>
+                        <input type="text" class="form-control" id="diteruskan" name="diteruskan" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-diteruskan"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12" >
+                        <label for="name" class="control-label">Isi Disposisi</label>
+                        <input type="text" class="form-control" id="keterangan" name="keterangan">
+                    </div>
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                    <button type="button" class="btn btn-primary" id="save-dispo">SIMPAN</button>
                 </div>
             </form>
             </div>
@@ -502,6 +540,77 @@
         })
         
     });
+    
+
+    $(document).on('click', '#btn-disposisi', function() {
+        let id_smasuk = $(this).data('id');
+
+        $.ajax({
+            url: `/surat-masuk/${id_smasuk}`,
+            type: "GET",
+            cache: false,
+            success:function(response){
+                //fill data to form
+                $('#surat_masuk_id').val(response.data.id);
+                //open modal
+                $('#disposisi-create').modal('show');
+            }
+        });
+    });
+
+    $('#disposisi-create').on('hidden.bs.modal', function (e) {
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    });
+
+    $('#save-dispo').click(function(e) {
+    $.ajaxSetup({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+    //define variable
+    let surat_masuk_id        = $('#').val();
+    let kategori        = $('#diteruskan').val();
+    let keterangan      = $('#keterangan').val();
+    let token           = $("meta[name='csrf-token']").attr("content");
+    
+    //ajax
+    $.ajax({
+        url: '/surat-masuk',
+        type: "POST",
+        cache: false,
+        data: {
+            "no_surat"      :no_surat,
+            "diteruskan"    :diteruskan,
+            "keterangan"    :keterangan,
+            "_token"        :token
+        },
+        success:function(response){
+            //show success message
+            Swal.fire({
+                type: 'success',
+                icon: 'success',
+                title: `${response.message}`,
+                showConfirmButton: false,
+                timer: 3000
+            });
+            
+            //clear form
+            $('#surat_masuk_id').val('');
+            $('#diteruskan').val('');
+            $('#keterangan').val('');
+            //close modal
+            $('#disposisi').modal('hide');
+            setTimeout(function(){
+	        	location.reload();
+	        }, 500);
+            
+        }
+    });
+});
+
     </script>
 
     <!-- JS Libraies -->
