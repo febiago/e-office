@@ -15,5 +15,4 @@ class DisposisiController extends Controller
         //return view with data
         return view('admin.disposisi',$data, compact('dispo'));
     }
-
 }

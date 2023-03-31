@@ -5,6 +5,8 @@ use App\Models\Surat_masuk;
 use App\Models\Disposisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PDF;
+use Carbon\Carbon;
 
 class MasukController extends Controller
 {
@@ -128,6 +130,21 @@ class MasukController extends Controller
             'success' => true,
             'message' => 'Data Berhasil Dihapus!.',
         ]); 
+    }
+
+     public function printDispo($id)
+    {
+        $data = Surat_masuk::find($id);
+        $tglSurat = Carbon::parse($data->tgl_surat)->format('d-m-Y');
+        $tglDiterima = Carbon::parse($data->tgl_diterima)->format('d-m-Y');
+
+        $pdf = PDF::loadView('pdf.disposisi', [
+            'data' => $data, 
+            'tglSurat' => $tglSurat,
+            'tglDiterima' => $tglDiterima
+        ]);
+
+        return $pdf->stream('disposisi.pdf');
     }
 }
 

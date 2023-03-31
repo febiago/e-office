@@ -46,7 +46,7 @@
                                             <td>{{ $sppd->tujuan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-sppd" data-id="{{ $sppd->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm"><i class="far fa-print"></i></a>
+                                                <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $sppd->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
         return view('admin.dashboard', ['type_menu' => 'dashboard']);
     })->name('dashboard');
     Route::resource('/surat-masuk', MasukController::class);
+    Route::get('/surat-masuk/disposisi/{id}', [MasukController::class, 'printDispo'])->name('pdf.disposisi');
     Route::resource('/surat-keluar', KeluarController::class);
     Route::resource('/sppd', SppdController::class);
     Route::resource('/disposisi', DisposisiController::class);
