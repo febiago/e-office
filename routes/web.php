@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasukController;
 use App\Http\Controllers\KeluarController;
 use App\Http\Controllers\SppdController;
@@ -33,9 +34,8 @@ Route::post('/register', [AuthController::class, 'create'])->name('register.crea
 
 Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard', ['type_menu' => 'dashboard']);
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('/surat-masuk', MasukController::class);
     Route::get('/surat-masuk/disposisi/{id}', [MasukController::class, 'printDispo'])->name('pdf.disposisi');
     Route::resource('/surat-keluar', KeluarController::class);
