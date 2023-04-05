@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Surat_masuk;
 use App\Models\Surat_keluar;
 use App\Models\Sppd;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Jenssegers\Date\Date;
 
 use Illuminate\Http\Request;
 
@@ -20,4 +23,25 @@ class DashboardController extends Controller
         //return view with data
         return view('admin.dashboard',$data, compact('smasuk', 'skeluar', 'sppd'));
     }
+
+    public function chart()
+    {
+        $data = DB::table('surat_keluars')
+                ->select('tgl_surat', DB::raw('COUNT(*) as count'))
+                ->whereNotIn(DB::raw('DAYNAME(tgl_surat)'), ['Saturday', 'Sunday'])
+                ->orderBy('tgl_surat', 'desc')
+                ->limit(5)
+                ->groupBy('tgl_surat')
+                ->orderBy('tgl_surat', 'asc')
+                ->get()
+                ->map(function ($item) {
+                    return [    
+                      'day' => Date::parse($item->tgl_surat)->locale('id')->format('l'),
+                      'count' => $item->count
+                    ];
+                });
+
+        return response()->json($data);
+    }
+
 }

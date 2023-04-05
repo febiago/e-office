@@ -7,8 +7,8 @@ var myChart = new Chart(statistics_chart, {
   data: {
     labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jum\'at"],
     datasets: [{
-      label: 'Statistics',
-      data: [530, 302, 430, 270, 488],
+      label: 'Surat Keluar',
+       data: [8, 4, 10, 2, 6],
       borderWidth: 5,
       borderColor: '#6777ef',
       backgroundColor: 'transparent',
@@ -28,7 +28,7 @@ var myChart = new Chart(statistics_chart, {
           drawBorder: false,
         },
         ticks: {
-          stepSize: 150
+          stepSize: 1
         }
       }],
       xAxes: [{
@@ -38,6 +38,65 @@ var myChart = new Chart(statistics_chart, {
         }
       }]
     },
+  }
+});
+
+var statistics_chart = document.getElementById("myChart2").getContext('2d');
+var myChart2 = new Chart(statistics_chart, {
+  type: 'line',
+  data: {
+    labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jum\'at"],
+    datasets: [{
+      label: 'Surat Keluar',
+      data: [8, 4, 10, 2, 6],
+      borderWidth: 5,
+      borderColor: '#FF5733',
+      backgroundColor: 'transparent',
+      pointBackgroundColor: '#fff',
+      pointBorderColor: '#FF5733',
+      pointRadius: 4
+    }]
+  },
+  options: {
+    legend: {
+      display: false
+    },
+    scales: {
+      yAxes: [{
+        gridLines: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          stepSize: 1
+        }
+      }],
+      xAxes: [{
+        gridLines: {
+          color: '#fbfbfb',
+          lineWidth: 2
+        }
+      }]
+    },
+  }
+});
+
+$.ajax({
+  url: '/chart',
+  type: 'GET',
+  success: function(response) {
+    var labels = [];
+    var data = [];
+    for (var i = 0; i < response.length; i++) {
+      var day = new Date(response[i].date).getDay();
+      if (day !== 0 && day !== 6) { // skip Saturday and Sunday
+        labels.push(response[i].day);
+        data.push(response[i].count);
+      }
+    }
+    myChart2.data.labels = labels;
+    myChart2.data.datasets[0].data = data;
+    myChart2.update();
   }
 });
 

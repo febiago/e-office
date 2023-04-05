@@ -35,6 +35,7 @@ Route::post('/register', [AuthController::class, 'create'])->name('register.crea
 Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/chart', [DashboardController::class, 'chart'])->name('chart');
 
     Route::resource('/surat-masuk', MasukController::class);
     Route::get('/surat-masuk/disposisi/{id}', [MasukController::class, 'printDispo'])->name('pdf.disposisi');
