@@ -41,6 +41,25 @@ var myChart = new Chart(statistics_chart, {
   }
 });
 
+$.ajax({
+  url: '/chartm',
+  type: 'GET',
+  success: function(response) {
+    var labels = [];
+    var data = [];
+    for (var i = 0; i < response.length; i++) {
+      var day = new Date(response[i].date).getDay();
+      if (day !== 0 && day !== 6) { // skip Saturday and Sunday
+        labels.push(response[i].day);
+        data.push(response[i].count);
+      }
+    }
+    myChart.data.labels = labels;
+    myChart.data.datasets[0].data = data;
+    myChart.update();
+  }
+});
+
 var statistics_chart = document.getElementById("myChart2").getContext('2d');
 var myChart2 = new Chart(statistics_chart, {
   type: 'line',

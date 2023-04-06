@@ -36,6 +36,7 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/chart', [DashboardController::class, 'chart'])->name('chart');
+    Route::get('/chartm', [DashboardController::class, 'chartM'])->name('chartm');
 
     Route::resource('/surat-masuk', MasukController::class);
     Route::get('/surat-masuk/disposisi/{id}', [MasukController::class, 'printDispo'])->name('pdf.disposisi');

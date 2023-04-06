@@ -44,4 +44,24 @@ class DashboardController extends Controller
         return response()->json($data);
     }
 
+        public function chartM()
+    {
+        $data = DB::table('surat_masuks')
+                ->select('tgl_diterima', DB::raw('COUNT(*) as count'))
+                ->whereNotIn(DB::raw('DAYNAME(tgl_diterima)'), ['Saturday', 'Sunday'])
+                ->orderBy('tgl_diterima', 'desc')
+                ->limit(5)
+                ->groupBy('tgl_diterima')
+                ->orderBy('tgl_diterima', 'asc')
+                ->get()
+                ->map(function ($item) {
+                    return [    
+                      'day' => Date::parse($item->tgl_diterima)->locale('id')->format('l'),
+                      'count' => $item->count
+                    ];
+                });
+
+        return response()->json($data);
+    }
+
 }
