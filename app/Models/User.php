@@ -29,6 +29,11 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

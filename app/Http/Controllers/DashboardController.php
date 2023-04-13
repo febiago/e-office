@@ -44,7 +44,7 @@ class DashboardController extends Controller
         return response()->json($data);
     }
 
-        public function chartM()
+    public function chartM()
     {
         $data = DB::table('surat_masuks')
                 ->select('tgl_diterima', DB::raw('COUNT(*) as count'))

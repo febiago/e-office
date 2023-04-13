@@ -20,70 +20,16 @@
                 <a class="nav-link"
                     href="{{ url('surat-keluar') }}"><i class="fa fa-envelope-open"></i> <span>Surat Keluar</span></a>
             </li>
+            @if (Auth::check() && Auth::user()->getRole() === 'admin')
             <li class="{{ Request::is('disposisi') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('disposisi') }}"><i class="fa fa-share"></i> <span>Disposisi</span></a>
             </li>
-
-            <li class="menu-header">Stisla</li>
+            @endif
+            <li class="menu-header">Perjalanan Dinas</li>
             <li class="{{ Request::is('sppd') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('sppd') }}"><i class="far fa-file-alt"></i> <span>SPPD</span></a>
-            </li>
-
-            <li class="nav-item dropdown {{ $type_menu === 'modules' ? 'active' : '' }}">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="fas fa-plug"></i> <span>Modules</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::is('modules-calendar') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-calendar') }}">Calendar</a>
-                    </li>
-                    <li class="{{ Request::is('modules-chartjs') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-chartjs') }}">ChartJS</a>
-                    </li>
-                    <li class="{{ Request::is('modules-datatables') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-datatables') }}">DataTables</a>
-                    </li>
-                    <li class="{{ Request::is('modules-flag') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-flag') }}">Flag</a>
-                    </li>
-                    <li class="{{ Request::is('modules-font-awesome') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-font-awesome') }}">Font Awesome</a>
-                    </li>
-                    <li class="{{ Request::is('modules-ion-icons') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-ion-icons') }}">Ion Icons</a>
-                    </li>
-                    <li class="{{ Request::is('modules-owl-carousel') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-owl-carousel') }}">Owl Carousel</a>
-                    </li>
-                    <li class="{{ Request::is('modules-sparkline') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-sparkline') }}">Sparkline</a>
-                    </li>
-                    <li class="{{ Request::is('modules-sweet-alert') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-sweet-alert') }}">Sweet Alert</a>
-                    </li>
-                    <li class="{{ Request::is('modules-toastr') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-toastr') }}">Toastr</a>
-                    </li>
-                    <li class="{{ Request::is('modules-vector-map') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-vector-map') }}">Vector Map</a>
-                    </li>
-                    <li class="{{ Request::is('modules-weather-icon') ? 'active' : '' }}">
-                        <a class="nav-link"
-                            href="{{ url('modules-weather-icon') }}">Weather Icon</a>
-                    </li>
-                </ul>
             </li>
 
         </ul>

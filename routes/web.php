@@ -48,3 +48,7 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/sppd/create/kendaraan', [SppdController::class, 'getKendaraan'])->name('kendaraan');
     Route::get('/sppd/print/{id}', [SppdController::class, 'printPDF'])->name('pdf.sppd');
 });
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('/disposisi', DisposisiController::class);
+});
