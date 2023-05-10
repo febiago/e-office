@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nama',
+        'nip',
+        'pangkat',
+        'jabatan',
+        'kendaraan',
+    ];
+
     public function sppd()
     {
         return $this->hasMany(Sppd::class);

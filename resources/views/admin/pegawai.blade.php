@@ -90,22 +90,23 @@
                     <div class="form-group col-md-6" >
                         <label for="pangkat" class="control-label">PANGKAT</label>
                         <select class="form-control" id="pangkat" name="pangkat">
-                          <option value="I/a">Juru Muda (I/a)</option>
-                          <option value="I/b">Juru Muda Tingkat I (I/b)</option>
-                          <option value="I/c">Juru (I/c)</option>
-                          <option value="I/d">Juru Tingkat I (I/d)</option>
-                          <option value="II/a">Pengatur Muda (II/a)</option>
-                          <option value="II/b">Pengatur Muda Tingkat I (II/b)</option>
-                          <option value="II/c">Pengatur (II/c)</option>
-                          <option value="II/d">Pengatur Tingkat I (II/d)</option>
-                          <option value="III/a">Penata Muda (III/a)</option>
-                          <option value="III/b">Penata Muda Tingkat I (III/b)</option>
-                          <option value="III/c">Penata (III/c)</option>
-                          <option value="III/d">Penata Tingkat I (III/d)</option>
-                          <option value="IV/a">Pembina (IV/a)</option>
-                          <option value="IV/b">Pembina Tingkat I (IV/b)</option>
-                          <option value="IV/c">Pembina Utama Muda (IV/c)</option>
-                          <option value="IV/d">Pembina Utama (IV/d)</option>
+                          <option value="-"> - </option>
+                          <option value="Juru Muda (I/a)">Juru Muda (I/a)</option>
+                          <option value="Juru Muda Tingkat I (I/b)">Juru Muda Tingkat I (I/b)</option>
+                          <option value="Juru (I/c)">Juru (I/c)</option>
+                          <option value="Juru Tingkat I (I/d)">Juru Tingkat I (I/d)</option>
+                          <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
+                          <option value="Pengatur Muda Tingkat I (II/b)">Pengatur Muda Tingkat I (II/b)</option>
+                          <option value="Pengatur (II/c)">Pengatur (II/c)</option>
+                          <option value="Pengatur Tingkat I (II/d)">Pengatur Tingkat I (II/d)</option>
+                          <option value="Penata Muda (III/a)">Penata Muda (III/a)</option>
+                          <option value="Penata Muda Tingkat I (III/b)">Penata Muda Tingkat I (III/b)</option>
+                          <option value="Penata (III/c)">Penata (III/c)</option>
+                          <option value="Penata Tingkat I (III/d)">Penata Tingkat I (III/d)</option>
+                          <option value="Pembina (IV/a)">Pembina (IV/a)</option>
+                          <option value="Pembina Tingkat I (IV/b)">Pembina Tingkat I (IV/b)</option>
+                          <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
+                          <option value="Pembina Utama (IV/d)">Pembina Utama (IV/d)</option>
                         </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pangkat"></div>
                     </div>
@@ -157,16 +158,12 @@
 
         e.preventDefault();
         //define variable
-        let no_surat        = $('#no_surat').val();
-        let pengirim        = $('#pengirim').val();
-        let perihal         = $('#perihal').val();
-        let tgl_surat       = $('#tgl_surat').val();
-        let tgl_diterima    = $('#tgl_diterima').val();
-        let ditujukan       = $('#ditujukan').val();
-        let kategori        = $('#kategori').val();
-        let keterangan      = $('#keterangan').val();
-        let image           = $('#image').val();
-        let token           = $("meta[name='csrf-token']").attr("content");
+        let nama       = $('#nama').val();
+        let nip        = $('#nip').val();
+        let pangkat    = $('#pangkat').val();
+        let jabatan    = $('#jabatan').val();
+        let kendaraan  = $('#kendaraan').val();
+        let token      = $("meta[name='csrf-token']").attr("content");
         
         //ajax
         $.ajax({
@@ -174,16 +171,12 @@
             type: "POST",
             cache: false,
             data: {
-                "no_surat"      :no_surat,
-                "pengirim"      :pengirim,
-                "perihal"       :perihal,
-                "tgl_surat"     :tgl_surat,
-                "tgl_diterima"  :tgl_diterima,
-                "ditujukan"     :ditujukan,
-                "kategori"      :kategori,
-                "keterangan"    :keterangan,
-                "image"         :image,
-                "_token"        :token
+                "nama"      :nama,
+                "nip"       :nip,
+                "pangkat"   :pangkat,
+                "jabatan"   :jabatan,
+                "kendaraan" :kendaraan,
+                "_token"    :token
             },
             success:function(response){
 
@@ -197,15 +190,11 @@
                 });
                 
                 //clear form
-                $('#no_surat').val('');
-                $('#pengirim').val('');
-                $('#perihal').val('');
-                $('#tgl_surat').val('');
-                $('#tgl_diterima').val('');
-                $('#ditujukan').val('');
-                $('#kategori').val('');
-                $('#keterangan').val('');
-                $('#image').val('');
+                $('#nama').val('');
+                $('#nip').val('');
+                $('#pangkat').val('');
+                $('#jabatan').val('');
+                $('#kendaraan').val('');
 
                 //close modal
                 $('#pegawai-create').modal('hide');
@@ -217,64 +206,35 @@
             },
             error:function(error){
                 
-                if(error.responseJSON.no_surat[0]) {
+                if(error.responseJSON.nama[0]) {
 
                     //show alert
-                    $('#alert-no_surat').removeClass('d-none');
-                    $('#alert-no_surat').addClass('d-block');
+                    $('#alert-nama').removeClass('d-none');
+                    $('#alert-nama').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-no_surat').html(error.responseJSON.no_surat[0]);
+                    $('#alert-nama').html(error.responseJSON.nama[0]);
                 } 
 
-                if(error.responseJSON.pengirim[0]) {
+                if(error.responseJSON.nip[0]) {
 
                     //show alert
-                    $('#alert-pengirim').removeClass('d-none');
-                    $('#alert-pengirim').addClass('d-block');
+                    $('#alert-nip').removeClass('d-none');
+                    $('#alert-nip').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-pengirim').html(error.responseJSON.pengirim[0]);
+                    $('#alert-nip').html(error.responseJSON.nip[0]);
                 }
-                if(error.responseJSON.perihal[0]) {
+                if(error.responseJSON.pangkat[0]) {
 
                     //show alert
-                    $('#alert-perihal').removeClass('d-none');
-                    $('#alert-perihal').addClass('d-block');
+                    $('#alert-pangkat').removeClass('d-none');
+                    $('#alert-pangkat').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-perihal').html(error.responseJSON.perihal[0]);
+                    $('#alert-pangkat').html(error.responseJSON.pangkat[0]);
                 } 
-
-                if(error.responseJSON.tgl_surat[0]) {
-
-                    //show alert
-                    $('#alert-tgl_surat').removeClass('d-none');
-                    $('#alert-tgl_surat').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-tgl_surat').html(error.responseJSON.tgl_surat[0]);
-                }
-
-                if(error.responseJSON.tgl_diterima[0]) {
-
-                    //show alert
-                    $('#alert-tgl_diterima').removeClass('d-none');
-                    $('#alert-tgl_diterima').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-tgl_diterima').html(error.responseJSON.tgl_diterima[0]);
-                }
                 
-                if(error.responseJSON.ditujukan[0]) {
-
-                    //show alert
-                    $('#alert-ditujukan').removeClass('d-none');
-                    $('#alert-ditujukan').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-ditujukan').html(error.responseJSON.ditujukan[0]);
-                } 
             }
 
         });
@@ -294,49 +254,54 @@
                 </div>
                 <div class="modal-body">
 
-                    <input type="hidden" id="id_spegawai">
+                    <input type="hidden" id="id_pegawai" value="{{ $pegawai->id }}">
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">No Surat</label>
-                            <input type="text" class="form-control" id="no_surat-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat-edit"></div>
+                            <label for="name" class="control-label">NIP</label>
+                            <input type="text" class="form-control" id="nip-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nip-edit"></div>
                         </div>
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Pengirim</label>
-                            <input type="text" class="form-control" id="pengirim-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim-edit"></div>
+                            <label for="name" class="control-label">Nama</label>
+                            <input type="text" class="form-control" id="nama-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama-edit"></div>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3" >
-                            <label for="name" class="control-label">Tanggal Surat</label>
-                            <input id="tgl_surat-edit" type="date" class="form-control" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat-edit"></div>
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">Pangkat</label>
+                            <select class="form-control" id="pangkat" name="pangkat" required>
+                                <option value="-" {{ old('pangkat', $pegawai->pangkat) == '-' ? 'selected' : '' }}> - </option>
+                                <option value="Juru Muda (I/a)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Muda (I/a)' ? 'selected' : '' }}>Juru Muda (I/a)</option>
+                                <option value="Juru Muda Tingkat I (I/b)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Muda Tingkat I (I/b)' ? 'selected' : '' }}>Juru Muda Tingkat I (I/b)</option>
+                                <option value="Juru (I/c)" {{ old('pangkat', $pegawai->pangkat) == 'Juru (I/c)' ? 'selected' : '' }}>Juru (I/c)</option>
+                                <option value="Juru Tingkat I (I/d)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Tingkat I (I/d)' ? 'selected' : '' }}>Juru Tingkat I (I/d)</option>
+                                <option value="Pengatur Muda (II/a)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur Muda (II/a)' ? 'selected' : '' }}>Pengatur Muda (II/a)</option>
+                                <option value="Pengatur Muda Tingkat I (II/b)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur Muda Tingkat I (II/b)' ? 'selected' : '' }}>Pengatur Muda Tingkat I (II/b)</option>
+                                <option value="Pengatur (II/c)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur (II/c)' ? 'selected' : '' }}>Pengatur (II/c)</option>
+                                <option value="Pengatur Tingkat I (II/d)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur Tingkat I (II/d)' ? 'selected' : '' }}>Pengatur Tingkat I (II/d)</option>
+                                <option value="Penata Muda (III/a)" {{ old('pangkat', $pegawai->pangkat) == 'Penata Muda (III/a)' ? 'selected' : '' }}>Penata Muda (III/a)</option>
+                                <option value="Penata Muda Tingkat I (III/b)" {{ old('pangkat', $pegawai->pangkat) == 'Penata Muda Tingkat I (III/b)' ? 'selected' : '' }}>Penata Muda Tingkat I (III/b)</option>
+                                <option value="Penata (III/c)" {{ old('pangkat', $pegawai->pangkat) == 'Penata (III/c)' ? 'selected' : '' }}>Penata (III/c)</option>
+                                <option value="Penata Tingkat I (III/d)" {{ old('pangkat', $pegawai->pangkat) == 'Penata Tingkat I (III/d)' ? 'selected' : '' }}>Penata Tingkat I (III/d)</option>
+                            </select>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pangkat-edit"></div>
                         </div>
-                        <div class="form-group col-md-3" >
-                            <label for="name" class="control-label">Tanggal Diterima</label>
-                            <input id="tgl_diterima-edit" type="date" class="form-control" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima-edit"></div>
-                        </div>
+
                         <div class="form-group col-md-6" >
                             <label for="name" class="control-label">Perihal</label>
-                            <input type="text" class="form-control" id="perihal-edit" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal-edit"></div>
+                            <input type="text" class="form-control" id="jabatan-edit" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jabatan-edit"></div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Ditujukan</label>
-                            <input type="text" class="form-control" id="ditujukan-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan-edit"></div>
-                        </div>
-                        <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Keterangan</label>
-                            <input type="text" class="form-control" id="keterangan-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-keterangan-edit"></div>
+                            <label for="name" class="control-label">Kendaraan</label>
+                            <input type="text" class="form-control" id="kendaraan-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan-edit"></div>
                         </div>
                     </div>
 
@@ -352,24 +317,22 @@
     <script>
         //button create post event
         $(document).on('click', '#btn-edit-pegawai', function() {
-            let id_spegawai = $(this).data('id');
+            let id_pegawai = $(this).data('id');
 
             //fetch detail post with ajax
             $.ajax({
-                url: `/pegawai/${id_spegawai}`,
+                url: `/pegawai/${id_pegawai}`,
                 type: "GET",
                 cache: false,
                 success:function(response){
 
                     //fill data to form
-                    $('#id_spegawai').val(response.data.id);
-                    $('#no_surat-edit').val(response.data.no_surat);
-                    $('#pengirim-edit').val(response.data.pengirim);
-                    $('#perihal-edit').val(response.data.perihal);
-                    $('#tgl_surat-edit').val(response.data.tgl_surat);
-                    $('#tgl_diterima-edit').val(response.data.tgl_diterima);
-                    $('#ditujukan-edit').val(response.data.ditujukan);
-                    $('#keterangan-edit').val(response.data.keterangan);
+                    $('#id_pegawai').val(response.data.id);
+                    $('#nip-edit').val(response.data.nip);
+                    $('#nama-edit').val(response.data.nama);
+                    $('#pangkat-edit').val(response.data.pangkat);
+                    $('#jabatan-edit').val(response.data.jabatan);
+                    $('#kendaraan-edit').val(response.data.kendaraan);
 
                     //open modal
                     $('#modal-edit').modal('show');
@@ -382,30 +345,26 @@
             e.preventDefault();
 
             //define variable
-            let id_spegawai   = $('#id_spegawai').val();
-            let no_surat    = $('#no_surat-edit').val();
-            let pengirim    = $('#pengirim-edit').val();
-            let perihal     = $('#perihal-edit').val();
-            let tgl_surat   = $('#tgl_surat-edit').val();
-            let tgl_diterima= $('#tgl_diterima-edit').val();
-            let ditujukan   = $('#ditujukan-edit').val();
-            let keterangan  = $('#keterangan-edit').val();
-            let token       = $("meta[name='csrf-token']").attr("content");
+            let id_pegawai   = $('#id_pegawai').val();
+            let nip           = $('#nip-edit').val();
+            let nama          = $('#nama-edit').val();
+            let pangkat       = $('#pangkat-edit').val();
+            let jabatan       = $('#jabatan-edit').val();
+            let kendaraan     = $('#kendaraan-edit').val();
+            let token         = $("meta[name='csrf-token']").attr("content");
 
             //ajax
             $.ajax({
 
-                url: `/pegawai/${id_spegawai}`,
+                url: `/pegawai/${id_pegawai}`,
                 type: "PUT",
                 cache: false,
                 data: {
-                    "no_surat"      :no_surat,
-                    "pengirim"      :pengirim,
-                    "perihal"       :perihal,
-                    "tgl_surat"     :tgl_surat,
-                    "tgl_diterima"  :tgl_diterima,
-                    "ditujukan"     :ditujukan,
-                    "keterangan"    :keterangan,
+                    "nip"           :nip,
+                    "nama"          :nama,
+                    "pangkat"       :pangkat,
+                    "jabatan"       :jabatan,
+                    "kendaraan"     :kendaraan,
                     "_token"        :token
                 },
                 success:function(response){
@@ -432,21 +391,21 @@
                     if(error.responseJSON.title[0]) {
 
                         //show alert
-                        $('#alert-title-edit').removeClass('d-none');
-                        $('#alert-title-edit').addClass('d-block');
+                        $('#alert-nip-edit').removeClass('d-none');
+                        $('#alert-nip-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-title-edit').html(error.responseJSON.title[0]);
+                        $('#alert-nip-edit').html(error.responseJSON.nip[0]);
                     } 
 
                     if(error.responseJSON.content[0]) {
 
                         //show alert
-                        $('#alert-content-edit').removeClass('d-none');
-                        $('#alert-content-edit').addClass('d-block');
+                        $('#alert-nama-edit').removeClass('d-none');
+                        $('#alert-nama-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-content-edit').html(error.responseJSON.content[0]);
+                        $('#alert-nama-edit').html(error.responseJSON.nama[0]);
                     } 
                 }
             });
@@ -455,7 +414,7 @@
     //button create post event
     $(document).on('click', '#btn-delete-pegawai', function() {
 
-        let id_spegawai = $(this).data('id');
+        let id_pegawai = $(this).data('id');
         let token   = $("meta[name='csrf-token']").attr("content");
 
         Swal.fire({
@@ -467,13 +426,10 @@
             confirmButtonText: 'YA, HAPUS!'
         }).then((result) => {
             if (result.isConfirmed) {
-
-                console.log('test');
-
                 //fetch to delete data
                 $.ajax({
 
-                    url: `/pegawai/${id_spegawai}`,
+                    url: `/pegawai/${id_pegawai}`,
                     type: "DELETE",
                     cache: false,
                     data: {
@@ -491,7 +447,7 @@
                         });
 
                         //remove post on table
-                        $(`#index_${id_spegawai}`).remove();
+                        $(`#index_${id_pegawai}`).remove();
                     }
                 });
             }
