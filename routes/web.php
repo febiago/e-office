@@ -7,6 +7,7 @@ use App\Http\Controllers\KeluarController;
 use App\Http\Controllers\SppdController;
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\KegiatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 
@@ -53,4 +54,5 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/disposisi', DisposisiController::class);
     Route::resource('/pegawai', PegawaiController::class);
+    Route::resource('/kegiatan', KegiatanController::class);
 });

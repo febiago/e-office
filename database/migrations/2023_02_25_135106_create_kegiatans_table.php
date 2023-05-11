@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
             $table->string('kode');
+            $table->string('program');
+            $table->string('nm_kegiatan');
             $table->string('sub_kegiatan');
             $table->string('anggaran');
             $table->timestamps();

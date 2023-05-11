@@ -37,6 +37,10 @@
                 <a class="nav-link"
                     href="{{ url('pegawai') }}"><i class="fa-regular fa-user"></i> <span>Pegawai</span></a>
             </li>
+            <li class="{{ Request::is('kegiatan') ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ url('kegiatan') }}"><i class="fa-regular fa-user"></i> <span>Kegiatan</span></a>
+            </li>
             @endif
 
         </ul>

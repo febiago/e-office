@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pegawai')
+@section('title', 'Kegiatan')
 
 @push('style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
@@ -12,42 +12,42 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Pegawai</h1>
+                <h1>Kegiatan</h1>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <button class="btn btn-success mb-2" id="btn-create-pegawai" data-toggle="modal" data-target="#pegawai-create">TAMBAH PEGAWAI</button>
+                                <button class="btn btn-success mb-2" id="btn-create-kegiatan" data-toggle="modal" data-target="#kegiatan-create">TAMBAH KEGIATAN</button>
                                 <table class="table-striped table"
                                     id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th>Nama</th>
-                                            <th>NIP</th>
-                                            <th>Pangkat</th>
-                                            <th>Jabatan</th>
-                                            <th>Kendaraan</th>
+                                            <th>Kode</th>
+                                            <th>Program</th>
+                                            <th>Kegiatan</th>
+                                            <th>Sub Kegiatan</th>
+                                            <th>Anggaran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="table-pegawai">
+                                    <tbody id="table-kegiatan">
                                     @php
                                         use Carbon\Carbon;
                                     @endphp
-                                    @foreach($pegawais as $pegawai)
-                                        <tr id="index_{{ $pegawai->id }}">
+                                    @foreach($kegiatans as $kegiatan)
+                                        <tr id="index_{{ $kegiatan->id }}">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pegawai->nama }}</td>
-                                            <td>{{ $pegawai->nip }}</td>
-                                            <td>{{ $pegawai->pangkat }}</td>
-                                            <td>{{ $pegawai->jabatan }}</td>
-                                            <td>{{ $pegawai->kendaraan }}</td>
+                                            <td>{{ $kegiatan->kode }}</td>
+                                            <td>{{ $kegiatan->program }}</td>
+                                            <td>{{ $kegiatan->nm_kegiatan }}</td>
+                                            <td>{{ $kegiatan->sub_kegiatan }}</td>
+                                            <td>{{ $kegiatan->anggaran }}</td>
                                             <td class="text-center">
-                                                <a href="javascript:void(0)" id="btn-edit-pegawai" data-id="{{ $pegawai->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="javascript:void(0)" id="btn-delete-pegawai" data-id="{{ $pegawai->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="javascript:void(0)" id="btn-edit-kegiatan" data-id="{{ $kegiatan->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                                <a href="javascript:void(0)" id="btn-delete-kegiatan" data-id="{{ $kegiatan->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -62,7 +62,7 @@
     </div>
 
 <!-- Modal -->
-    <div class="modal fade" id="pegawai-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="kegiatan-create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,20 +76,20 @@
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">NAMA</label>
-                        <input type="text" class="form-control" id="nama" name="nama" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama"></div>
+                        <input type="text" class="form-control" id="kode" name="kode" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode"></div>
                     </div>
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">NIP</label>
-                        <input type="text" class="form-control" id="nip" name="nip" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nip"></div>
+                        <label for="name" class="control-label">Program</label>
+                        <input type="text" class="form-control" id="program" name="program" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-program"></div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6" >
-                        <label for="pangkat" class="control-label">PANGKAT</label>
-                        <select class="form-control" id="pangkat" name="pangkat">
+                        <label for="nm_kegiatan" class="control-label">PANGKAT</label>
+                        <select class="form-control" id="nm_kegiatan" name="nm_kegiatan">
                           <option value="-"> - </option>
                           <option value="Juru Muda (I/a)">Juru Muda (I/a)</option>
                           <option value="Juru Muda Tingkat I (I/b)">Juru Muda Tingkat I (I/b)</option>
@@ -108,19 +108,19 @@
                           <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
                           <option value="Pembina Utama (IV/d)">Pembina Utama (IV/d)</option>
                         </select>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pangkat"></div>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">JABATAN</label>
-                        <input type="text" class="form-control" id="jabatan" name="jabatan" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jabatan"></div>
+                        <input type="text" class="form-control" id="sub_kegiatan" name="sub_kegiatan" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-sub_kegiatan"></div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">KENDARAAN</label>
-                        <input type="text" class="form-control" id="kendaraan" name="kendaraan" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan"></div>
+                        <input type="text" class="form-control" id="anggaran" name="anggaran" required>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-anggaran"></div>
                     </div>
                 </div>
 
@@ -138,12 +138,12 @@
 @push('scripts')
     <script>
     $(document).ready(function(){
-        $('.btn-create-pegawai').click(function(){
-           $('#pegawai-create').modal('show');
+        $('.btn-create-kegiatan').click(function(){
+           $('#kegiatan-create').modal('show');
         });
     });
 
-    $('#pegawai-create').on('hidden.bs.modal', function (e) {
+    $('#kegiatan-create').on('hidden.bs.modal', function (e) {
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
     });
@@ -158,24 +158,24 @@
 
         e.preventDefault();
         //define variable
-        let nama       = $('#nama').val();
-        let nip        = $('#nip').val();
-        let pangkat    = $('#pangkat').val();
-        let jabatan    = $('#jabatan').val();
-        let kendaraan  = $('#kendaraan').val();
+        let kode       = $('#kode').val();
+        let program        = $('#program').val();
+        let nm_kegiatan    = $('#nm_kegiatan').val();
+        let sub_kegiatan    = $('#sub_kegiatan').val();
+        let anggaran  = $('#anggaran').val();
         let token      = $("meta[name='csrf-token']").attr("content");
         
         //ajax
         $.ajax({
-            url: '/pegawai',
+            url: '/kegiatan',
             type: "POST",
             cache: false,
             data: {
-                "nama"      :nama,
-                "nip"       :nip,
-                "pangkat"   :pangkat,
-                "jabatan"   :jabatan,
-                "kendaraan" :kendaraan,
+                "kode"      :kode,
+                "program"       :program,
+                "nm_kegiatan"   :nm_kegiatan,
+                "sub_kegiatan"   :sub_kegiatan,
+                "anggaran" :anggaran,
                 "_token"    :token
             },
             success:function(response){
@@ -190,14 +190,14 @@
                 });
                 
                 //clear form
-                $('#nama').val('');
-                $('#nip').val('');
-                $('#pangkat').val('');
-                $('#jabatan').val('');
-                $('#kendaraan').val('');
+                $('#kode').val('');
+                $('#program').val('');
+                $('#nm_kegiatan').val('');
+                $('#sub_kegiatan').val('');
+                $('#anggaran').val('');
 
                 //close modal
-                $('#pegawai-create').modal('hide');
+                $('#kegiatan-create').modal('hide');
 
                 setTimeout(function(){
 		        	location.reload();
@@ -206,33 +206,33 @@
             },
             error:function(error){
                 
-                if(error.responseJSON.nama[0]) {
+                if(error.responseJSON.kode[0]) {
 
                     //show alert
-                    $('#alert-nama').removeClass('d-none');
-                    $('#alert-nama').addClass('d-block');
+                    $('#alert-kode').removeClass('d-none');
+                    $('#alert-kode').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-nama').html(error.responseJSON.nama[0]);
+                    $('#alert-kode').html(error.responseJSON.kode[0]);
                 } 
 
-                if(error.responseJSON.nip[0]) {
+                if(error.responseJSON.program[0]) {
 
                     //show alert
-                    $('#alert-nip').removeClass('d-none');
-                    $('#alert-nip').addClass('d-block');
+                    $('#alert-program').removeClass('d-none');
+                    $('#alert-program').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-nip').html(error.responseJSON.nip[0]);
+                    $('#alert-program').html(error.responseJSON.program[0]);
                 }
-                if(error.responseJSON.pangkat[0]) {
+                if(error.responseJSON.nm_kegiatan[0]) {
 
                     //show alert
-                    $('#alert-pangkat').removeClass('d-none');
-                    $('#alert-pangkat').addClass('d-block');
+                    $('#alert-nm_kegiatan').removeClass('d-none');
+                    $('#alert-nm_kegiatan').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-pangkat').html(error.responseJSON.pangkat[0]);
+                    $('#alert-nm_kegiatan').html(error.responseJSON.nm_kegiatan[0]);
                 } 
                 
             }
@@ -254,58 +254,58 @@
                 </div>
                 <div class="modal-body">
 
-                    <input type="hidden" id="id_pegawai" value="{{ $pegawai->id }}">
+                    <input type="hidden" id="id_kegiatan" value="{{ $kegiatan->id }}">
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">NIP</label>
-                            <input type="text" class="form-control" id="nip-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nip-edit"></div>
+                            <label for="name" class="control-label">Program</label>
+                            <input type="text" class="form-control" id="program-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-program-edit"></div>
                         </div>
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Nama</label>
-                            <input type="text" class="form-control" id="nama-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama-edit"></div>
+                            <label for="name" class="control-label">Kode</label>
+                            <input type="text" class="form-control" id="kode-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode-edit"></div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Pangkat</label>
-                            <select class="form-control" id="pangkat-edit" required>
-                                <option value="-" {{ old('pangkat', $pegawai->pangkat) == '-' ? 'selected' : '' }}> - </option>
-                                <option value="Juru Muda (I/a)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Muda (I/a)' ? 'selected' : '' }}>Juru Muda (I/a)</option>
-                                <option value="Juru Muda Tingkat I (I/b)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Muda Tingkat I (I/b)' ? 'selected' : '' }}>Juru Muda Tingkat I (I/b)</option>
-                                <option value="Juru (I/c)" {{ old('pangkat', $pegawai->pangkat) == 'Juru (I/c)' ? 'selected' : '' }}>Juru (I/c)</option>
-                                <option value="Juru Tingkat I (I/d)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Tingkat I (I/d)' ? 'selected' : '' }}>Juru Tingkat I (I/d)</option>
-                                <option value="Pengatur Muda (II/a)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur Muda (II/a)' ? 'selected' : '' }}>Pengatur Muda (II/a)</option>
-                                <option value="Pengatur Muda Tingkat I (II/b)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur Muda Tingkat I (II/b)' ? 'selected' : '' }}>Pengatur Muda Tingkat I (II/b)</option>
-                                <option value="Pengatur (II/c)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur (II/c)' ? 'selected' : '' }}>Pengatur (II/c)</option>
-                                <option value="Pengatur Tingkat I (II/d)" {{ old('pangkat', $pegawai->pangkat) == 'Pengatur Tingkat I (II/d)' ? 'selected' : '' }}>Pengatur Tingkat I (II/d)</option>
-                                <option value="Penata Muda (III/a)" {{ old('pangkat', $pegawai->pangkat) == 'Penata Muda (III/a)' ? 'selected' : '' }}>Penata Muda (III/a)</option>
-                                <option value="Penata Muda Tingkat I (III/b)" {{ old('pangkat', $pegawai->pangkat) == 'Penata Muda Tingkat I (III/b)' ? 'selected' : '' }}>Penata Muda Tingkat I (III/b)</option>
-                                <option value="Penata (III/c)" {{ old('pangkat', $pegawai->pangkat) == 'Penata (III/c)' ? 'selected' : '' }}>Penata (III/c)</option>
-                                <option value="Penata Tingkat I (III/d)" {{ old('pangkat', $pegawai->pangkat) == 'Penata Tingkat I (III/d)' ? 'selected' : '' }}>Penata Tingkat I (III/d)</option>
-                                <option value="Pembina (IV/a)" {{ old('pangkat', $pegawai->pangkat) == 'Pembina (IV/a)' ? 'selected' : '' }}>Pembina (IV/a)</option>
-                                <option value="Pembina Tingkat I (IV/b)" {{ old('pangkat', $pegawai->pangkat) == 'Pembina Tingkat I (IV/b)' ? 'selected' : '' }}>Pembina Tingkat I (IV/b)</option>
-                                <option value="Pembina Utama Muda (IV/c)" {{ old('pangkat', $pegawai->pangkat) == 'Pembina Utama Muda (IV/c)' ? 'selected' : '' }}>Pembina Utama Muda (IV/c)</option>
-                                <option value="Pembina Utama (IV/d)" {{ old('pangkat', $pegawai->pangkat) == 'Pembina Utama (IV/d)' ? 'selected' : '' }}>Pembina Utama (IV/d)</option>
+                            <label for="name" class="control-label">Kegiatan</label>
+                            <select class="form-control" id="nm_kegiatan-edit" required>
+                                <option value="-" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == '-' ? 'selected' : '' }}> - </option>
+                                <option value="Juru Muda (I/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru Muda (I/a)' ? 'selected' : '' }}>Juru Muda (I/a)</option>
+                                <option value="Juru Muda Tingkat I (I/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru Muda Tingkat I (I/b)' ? 'selected' : '' }}>Juru Muda Tingkat I (I/b)</option>
+                                <option value="Juru (I/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru (I/c)' ? 'selected' : '' }}>Juru (I/c)</option>
+                                <option value="Juru Tingkat I (I/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru Tingkat I (I/d)' ? 'selected' : '' }}>Juru Tingkat I (I/d)</option>
+                                <option value="Pengatur Muda (II/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur Muda (II/a)' ? 'selected' : '' }}>Pengatur Muda (II/a)</option>
+                                <option value="Pengatur Muda Tingkat I (II/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur Muda Tingkat I (II/b)' ? 'selected' : '' }}>Pengatur Muda Tingkat I (II/b)</option>
+                                <option value="Pengatur (II/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur (II/c)' ? 'selected' : '' }}>Pengatur (II/c)</option>
+                                <option value="Pengatur Tingkat I (II/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur Tingkat I (II/d)' ? 'selected' : '' }}>Pengatur Tingkat I (II/d)</option>
+                                <option value="Penata Muda (III/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata Muda (III/a)' ? 'selected' : '' }}>Penata Muda (III/a)</option>
+                                <option value="Penata Muda Tingkat I (III/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata Muda Tingkat I (III/b)' ? 'selected' : '' }}>Penata Muda Tingkat I (III/b)</option>
+                                <option value="Penata (III/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata (III/c)' ? 'selected' : '' }}>Penata (III/c)</option>
+                                <option value="Penata Tingkat I (III/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata Tingkat I (III/d)' ? 'selected' : '' }}>Penata Tingkat I (III/d)</option>
+                                <option value="Pembina (IV/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina (IV/a)' ? 'selected' : '' }}>Pembina (IV/a)</option>
+                                <option value="Pembina Tingkat I (IV/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina Tingkat I (IV/b)' ? 'selected' : '' }}>Pembina Tingkat I (IV/b)</option>
+                                <option value="Pembina Utama Muda (IV/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina Utama Muda (IV/c)' ? 'selected' : '' }}>Pembina Utama Muda (IV/c)</option>
+                                <option value="Pembina Utama (IV/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina Utama (IV/d)' ? 'selected' : '' }}>Pembina Utama (IV/d)</option>
                             </select>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pangkat-edit"></div>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan-edit"></div>
                         </div>
 
                         <div class="form-group col-md-6" >
                             <label for="name" class="control-label">Perihal</label>
-                            <input type="text" class="form-control" id="jabatan-edit" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jabatan-edit"></div>
+                            <input type="text" class="form-control" id="sub_kegiatan-edit" required>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-sub_kegiatan-edit"></div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Kendaraan</label>
-                            <input type="text" class="form-control" id="kendaraan-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan-edit"></div>
+                            <label for="name" class="control-label">Anggaran</label>
+                            <input type="text" class="form-control" id="anggaran-edit">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-anggaran-edit"></div>
                         </div>
                     </div>
 
@@ -320,23 +320,23 @@
 
     <script>
         //button create post event
-        $(document).on('click', '#btn-edit-pegawai', function() {
-            let id_pegawai = $(this).data('id');
+        $(document).on('click', '#btn-edit-kegiatan', function() {
+            let id_kegiatan = $(this).data('id');
 
             //fetch detail post with ajax
             $.ajax({
-                url: `/pegawai/${id_pegawai}`,
+                url: `/kegiatan/${id_kegiatan}`,
                 type: "GET",
                 cache: false,
                 success:function(response){
 
                     //fill data to form
-                    $('#id_pegawai').val(response.data.id);
-                    $('#nip-edit').val(response.data.nip);
-                    $('#nama-edit').val(response.data.nama);
-                    $('#pangkat-edit').val(response.data.pangkat);
-                    $('#jabatan-edit').val(response.data.jabatan);
-                    $('#kendaraan-edit').val(response.data.kendaraan);
+                    $('#id_kegiatan').val(response.data.id);
+                    $('#program-edit').val(response.data.program);
+                    $('#kode-edit').val(response.data.kode);
+                    $('#nm_kegiatan-edit').val(response.data.nm_kegiatan);
+                    $('#sub_kegiatan-edit').val(response.data.sub_kegiatan);
+                    $('#anggaran-edit').val(response.data.anggaran);
 
                     //open modal
                     $('#modal-edit').modal('show');
@@ -349,26 +349,26 @@
             e.preventDefault();
 
             //define variable
-            let id_pegawai   = $('#id_pegawai').val();
-            let nip           = $('#nip-edit').val();
-            let nama          = $('#nama-edit').val();
-            let pangkat       = $('#pangkat-edit').val();
-            let jabatan       = $('#jabatan-edit').val();
-            let kendaraan     = $('#kendaraan-edit').val();
+            let id_kegiatan   = $('#id_kegiatan').val();
+            let program           = $('#program-edit').val();
+            let kode          = $('#kode-edit').val();
+            let nm_kegiatan       = $('#nm_kegiatan-edit').val();
+            let sub_kegiatan       = $('#sub_kegiatan-edit').val();
+            let anggaran     = $('#anggaran-edit').val();
             let token         = $("meta[name='csrf-token']").attr("content");
 
             //ajax
             $.ajax({
 
-                url: `/pegawai/${id_pegawai}`,
+                url: `/kegiatan/${id_kegiatan}`,
                 type: "PUT",
                 cache: false,
                 data: {
-                    "nip"           :nip,
-                    "nama"          :nama,
-                    "pangkat"       :pangkat,
-                    "jabatan"       :jabatan,
-                    "kendaraan"     :kendaraan,
+                    "program"           :program,
+                    "kode"          :kode,
+                    "nm_kegiatan"       :nm_kegiatan,
+                    "sub_kegiatan"       :sub_kegiatan,
+                    "anggaran"     :anggaran,
                     "_token"        :token
                 },
                 success:function(response){
@@ -395,30 +395,30 @@
                     if(error.responseJSON.title[0]) {
 
                         //show alert
-                        $('#alert-nip-edit').removeClass('d-none');
-                        $('#alert-nip-edit').addClass('d-block');
+                        $('#alert-program-edit').removeClass('d-none');
+                        $('#alert-program-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-nip-edit').html(error.responseJSON.nip[0]);
+                        $('#alert-program-edit').html(error.responseJSON.program[0]);
                     } 
 
                     if(error.responseJSON.content[0]) {
 
                         //show alert
-                        $('#alert-nama-edit').removeClass('d-none');
-                        $('#alert-nama-edit').addClass('d-block');
+                        $('#alert-kode-edit').removeClass('d-none');
+                        $('#alert-kode-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-nama-edit').html(error.responseJSON.nama[0]);
+                        $('#alert-kode-edit').html(error.responseJSON.kode[0]);
                     } 
                 }
             });
         });
 
     //button create post event
-    $(document).on('click', '#btn-delete-pegawai', function() {
+    $(document).on('click', '#btn-delete-kegiatan', function() {
 
-        let id_pegawai = $(this).data('id');
+        let id_kegiatan = $(this).data('id');
         let token   = $("meta[name='csrf-token']").attr("content");
 
         Swal.fire({
@@ -433,7 +433,7 @@
                 //fetch to delete data
                 $.ajax({
 
-                    url: `/pegawai/${id_pegawai}`,
+                    url: `/kegiatan/${id_kegiatan}`,
                     type: "DELETE",
                     cache: false,
                     data: {
@@ -451,7 +451,7 @@
                         });
 
                         //remove post on table
-                        $(`#index_${id_pegawai}`).remove();
+                        $(`#index_${id_kegiatan}`).remove();
                     },
                     error: function(xhr, status, error) {
                         //show error message
