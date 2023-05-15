@@ -66,7 +66,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH PEGAWAI</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">TAMBAH KEGIATAN</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -75,51 +75,49 @@
                 <form enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">NAMA</label>
+                        <label for="name" class="control-label">Kode Kegiatan</label>
                         <input type="text" class="form-control" id="kode" name="kode" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode"></div>
                     </div>
                     <div class="form-group col-md-6" >
                         <label for="name" class="control-label">Program</label>
-                        <input type="text" class="form-control" id="program" name="program" required>
+                        <select class="form-control" id="program" name="program">
+                          <option value="-"> - </option>
+                          <option value="PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA">PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA</option>
+                          <option value="PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK">PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK</option>
+                          <option value="PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN">PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN</option>
+                          <option value="PROGRAM KOORDINASI KETENTRAMAN DAN KETERTIBAN UMUM">PROGRAM KOORDINASI KETENTRAMAN DAN KETERTIBAN UMUM</option>
+                          <option value="PROGRAM PENYELENGGARAAN URUSAN PEMERINTAHAN UMUM">PROGRAM PENYELENGGARAAN URUSAN PEMERINTAHAN UMUM</option>
+                          <option value="PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN DESA">PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN DESA</option>
+                        </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-program"></div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6" >
-                        <label for="nm_kegiatan" class="control-label">PANGKAT</label>
+                        <label for="nm_kegiatan" class="control-label">Kegiatan</label>
                         <select class="form-control" id="nm_kegiatan" name="nm_kegiatan">
                           <option value="-"> - </option>
-                          <option value="Juru Muda (I/a)">Juru Muda (I/a)</option>
-                          <option value="Juru Muda Tingkat I (I/b)">Juru Muda Tingkat I (I/b)</option>
-                          <option value="Juru (I/c)">Juru (I/c)</option>
-                          <option value="Juru Tingkat I (I/d)">Juru Tingkat I (I/d)</option>
-                          <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
-                          <option value="Pengatur Muda Tingkat I (II/b)">Pengatur Muda Tingkat I (II/b)</option>
-                          <option value="Pengatur (II/c)">Pengatur (II/c)</option>
-                          <option value="Pengatur Tingkat I (II/d)">Pengatur Tingkat I (II/d)</option>
-                          <option value="Penata Muda (III/a)">Penata Muda (III/a)</option>
-                          <option value="Penata Muda Tingkat I (III/b)">Penata Muda Tingkat I (III/b)</option>
-                          <option value="Penata (III/c)">Penata (III/c)</option>
-                          <option value="Penata Tingkat I (III/d)">Penata Tingkat I (III/d)</option>
-                          <option value="Pembina (IV/a)">Pembina (IV/a)</option>
-                          <option value="Pembina Tingkat I (IV/b)">Pembina Tingkat I (IV/b)</option>
-                          <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
-                          <option value="Pembina Utama (IV/d)">Pembina Utama (IV/d)</option>
+                          <option value="Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah">Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah</option>
+                          <option value="Administrasi Keuangan Perangkat Daerah">Administrasi Keuangan Perangkat Daerah</option>
+                          <option value="Administrasi Kepegawaian Perangkat Daerah">Administrasi Kepegawaian Perangkat Daerah</option>
+                          <option value="Administrasi Umum Perangkat Daerah">Administrasi Umum Perangkat Daerah</option>
+                          <option value="Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah">Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah</option>
+                          <option value="Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah">Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah</option>
                         </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan"></div>
                     </div>
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">JABATAN</label>
+                        <label for="name" class="control-label">Sub Kegiatan</label>
                         <input type="text" class="form-control" id="sub_kegiatan" name="sub_kegiatan" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-sub_kegiatan"></div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">KENDARAAN</label>
-                        <input type="text" class="form-control" id="anggaran" name="anggaran" required>
+                        <label for="name" class="control-label">Anggaran</label>
+                        <input type="number" class="form-control" id="anggaran" name="anggaran" required>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-anggaran"></div>
                     </div>
                 </div>
@@ -258,44 +256,42 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Program</label>
-                            <input type="text" class="form-control" id="program-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-program-edit"></div>
-                        </div>
-                        <div class="form-group col-md-6" >
                             <label for="name" class="control-label">Kode</label>
                             <input type="text" class="form-control" id="kode-edit">
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode-edit"></div>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label for="name" class="control-label">Program</label>
+                            <select class="form-control" id="program-edit" name="program">
+                                <option value="-"> - </option>
+                                <option value="PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA" {{ $kegiatan->program == 'PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA' ? 'selected' : '' }}>PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA</option>
+                                <option value="PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK" {{ $kegiatan->program == 'PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK' ? 'selected' : '' }}>PROGRAM PENYELENGGARAAN PEMERINTAHAN DAN PELAYANAN PUBLIK</option>
+                                <option value="PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN" {{ $kegiatan->program == 'PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN' ? 'selected' : '' }}>PROGRAM PEMBERDAYAAN MASYARAKAT DESA DAN KELURAHAN</option>
+                                <option value="PROGRAM KOORDINASI KETENTRAMAN DAN KETERTIBAN UMUM" {{ $kegiatan->program == 'PROGRAM KOORDINASI KETENTRAMAN DAN KETERTIBAN UMUM' ? 'selected' : '' }}>PROGRAM KOORDINASI KETENTRAMAN DAN KETERTIBAN UMUM</option>
+                                <option value="PROGRAM PENYELENGGARAAN URUSAN PEMERINTAHAN UMUM" {{ $kegiatan->program == 'PROGRAM PENYELENGGARAAN URUSAN PEMERINTAHAN UMUM' ? 'selected' : '' }}>PROGRAM PENYELENGGARAAN URUSAN PEMERINTAHAN UMUM</option>
+                                <option value="PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN DESA" {{ $kegiatan->program == 'PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN DESA' ? 'selected' : '' }}>PROGRAM PEMBINAAN DAN PENGAWASAN PEMERINTAHAN DESA</option>
+                            </select>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-program-edit"></div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
                             <label for="name" class="control-label">Kegiatan</label>
-                            <select class="form-control" id="nm_kegiatan-edit" required>
-                                <option value="-" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == '-' ? 'selected' : '' }}> - </option>
-                                <option value="Juru Muda (I/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru Muda (I/a)' ? 'selected' : '' }}>Juru Muda (I/a)</option>
-                                <option value="Juru Muda Tingkat I (I/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru Muda Tingkat I (I/b)' ? 'selected' : '' }}>Juru Muda Tingkat I (I/b)</option>
-                                <option value="Juru (I/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru (I/c)' ? 'selected' : '' }}>Juru (I/c)</option>
-                                <option value="Juru Tingkat I (I/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Juru Tingkat I (I/d)' ? 'selected' : '' }}>Juru Tingkat I (I/d)</option>
-                                <option value="Pengatur Muda (II/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur Muda (II/a)' ? 'selected' : '' }}>Pengatur Muda (II/a)</option>
-                                <option value="Pengatur Muda Tingkat I (II/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur Muda Tingkat I (II/b)' ? 'selected' : '' }}>Pengatur Muda Tingkat I (II/b)</option>
-                                <option value="Pengatur (II/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur (II/c)' ? 'selected' : '' }}>Pengatur (II/c)</option>
-                                <option value="Pengatur Tingkat I (II/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pengatur Tingkat I (II/d)' ? 'selected' : '' }}>Pengatur Tingkat I (II/d)</option>
-                                <option value="Penata Muda (III/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata Muda (III/a)' ? 'selected' : '' }}>Penata Muda (III/a)</option>
-                                <option value="Penata Muda Tingkat I (III/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata Muda Tingkat I (III/b)' ? 'selected' : '' }}>Penata Muda Tingkat I (III/b)</option>
-                                <option value="Penata (III/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata (III/c)' ? 'selected' : '' }}>Penata (III/c)</option>
-                                <option value="Penata Tingkat I (III/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Penata Tingkat I (III/d)' ? 'selected' : '' }}>Penata Tingkat I (III/d)</option>
-                                <option value="Pembina (IV/a)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina (IV/a)' ? 'selected' : '' }}>Pembina (IV/a)</option>
-                                <option value="Pembina Tingkat I (IV/b)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina Tingkat I (IV/b)' ? 'selected' : '' }}>Pembina Tingkat I (IV/b)</option>
-                                <option value="Pembina Utama Muda (IV/c)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina Utama Muda (IV/c)' ? 'selected' : '' }}>Pembina Utama Muda (IV/c)</option>
-                                <option value="Pembina Utama (IV/d)" {{ old('nm_kegiatan', $kegiatan->nm_kegiatan) == 'Pembina Utama (IV/d)' ? 'selected' : '' }}>Pembina Utama (IV/d)</option>
+                            <select class="form-control" id="nm_kegiatan-edit" name="nm_kegiatan">
+                                <option value="-"> - </option>
+                                <option value="Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah' ? 'selected' : '' }}>Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah</option>
+                                <option value="Administrasi Keuangan Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Administrasi Keuangan Perangkat Daerah' ? 'selected' : '' }}>Administrasi Keuangan Perangkat Daerah</option>
+                                <option value="Administrasi Kepegawaian Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Administrasi Kepegawaian Perangkat Daerah' ? 'selected' : '' }}>Administrasi Kepegawaian Perangkat Daerah</option>
+                                <option value="Administrasi Umum Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Administrasi Umum Perangkat Daerah' ? 'selected' : '' }}>Administrasi Umum Perangkat Daerah</option>
+                                <option value="Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah" {{ $kegiatan->nm_kegiatan == 'Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah' ? 'selected' : '' }}>Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah</option>
+                                <option value="Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah" {{ $kegiatan->nm_kegiatan == 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah' ? 'selected' : '' }}>Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah</option>
                             </select>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan-edit"></div>
                         </div>
 
                         <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Perihal</label>
+                            <label for="name" class="control-label">Sub Kegiatan</label>
                             <input type="text" class="form-control" id="sub_kegiatan-edit" required>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-sub_kegiatan-edit"></div>
                         </div>

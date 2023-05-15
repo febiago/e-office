@@ -23,7 +23,7 @@ class KegiatanController extends Controller
         $validator = Validator::make($request->all(), [
             'kode'          => 'required',
             'program'       => 'required',
-            'kegiatan'      => 'required',
+            'nm_kegiatan'   => 'required',
             'sub_kegiatan'  => 'required',
             'anggaran'      => 'required',
         ]);
@@ -37,7 +37,7 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::create([
             'kode'          => $request->kode,
             'program'       => $request->program,
-            'kegiatan'      => $request->kegiatan,
+            'nm_kegiatan'   => $request->nm_kegiatan,
             'sub_kegiatan'  => $request->sub_kegiatan,
             'anggaran'      => $request->anggaran,
         ]);
@@ -74,10 +74,10 @@ class KegiatanController extends Controller
         //define validation rules
         $validator = Validator::make($request->all(), [
             'kode'         => 'required',
-            'program'        => 'required',
-            'kegiatan'     => 'required',
-            'sub_kegiatan'     => 'nullable',
-            'anggaran'   => 'nullable'
+            'program'      => 'required',
+            'nm_kegiatan'  => 'required',
+            'sub_kegiatan' => 'required',
+            'anggaran'     => 'required'
         ]);
 
         //check if validation fails

@@ -11,8 +11,8 @@ class Kegiatan extends Model
 
     protected $fillable = [
         'kode',
-        'progam',
-        'kegiatan',
+        'program',
+        'nm_kegiatan',
         'sub_kegiatan',
         'anggaran',
     ];

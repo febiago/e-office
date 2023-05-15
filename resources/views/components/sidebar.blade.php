@@ -31,6 +31,10 @@
                 <a class="nav-link"
                     href="{{ url('sppd') }}"><i class="far fa-file-alt"></i> <span>SPPD</span></a>
             </li>
+            <li class="{{ Request::is('rekap') ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ url('rekap') }}"><i class="far fa-file-alt"></i> <span>Laporan SPPD</span></a>
+            </li>
             @if (Auth::check() && Auth::user()->getRole() === 'admin')
             <li class="menu-header">Manajamen</li>
             <li class="{{ Request::is('pegawai') ? 'active' : '' }}">
