@@ -8,6 +8,7 @@ use App\Http\Controllers\SppdController;
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\RekapController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/sppd/create/sisa-anggaran/{id}', [SppdController::class, 'getSisaAnggaran'])->name('sisa-anggaran');
     Route::get('/sppd/create/kendaraan', [SppdController::class, 'getKendaraan'])->name('kendaraan');
     Route::get('/sppd/print/{id}', [SppdController::class, 'printPDF'])->name('pdf.sppd');
+    Route::get('/rekap', [RekapController::class, 'index'])->name('index');
+    Route::post('/rekap/filter', [RekapController::class, 'filter'])->name('filter');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

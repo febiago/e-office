@@ -36,7 +36,7 @@
                     href="{{ url('rekap') }}"><i class="far fa-file-alt"></i> <span>Laporan SPPD</span></a>
             </li>
             @if (Auth::check() && Auth::user()->getRole() === 'admin')
-            <li class="menu-header">Manajamen</li>
+            <li class="menu-header">Setting</li>
             <li class="{{ Request::is('pegawai') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('pegawai') }}"><i class="fa-regular fa-user"></i> <span>Pegawai</span></a>
