@@ -54,17 +54,17 @@
             <tr>
                 <td width="60"></td>
                 <td>2. </td>
-                <td>Peraturan Daearah Kabupaten Pacitan Nomor 08 Tahun 2022 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2023 </td>
+                <td>Peraturan Bupati Pacitan Nomor : 45 Tahun 2021 tentang Pedoman Pelaksanaan Perjalanan Dinas Pemerintah Kabupaten Pacitan </td>
             </tr>
             <tr>
                 <td width="60"></td>
                 <td>3. </td>
-                <td>Peraturan Daearah Kabupaten Pacitan Nomor 08 Tahun 2022 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2023 </td>
+                <td>Peraturan Bupati Pacitan Nomor 17 Tahun 2022 tentang Standart Biaya Pemerintah Kabupaten Pacitan Tahun Anggaran 2023 </td>
             </tr>
             <tr>
                 <td width="60"></td>
                 <td>4. </td>
-                <td>Peraturan Daearah Kabupaten Pacitan Nomor 08 Tahun 2022 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2023 </td>
+                <td>Peraturan Bupati Pacitan Nomor : 134 Tahun 2022 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2023 </td>
             </tr>
             <tr>
                 <td width="60"></td>

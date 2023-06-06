@@ -21,29 +21,34 @@
                             <div class="table-responsive">
                                 <form id="filterForm">
                                     <div class="form-row">
-                                        <div class="form-group col-md-2" >
+                                        <div class="form-group col-md-3" >
                                             <label for="tanggal_awal" class="control-label">Tanggal Awal</label>
                                             <input class="form-control" type="date" id="tanggal_awal" name="tanggal_awal">
                                         </div>
-                                        <div class="form-group col-md-2" >
+                                        <div class="form-group col-md-3" >
                                             <label for="tannggal-akhir" class="control-label">Tanggal Akhir</label>
                                             <input class="form-control" type="date" id="tanggal_akhir" name="tanggal_akhir">
                                         </div>
                                         <div class="form-group col-md-3" >
                                             <br>
-                                            <button class="btn btn-info mb-2" type="submit">Filter</button>
+                                            <button class="btn btn-info mb-3" type="submit">Filter</button>
                                         </div>
                                     </div>
                                 </form>
                                     <table id="table-1" class="table-striped table">
                                         <thead>
                                             <tr>
-                                                <th>Tanggal</th>
-                                                <th>Deskripsi</th>
+                                                <th>Kegiatan</th>
+                                                <th>Sub Kegiatan</th>
+                                                <th>Jenis SPPD</th>
+                                                <th>Jumlah</th>
+                                                <th>Biaya</th>
                                                 <!-- Kolom lainnya -->
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody>
+                                            
+                                        </tbody>
                                     </table>
                             </div>
                         </div>
@@ -52,6 +57,7 @@
             </div>
         </section>
     </div>
+@endsection
 @push('scripts')
     <script>
         $(document).ready(function() {
@@ -75,12 +81,41 @@
                         var tbody = $('#table-1 tbody');
                         tbody.empty();
 
+                        var previousKegiatan = null;
+                        var previousSubKegiatan = null;
+                        var rowspan = 1;
+
                         $.each(response, function(index, sppd) {
-                            var row = $('<tr>');
-                            row.append($('<td>').text(sppd.kegiatan.nama));
-                            row.append($('<td>').text(sppd.jenis_sppd_sum_biaya));
-                            
-                            tbody.append(row);
+                            if (sppd.nm_kegiatan != previousKegiatan) {
+                                var row = $('<tr>');
+                                row.append($('<td>').text(sppd.nm_kegiatan));
+                                row.append($('<td>').text(sppd.sub_kegiatan));
+                                row.append($('<td>').text(sppd.nama));
+                                row.append($('<td>').text(sppd.jumlah));
+                                row.append($('<td>').text(sppd.total_biaya));
+                                tbody.append(row);
+                                previousKegiatan = sppd.nm_kegiatan;
+                                previousSubKegiatan = sppd.sub_kegiatan;
+                                
+                            } else if (sppd.sub_kegiatan != previousSubKegiatan) {
+                                var dataRow = $('<tr>');
+                                dataRow.append($('<td>'));
+                                dataRow.append($('<td>').text(sppd.sub_kegiatan));
+                                dataRow.append($('<td>').text(sppd.nama));
+                                dataRow.append($('<td>').text(sppd.jumlah));
+                                dataRow.append($('<td>').text(sppd.total_biaya));
+                                tbody.append(dataRow);
+                                previousKegiatan = sppd.nm_kegiatan;
+                                previousSubKegiatan = sppd.sub_kegiatan;
+                            } else {
+                                var rowData = $('<tr>');
+                                rowData.append($('<td>'));
+                                rowData.append($('<td>'));
+                                rowData.append($('<td>').text(sppd.nama));
+                                rowData.append($('<td>').text(sppd.jumlah));
+                                rowData.append($('<td>').text(sppd.total_biaya));
+                                tbody.append(rowData);
+                            }
                         });
                     }
                 });

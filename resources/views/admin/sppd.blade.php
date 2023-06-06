@@ -23,7 +23,6 @@
                                 <table class="table-striped table" id="table-1" width="100%">
                                     <thead>
                                         <tr>
-                                            <th width="5%" class="text-center">No</th>
                                             <th width="15%">No SPT</th>
                                             <th width="10%">Tanggal Berangkat</th>
                                             <th width="15%">Nama</th>
@@ -38,7 +37,6 @@
                                     @endphp
                                     @foreach($sppds as $sppd)
                                         <tr id="index_{{ $sppd->id }}">
-                                            <td>{{ $loop->count - $loop->iteration + 1 }}</td>
                                             <td>{{ $sppd->surat_keluar->no_surat }}</td>
                                             <td>{{ Carbon::parse($sppd->tgl_berangkat)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->pegawai->nama }}</td>

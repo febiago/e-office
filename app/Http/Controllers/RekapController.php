@@ -7,16 +7,16 @@ use App\Models\Sppd;
 use App\Models\Surat_keluar;
 use App\Models\Jenis_sppd;
 use App\Models\Kegiatan;
+use Illuminate\Support\Facades\DB;
 
 class RekapController extends Controller
 {
     public function index()
     {
-        $rekaps = Sppd::with(['kegiatan', 'surat_keluar', 'jenis_sppd'])->get();
         $data = ['type_menu' => 'rekap'];
 
         //return view with data
-        return view('admin.rekap',$data, compact('rekaps'));
+        return view('admin.rekap',$data);
     }
 
     public function filter(Request $request)
@@ -25,13 +25,14 @@ class RekapController extends Controller
         $tanggalAkhir = $request->input('tanggal_akhir');
 
         // Menggunakan DB::raw() untuk melakukan operasi agregasi SUM pada kolom biaya
-        $sppd = Sppd::whereHas('surat_keluar', function ($query) use ($tanggalAwal, $tanggalAkhir) {
-            $query->whereBetween('tgl_surat', [$tanggalAwal, $tanggalAkhir]);
-        })
-            ->with('kegiatan')
-            ->withSum('jenis_sppd', 'biaya')
-            ->groupBy('kegiatan_id')
-            ->get();
+        $sppd = DB::table('sppds')
+                ->join('kegiatans', 'sppds.kegiatan_id', '=', 'kegiatans.id')
+                ->join('jenis_sppds', 'sppds.jenis_sppd_id', '=', 'jenis_sppds.id')
+                ->select('kegiatans.nm_kegiatan', 'kegiatans.sub_kegiatan', 'jenis_sppds.nama', DB::raw('COUNT(sppds.id) as jumlah') ,DB::raw('SUM(jenis_sppds.biaya) as total_biaya'))
+                ->whereDate('sppds.tgl_berangkat', '>=', $tanggalAwal)
+                ->whereDate('sppds.tgl_berangkat', '<=', $tanggalAkhir)
+                ->groupBy('kegiatans.nm_kegiatan', 'kegiatans.sub_kegiatan', 'jenis_sppds.nama')
+                ->get();
 
         return response()->json($sppd);
     }
