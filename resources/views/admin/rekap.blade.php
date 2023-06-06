@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Kegiatan</h1>
+                <h1>Laporan SPPD</h1>
             </div>
             <div class="row">
                 <div class="col-12">
