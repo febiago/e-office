@@ -37,15 +37,31 @@
             </li>
             @if (Auth::check() && Auth::user()->getRole() === 'admin')
             <li class="menu-header">Setting</li>
-            <li class="{{ Request::is('pegawai') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('pegawai') }}"><i class="fa-regular fa-user"></i> <span>Pegawai</span></a>
-            </li>
-            <li class="{{ Request::is('kegiatan') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('kegiatan') }}"><i class="fa-regular fa-user"></i> <span>Kegiatan</span></a>
+            <li class="nav-item dropdown {{ $type_menu === 'components' ? 'active' : '' }}">
+                <a href="#"
+                    class="nav-link has-dropdown"><i class="fa fa-database" aria-hidden="true"></i>
+                    <span>Master Data</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('user') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ url('kegiatan') }}"><span>User</span></a>
+                    </li>
+                    <li class="{{ Request::is('pegawai') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ url('pegawai') }}"></i> <span>Pegawai</span></a>
+                    </li>
+                    <li class="{{ Request::is('kegiatan') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ url('kegiatan') }}"><span>Kegiatan</span></a>
+                    </li>
+                    <li class="{{ Request::is('jenis') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ url('kegiatan') }}"><span>Jenis SPPD</span></a>
+                    </li>
+                </ul>
             </li>
             @endif
+            
 
         </ul>
     </aside>

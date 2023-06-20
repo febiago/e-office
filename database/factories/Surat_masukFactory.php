@@ -7,9 +7,9 @@ use Faker\Generator as Faker;
 
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Surat_keluar>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Surat_masuk>
  */
-class Surat_keluarFactory extends Factory
+class Surat_masukFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,17 +21,19 @@ class Surat_keluarFactory extends Factory
         $randomNumber = $this->faker->randomNumber(3);
         $randomDecimal = $this->faker->randomElement([205, 100, 900, '090', 280, 500, 450, 701]);
 
-        $noSurat = $randomDecimal.'/'.$randomNumber.'/408.63'.'/'.date('Y');
+        $noSurat = $randomNumber.'/'.$randomNumber.'/408.63'.'/'.date('Y');
 
         return [
             'no_surat' => $noSurat,
-            'perihal' => $this->faker->sentence,
+            'pengirim' => $this->faker->sentence,
+            'perihal' => $this->faker->randomElement(['undangan', 'pemberitahuan', 'edaran']),
             'tgl_surat' => $this->faker->dateTimeBetween('-1 month', 'now'),
-            'tgl_dikirim' => $this->faker->dateTimeBetween('-1 month', 'now'),
-            'ditujukan' => $this->faker->name,
-            'kategori' => $this->faker->randomElement(['penting', 'biasa', 'segera']),
+            'tgl_diterima' => $this->faker->dateTimeBetween('-1 month', 'now'),
+            'ditujukan' => 'Camat Punung',
+            'kategori' => '-',
             'keterangan' => '-',
             'image' => 'image.jpg',
+            
         ];
     }
 }
