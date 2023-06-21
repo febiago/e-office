@@ -53,7 +53,7 @@
                                 <h4>Disposisi</h4>
                             </div>
                             <div class="card-body">
-                                12
+                                {{ $disposisi }}
                             </div>
                         </div>
                     </div>

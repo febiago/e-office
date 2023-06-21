@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Surat_masuk;
 use App\Models\Surat_keluar;
 use App\Models\Sppd;
+use App\Models\Disposisi;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
@@ -18,10 +19,11 @@ class DashboardController extends Controller
         $smasuk = Surat_masuk::count();
         $skeluar = Surat_keluar::count();
         $sppd = Sppd::count();
+        $disposisi = Disposisi::count();
         $data = ['type_menu' => 'dashboard'];
 
         //return view with data
-        return view('admin.dashboard',$data, compact('smasuk', 'skeluar', 'sppd'));
+        return view('admin.dashboard',$data, compact('smasuk', 'skeluar', 'sppd', 'disposisi'));
     }
 
     public function chart()
