@@ -48,7 +48,7 @@
                                             <td>{{ $masuk->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-masuk" data-id="{{ $masuk->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="{{ route('pdf.disposisi', ['id' => $masuk->id]) }}" id="btn-print" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
+                                                <a href="{{ route('pdf.disposisi', ['id' => $masuk->id]) }}" id="btn-print" class="btn btn-info btn-sm" target="_blank"><i class="fa-sharp fa-solid fa-file-import"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-masuk" data-id="{{ $masuk->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>

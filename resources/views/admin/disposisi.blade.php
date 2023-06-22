@@ -514,3 +514,4 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 @endpush
+
