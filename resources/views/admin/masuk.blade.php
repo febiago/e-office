@@ -20,18 +20,17 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <button class="btn btn-success mb-2" id="btn-create-masuk" data-toggle="modal" data-target="#masuk-create">TAMBAH SURAT MASUK</button>
-                                <table class="table-striped table"
-                                    id="table-1">
+                                <table class="table-striped table" width='100%' id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th>No Surat</th>
-                                            <th>Tanggal</th>
+                                            <th width="10%">Tanggal</th>
                                             <th>Perihal</th>
                                             <th>Asal Surat</th>
-                                            <th>Tanggal Penerimaan</th>
+                                            <th width="10%">Tanggal Penerimaan</th>
                                             <th>Keterangan</th>
-                                            <th>Aksi</th>
+                                            <th width='10%'>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-masuk">
@@ -49,7 +48,7 @@
                                             <td>{{ $masuk->keterangan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-masuk" data-id="{{ $masuk->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="{{ route('pdf.disposisi', ['id' => $masuk->id]) }}" id="btn-print" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
+                                                <a href="{{ route('pdf.disposisi', ['id' => $masuk->id]) }}" id="btn-print" class="btn btn-info btn-sm" target="_blank"><i class="fa-sharp fa-solid fa-file-import"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-masuk" data-id="{{ $masuk->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>

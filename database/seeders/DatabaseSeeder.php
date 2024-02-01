@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Surat_keluar;
+use App\Models\Surat_masuk;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         // factory(Surat_keluar::class, 1500)->create();
         $this->call([
             KeluarSeeder::class,
+            MasukSeeder::class,
         ]);
     }
 }

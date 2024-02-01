@@ -3,7 +3,7 @@
 @section('title', 'Disposisi')
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
@@ -19,8 +19,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table-striped table"
-                                    id="table-1">
+                                <table class="table-striped table" id="table-1" width="100%">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
@@ -30,7 +29,7 @@
                                             <th>Asal Surat</th>
                                             <th>Diteruskan Kepada</th>
                                             <th>Isi Desposisi</th>
-                                            <th>Aksi</th>
+                                            <th width="10%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-disposisi">
@@ -47,8 +46,11 @@
                                             <td>{{ $disposisi->diteruskan }}</td>
                                             <td>{{ $disposisi->keterangan }}</td>
                                             <td class="text-center">
+                                                <a href="{{ route('pdf.disposisi', ['id' => $disposisi->surat_masuk->id]) }}" id="btn-print" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
+                                                @if (Auth::check() && Auth::user()->getRole() === 'pimpinan')
                                                 <a href="javascript:void(0)" id="btn-edit-disposisi" data-id="{{ $disposisi->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-disposisi" data-id="{{ $disposisi->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -505,9 +507,11 @@
 
     <!-- JS Libraies -->
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 @endpush
+
