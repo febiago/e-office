@@ -124,7 +124,7 @@
         var index = $('select[name="pegawai_id[]"]').length;
         var html = '<div class="form-group col-md-4" >' +
             '<label for="name" class="control-label">Nama</label>'+
-            '{!! Form::select('pegawai_id[]', $pegawais, null, ['class' => 'form-control select2', 'placeholder' => '', 'name' => 'pegawai_id[]', 'onchange' => 'cekUnique(), getKendaraan(this)']) !!}' +
+            '{!! Form::select("pegawai_id[]", $pegawais, null, ["class" => "form-control select2", "placeholder" => "", "name" => "pegawai_id[]", "onchange" => "cekUnique(), getKendaraan(this)"]) !!}' +
             '</div>'+
             '<div class="form-group col-md-2">'+
             '<label for="angkutan" class="control-label">Kendaraan</label>'+

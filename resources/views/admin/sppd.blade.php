@@ -173,7 +173,7 @@
         
         //ajax
         $.ajax({
-            url: '/surat-sppd',
+            url: '/sppd',
             type: "POST",
             cache: false,
             data: {
@@ -359,7 +359,7 @@
 
             //fetch detail post with ajax
             $.ajax({
-                url: `/surat-sppd/${id_ssppd}`,
+                url: `/sppd/${id_ssppd}`,
                 type: "GET",
                 cache: false,
                 success:function(response){
@@ -398,7 +398,7 @@
             //ajax
             $.ajax({
 
-                url: `/surat-sppd/${id_ssppd}`,
+                url: `/sppd/${id_ssppd}`,
                 type: "PUT",
                 cache: false,
                 data: {
@@ -476,7 +476,7 @@
                 //fetch to delete data
                 $.ajax({
 
-                    url: `/surat-sppd/${id_ssppd}`,
+                    url: `/sppd/${id_sppd}`,
                     type: "DELETE",
                     cache: false,
                     data: {
