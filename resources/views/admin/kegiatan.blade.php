@@ -252,7 +252,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <input type="hidden" id="id_kegiatan" value="{{ $kegiatan->id }}">
+                    <input type="hidden" id="id_kegiatan" value="{{ $kegiatan->id_kegiatan }}">
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
