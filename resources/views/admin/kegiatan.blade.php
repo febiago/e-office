@@ -245,14 +245,14 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">EDIT SURAT MASUK</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">EDIT KEGIATAN</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <input type="hidden" id="id_kegiatan" value="{{ $kegiatan->id }}">
+                    <input type="hidden" id="id_kegiatan" value="{{ $kegiatans->id }}">
 
                     <div class="form-row">
                         <div class="form-group col-md-6" >
