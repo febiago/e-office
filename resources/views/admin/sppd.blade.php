@@ -46,7 +46,7 @@
                                                 @if($sppd->jenis == 'inti')
                                                 <a href="javascript:void(0)" id="btn-edit-sppd" data-id="{{ $sppd->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
-                                                <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $sppd->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $sppd->surat_keluar_id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                                 @else
                                                 @endif
                                             </td>
@@ -458,7 +458,7 @@
     //button create post event
     $(document).on('click', '#btn-delete-sppd', function() {
 
-        let id_ssppd = $(this).data('id');
+        let id_sppd = $(this).data('surat_keluar_id');
         let token   = $("meta[name='csrf-token']").attr("content");
 
         Swal.fire({
@@ -494,7 +494,7 @@
                         });
 
                         //remove post on table
-                        $(`#index_${id_ssppd}`).remove();
+                        $(`#index_${id_sppd}`).remove();
                     }
                 });
             }

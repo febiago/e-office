@@ -158,7 +158,7 @@ class SppdController extends Controller
     public function destroy($id)
     {
         //delete post by ID
-        Sppd::where('id', $id)->delete();
+        Sppd::where('surat_keluar_id', $id)->delete();
 
         //return response
         return response()->json([
