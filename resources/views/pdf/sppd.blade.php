@@ -176,17 +176,17 @@
         <br>
         <table>
             <tr>
-                <td width="330"></td>
+                <td width="300"></td>
                 <td width="70">Lembar ke</td>
                 <td>: 1</td>
             </tr>
             <tr>
-                <td width="330"></td>
+                <td width="300"></td>
                 <td width="70">Kode no</td>
                 <td>: {{ $loop->iteration }}</td>
             </tr>
             <tr>
-                <td width="330"></td>
+                <td width="300"></td>
                 <td width="70">Nomor</td>
                 @foreach($data->take(1) as $nosurat)
                     <td>: {{ $nosurat->surat_keluar->no_surat }}</td>
