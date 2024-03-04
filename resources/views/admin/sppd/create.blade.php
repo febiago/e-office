@@ -180,7 +180,7 @@
 
         if (pegawaiId) {
             $.ajax({
-                url: '{{ route("kendaraan") }}',
+                url: '{{ url("kendaraan") }}',
                 type: 'GET',
                 data: {
                     'id': pegawaiId
