@@ -161,7 +161,7 @@
             var pegawaiId = $(this).val();
             if (pegawaiId) {
                 $.ajax({
-                    url: '{{ route("kendaraan") }}',
+                    url: 'create/kendaraan/' + pegawaiId,
                     type: 'GET',
                     data: {
                         'id': pegawaiId
