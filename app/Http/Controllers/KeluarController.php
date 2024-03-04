@@ -53,7 +53,7 @@ class KeluarController extends Controller
         }
 
         //create post
-        $no_surat = $request->no_surat1.'/'.$request->no_surat2.'/408.63/2023';
+        $no_surat = $request->no_surat1.'/'.$request->no_surat2.'/408.63/2024';
         $keluar = Surat_keluar::create([
             'no_surat'      => $no_surat,
             'perihal'       => $request->perihal,
