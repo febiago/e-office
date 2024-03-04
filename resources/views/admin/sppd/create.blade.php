@@ -180,7 +180,7 @@
 
         if (pegawaiId) {
             $.ajax({
-                url: '{{ url("kendaraan") }}',
+                url: 'create/kendaraan/',
                 type: 'GET',
                 data: {
                     'id': pegawaiId
@@ -202,7 +202,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ route("check-unique") }}',
+                url: 'create/check-unique/',
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'tgl_berangkat': tgl_berangkat,
