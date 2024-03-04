@@ -26,7 +26,7 @@ class SppdController extends Controller
     public function create()
     {
         $data = ['type_menu' => 'sppd'];
-        $sppds = Surat_keluar::where('no_surat', 'like', '%800.1.11.1%')
+        $sppds = Surat_keluar::where('no_surat', 'like', '%000.1.2%')
                 ->whereNotIn('id', function($query) {
                     $query->select('surat_keluar_id')
                           ->from('sppds');
