@@ -161,7 +161,7 @@
             var pegawaiId = $(this).val();
             if (pegawaiId) {
                 $.ajax({
-                    url: 'create/kendaraan/' + pegawaiId,
+                    url: 'create/sisa-anggaran/',
                     type: 'GET',
                     data: {
                         'id': pegawaiId
