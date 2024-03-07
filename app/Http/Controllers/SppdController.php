@@ -148,6 +148,7 @@ class SppdController extends Controller
             'tgl_berangkat'   => $tgl_berangkat,
             'tgl_kembali'     => $tgl_kembali,
             'tujuan'          => $tujuan,
+            'dasar'           => $dasar,
             'keterangan'      => $keterangan
             ]);
           }
