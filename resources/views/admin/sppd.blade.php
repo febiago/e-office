@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 @endpush
 
 @section('main')
@@ -20,7 +21,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SPPD</a>
-                                <table class="table-striped table" id="table-1" width="100%">
+                                <table class="table" id="table-1" width="100%">
                                     <thead>
                                         <tr>
                                             <th width="15%">No SPT</th>
@@ -36,7 +37,7 @@
                                         use Carbon\Carbon;
                                     @endphp
                                     @foreach($sppds as $sppd)
-                                        <tr id="index_{{ $sppd->id }}">
+                                        <tr id="index_{{ $sppd->id }}" class="{{ $sppd->jenis == 'inti' ? 'table-active' : 'table-light' }}" >
                                             <td>{{ $sppd->surat_keluar->no_surat }}</td>
                                             <td>{{ Carbon::parse($sppd->tgl_berangkat)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->pegawai->nama }}</td>
@@ -139,6 +140,8 @@
 
 @push('scripts')
     <script>
+    new DataTable('#tabel1');
+
     $(document).ready(function(){
         $('.btn-create-sppd').click(function(){
            $('#sppd-create').modal('show');
