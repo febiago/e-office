@@ -27,6 +27,7 @@ class SppdController extends Controller
     {
         $data = ['type_menu' => 'sppd'];
         $sppds = Surat_keluar::where('no_surat', 'like', '%000.1.2%')
+                ->orWhere('no_surat', 'like', '%090%')
                 ->whereNotIn('id', function($query) {
                     $query->select('surat_keluar_id')
                           ->from('sppds');
@@ -114,7 +115,7 @@ class SppdController extends Controller
         $tgl_kembali    = $request->tgl_kembali;
         $kendaraan      = $request->kendaraan;
         $tujuan         = $request->tujuan;
-        $dasar          = $request->dasar;
+        $dasar          = $request->filled('dasar') ? $request->dasar : '-';
         $keterangan     = $request->filled('keterangan') ? $request->keterangan : '-';
 
         // Create Perjalanan Dinas
