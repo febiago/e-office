@@ -54,7 +54,7 @@
             <tr>
                 <td width="60"></td>
                 <td>2. </td>
-                <td>Peraturan Bupati Pacitan Nomor : 45 Tahun 2021 tentang Pedoman Pelaksanaan Perjalanan Dinas Pemerintah Kabupaten Pacitan </td>
+                <td>Peraturan Bupati Pacitan Nomor 126 Tahun 2023 tentang Perubahan Kedua atas Peraturan Bupati Nomor 45 Tahun 2021 tentang Pedoman Pelaksanaan Perjalanan Dinas Pemerintah Kabupaten Pacitan </td>
             </tr>
             <tr>
                 <td width="60"></td>
