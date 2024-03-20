@@ -130,34 +130,34 @@
         <table border="0">
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">Ditetapkan di Pacitan</td>
+                <td width="220">Ditetapkan di Pacitan</td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">Pada Tanggal : {{ $tgl_spt }}</td>
+                <td width="220">Pada Tanggal : {{ $tgl_spt }}</td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center"><b>Camat Punung</b></td>
+                <td width="220" ><b>Camat Punung</b></td>
             </tr>
             <tr>
                 <td width="310" height="35"></td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center"><b><u>{{ $camat->nama }}</u></b></td>
+                <td width="220"><b><u>{{ $camat->nama }}</u></b></td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">{{ $camat->pangkat }}</td>
+                <td width="220">{{ $camat->pangkat }}</td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">NIP. {{ $camat->nip }}</td>
+                <td width="220">NIP. {{ $camat->nip }}</td>
             </tr>
         </table>
 
-        <div class="page_break">
+        <div class="page_break"></div>
         @foreach($data as $sppd)
         <table width="100%">
             <tr>
@@ -329,30 +329,30 @@
         <table>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">Ditetapkan di Pacitan</td>
+                <td width="220">Ditetapkan di Pacitan</td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">Pada Tanggal : {{ $tgl_spt }}</td>
+                <td width="220">Pada Tanggal : {{ $tgl_spt }}</td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center"><b>Camat Punung</b></td>
+                <td width="220" ><b>Camat Punung</b></td>
             </tr>
             <tr>
                 <td width="310" height="35"></td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center"><b><u>{{ $camat->nama }}</u></b></td>
+                <td width="220"><b><u>{{ $camat->nama }}</u></b></td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">{{ $camat->pangkat }}</td>
+                <td width="220">{{ $camat->pangkat }}</td>
             </tr>
             <tr>
                 <td width="310"></td>
-                <td width="220" align="center">NIP. {{ $camat->nip }}</td>
+                <td width="220">NIP. {{ $camat->nip }}</td>
             </tr>
         </table>
     @endforeach
