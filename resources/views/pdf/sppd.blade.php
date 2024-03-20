@@ -112,7 +112,7 @@
         <table>
             <tr>
                 <td width="53">Untuk &nbsp; &nbsp;</td> 
-                <td>: 1. </td>
+                <td width="15">: 1. </td>
                 <td>{{ $sppd->surat_keluar->perihal }}</td>
             </tr>
             <tr>
@@ -355,117 +355,6 @@
                 <td width="220" align="center">NIP. {{ $camat->nip }}</td>
             </tr>
         </table>
-        <div class="page_break"></div>
-    @endforeach
-    @foreach($data->take(1) as $nosurat)                
-    <table>
-        <tr>
-            <td width="300"></td>
-            <td width="80">SPPD Nomor</td>
-            <td>: {{ $nosurat->surat_keluar->no_surat }}</td>
-        </tr><tr>
-            <td width="300"></td>
-            <td width="80">Lembar Ke</td>
-            <td>: 2</td>
-        </tr>
-    </table>
-    <br>
-    <table width="100%" border="1">
-        <tr>
-            <td style="border-right: none;" width="2%"></td>
-            <td style="border-left: none;" width="48%"></td>
-            <td width="48%">
-                Berangkat dari &nbsp; : Kecamatan Punung
-                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_berangkat }}
-                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $sppd->tujuan }}
-                <br> <br>
-                <center><b>CAMAT PUNUNG</b></center>
-                <br> <br> <br>
-                <center><b><u>{{ $camat->nama }}</u></b></center>
-                <center>NIP. {{ $camat->nip }}</center>
-            </td>
-        </tr>
-        <tr>
-            <td style="border-right: none;" width="2%">II</td>
-            <td style="border-left: none;" height:="80px" width="48%">
-                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $sppd->tujuan }}
-                <br>Pada Tanggal&nbsp; : {{ $tgl_berangkat }}
-                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br> <br> <br> <br> <br> <br>
-            </td>
-            <td width="48%">
-                Berangkat dari &nbsp; : {{ $sppd->tujuan }}
-                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Kecamatan Punung
-                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_kembali }}
-            </td>
-        </tr>
-        <tr>
-            <td style="border-right: none;" width="2%">III</td>
-            <td style="border-left: none;" height:="80px" width="48%">
-                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br>Pada Tanggal&nbsp; :
-                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br> <br> <br> <br> <br> <br>
-            </td>
-            <td width="48%">
-                Berangkat dari &nbsp; :
-                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : 
-                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : 
-            </td>
-        </tr>
-        <tr>
-            <td style="border-right: none;" width="2%">VI</td>
-            <td style="border-left: none;" height:="80px" width="48%">
-                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br>Pada Tanggal&nbsp; :
-                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br> <br> <br> <br> <br> <br>
-            </td>
-            <td width="48%">
-                Berangkat dari &nbsp; :
-                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : 
-                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : 
-            </td>
-        </tr>
-        <tr>
-            <td style="border-right: none;" width="2%">V</td>
-            <td style="border-left: none;" width="48%">
-                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Kecamatan Punung
-                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_berangkat }}
-                <br> <br> <br> <br>
-                <center><b>CAMAT PUNUNG</b></center>
-                <br> <br> <br>
-                <center><b><u>{{ $camat->nama }}</u></b></center>
-                <center>NIP. {{ $camat->nip }}</center>
-            </td>
-            <td width="48%" style="text-align: justify;">
-                Telah diperiksa dengan keterangan bahwa perjalanan tersebut diatas dilakukan atas perintahnya
-                dan semata mata untuk kepentingan jabatan dalam waktu sesingkat singkatnya
-                <br> <br>
-                <center><b>PENGGUNA ANGGARAN</b></center>
-                <br> <br> <br>
-                <center><b><u>{{ $camat->nama }}</u></b></center>
-                <center>NIP. {{ $camat->nip }}</center>
-            </td>
-        </tr>
-        <tr>
-            <td style="border-right: none;" width="2%">VI</td>
-            <td colspan="2">CATATAN LAIN - LAIN</td>
-        </tr>
-        <tr>
-            <td style="border-right: none;" width="2%">VII</td>
-            <td colspan="2">PERHATIAN</td>
-        </tr>
-        <tr>
-            <td style="text-align: justify;" colspan="3">
-            <br>
-            Pejabat yang berwenang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan 
-            tanggal berangkat / tiba serta Bendaharawan bertanggungjawab berdasarkan peraturan-peraturan Keuangan Negara 
-            apabila Negara mendapat rugi akibat kesalahan, kelalaian dan kealpaannya 
-            <br>
-            </td>
-        </tr> 
-    </table>
     @endforeach
     <div class="page_break"></div>
     @foreach($data->take(1) as $kuitansi)
@@ -644,5 +533,116 @@
             
         </tr>
     </table>
+    <div class="page_break"></div>
+    @foreach($data->take(1) as $nosurat)                
+    <table>
+        <tr>
+            <td width="300"></td>
+            <td width="80">SPPD Nomor</td>
+            <td>: {{ $nosurat->surat_keluar->no_surat }}</td>
+        </tr><tr>
+            <td width="300"></td>
+            <td width="80">Lembar Ke</td>
+            <td>: 2</td>
+        </tr>
+    </table>
+    <br>
+    <table width="100%" border="1">
+        <tr>
+            <td style="border-right: none;" width="2%"></td>
+            <td style="border-left: none;" width="48%"></td>
+            <td width="48%">
+                Berangkat dari &nbsp; : Kecamatan Punung
+                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_berangkat }}
+                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $sppd->tujuan }}
+                <br> <br>
+                <center><b>CAMAT PUNUNG</b></center>
+                <br> <br> <br>
+                <center><b><u>{{ $camat->nama }}</u></b></center>
+                <center>NIP. {{ $camat->nip }}</center>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right: none;" width="2%">II</td>
+            <td style="border-left: none;" height:="80px" width="48%">
+                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $sppd->tujuan }}
+                <br>Pada Tanggal&nbsp; : {{ $tgl_berangkat }}
+                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+                <br> <br> <br> <br> <br> <br>
+            </td>
+            <td width="48%">
+                Berangkat dari &nbsp; : {{ $sppd->tujuan }}
+                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Kecamatan Punung
+                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_kembali }}
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right: none;" width="2%">III</td>
+            <td style="border-left: none;" height:="80px" width="48%">
+                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+                <br>Pada Tanggal&nbsp; :
+                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+                <br> <br> <br> <br> <br> <br>
+            </td>
+            <td width="48%">
+                Berangkat dari &nbsp; :
+                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : 
+                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : 
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right: none;" width="2%">VI</td>
+            <td style="border-left: none;" height:="80px" width="48%">
+                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+                <br>Pada Tanggal&nbsp; :
+                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+                <br> <br> <br> <br> <br> <br>
+            </td>
+            <td width="48%">
+                Berangkat dari &nbsp; :
+                <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : 
+                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : 
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right: none;" width="2%">V</td>
+            <td style="border-left: none;" width="48%">
+                Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Kecamatan Punung
+                <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_berangkat }}
+                <br> <br> <br> <br>
+                <center><b>CAMAT PUNUNG</b></center>
+                <br> <br> <br>
+                <center><b><u>{{ $camat->nama }}</u></b></center>
+                <center>NIP. {{ $camat->nip }}</center>
+            </td>
+            <td width="48%" style="text-align: justify;">
+                Telah diperiksa dengan keterangan bahwa perjalanan tersebut diatas dilakukan atas perintahnya
+                dan semata mata untuk kepentingan jabatan dalam waktu sesingkat singkatnya
+                <br> <br>
+                <center><b>PENGGUNA ANGGARAN</b></center>
+                <br> <br> <br>
+                <center><b><u>{{ $camat->nama }}</u></b></center>
+                <center>NIP. {{ $camat->nip }}</center>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right: none;" width="2%">VI</td>
+            <td colspan="2">CATATAN LAIN - LAIN</td>
+        </tr>
+        <tr>
+            <td style="border-right: none;" width="2%">VII</td>
+            <td colspan="2">PERHATIAN</td>
+        </tr>
+        <tr>
+            <td style="text-align: justify;" colspan="3">
+            <br>
+            Pejabat yang berwenang menerbitkan SPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan 
+            tanggal berangkat / tiba serta Bendaharawan bertanggungjawab berdasarkan peraturan-peraturan Keuangan Negara 
+            apabila Negara mendapat rugi akibat kesalahan, kelalaian dan kealpaannya 
+            <br>
+            </td>
+        </tr> 
+    </table>
+    @endforeach
     </body>
 </html>
