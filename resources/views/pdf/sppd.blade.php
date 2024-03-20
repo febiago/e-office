@@ -156,9 +156,8 @@
                 <td width="220">NIP. {{ $camat->nip }}</td>
             </tr>
         </table>
-
-        <div class="page_break"></div>
         @foreach($data as $sppd)
+        <div class="page_break"></div>
         <table width="100%">
             <tr>
                 <td width="0%" align="center"><img src="{{ public_path('img/kop.png') }}" width="92" alt="Logo">
