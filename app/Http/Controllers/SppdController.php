@@ -16,7 +16,11 @@ class SppdController extends Controller
 {
     public function index()
     {
-        $sppds = Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd'])->get();
+        $sppds = Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd'])
+                        ->orderBy('tanggal', 'desc')
+                        ->orderBy('id', 'asc')
+                        ->get();
+
         $data = ['type_menu' => 'sppd'];
 
         //return view with data
