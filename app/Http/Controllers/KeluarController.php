@@ -15,7 +15,7 @@ class KeluarController extends Controller
 
     public function index()
     {
-        $skeluar = Surat_keluar::orderBy('tanggal', 'desc')
+        $skeluar = Surat_keluar::orderBy('tgl_surat', 'desc')
                         ->orderBy('id', 'asc')
                         ->get();
         $data = ['type_menu' => 'surat-keluar'];

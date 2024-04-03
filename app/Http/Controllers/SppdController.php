@@ -17,7 +17,7 @@ class SppdController extends Controller
     public function index()
     {
         $sppds = Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd'])
-                        ->orderBy('tanggal', 'desc')
+                        ->orderBy('tgl_berangkat', 'desc')
                         ->orderBy('id', 'asc')
                         ->get();
 
