@@ -425,7 +425,7 @@
             </td>
             <td width="50%" align="center">
                 Lunas Dibayar
-                <br>Pada Tanggal : ..................................... 2023
+                <br>Pada Tanggal : ..................................... 2024
                 <br>Bendahara Pengeluaran Kec. Punung
                 <br><br><br><br><b><u>DWI YANTA</u></b>
                 <br>NIP. 19700911 201001 1 001
