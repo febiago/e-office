@@ -380,7 +380,12 @@
         </tr>
         <tr>
             <td style="vertical-align: middle;" height="20" width="20%">Guna Membayar</td>
-            <td style="border-bottom: 1px solid black; vertical-align: middle;">: Uang Transport {{ $kuitansi->surat_keluar->perihal }} di {{ $kuitansi->tujuan }} pada Tgl {{ $tgl_berangkat }}</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">:  
+                @if($sppd->jenis_sppd->id == 1)
+                    Uang Transport
+                @else
+                    Uang Harian
+                @endif {{ $kuitansi->surat_keluar->perihal }} di {{ $kuitansi->tujuan }} pada Tgl {{ $tgl_berangkat }}</td>
         </tr>
         <tr>
             <td style="vertical-align: middle;" height="20" width="20%">Jumlah Uang</td>
@@ -406,13 +411,17 @@
         <tr>
             <td align="center">{{ $loop->iteration }}</td>
             <td align="center">
-                Uang Transport
+                @if($sppd->jenis_sppd->id == 1)
+                    Uang Transport
+                @else
+                    Uang Harian
+                @endif
                 <br>1 x Rp. {{ number_format($sppd->jenis_sppd->biaya, 2) }}
             </td>
             <td align="right">Rp. {{ number_format($sppd->jenis_sppd->biaya, 2) }}</td>
             <td align="center"><br><br><br>{{ $sppd->pegawai->nama }}</td>
         </tr>
-     @endforeach
+    @endforeach
         <tr>
             <td align="center" colspan="2"><b>JUMLAH SELURUHNYA</b></td>
             <td align="right"><b> Rp. {{ number_format($jumlah, 2) }} </b></td>
