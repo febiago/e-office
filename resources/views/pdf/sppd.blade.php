@@ -375,15 +375,15 @@
             <td style="border-bottom: 1px solid black; vertical-align: middle;">: Bendahara Pengeluaran Kecamatan Punung</td>
         </tr>
         <tr>
-            <td style="vertical-align: middle;" height="20" width="20%">Jumlah Uang</td>
-            <td style="border-bottom: 1px solid black; vertical-align: middle;">: </td>
+            <td style="vertical-align: middle;" height="20" width="20%">Terbilang</td>
+            <td style="border-bottom: 1px solid black; vertical-align: middle;">: {{ Terbilang::make($jumlah, ' rupiah') }}</td>
         </tr>
         <tr>
             <td style="vertical-align: middle;" height="20" width="20%">Guna Membayar</td>
             <td style="border-bottom: 1px solid black; vertical-align: middle;">: Uang Transport {{ $kuitansi->surat_keluar->perihal }} di {{ $kuitansi->tujuan }} pada Tgl {{ $tgl_berangkat }}</td>
         </tr>
         <tr>
-            <td style="vertical-align: middle;" height="20" width="20%">Terbilang</td>
+            <td style="vertical-align: middle;" height="20" width="20%">Jumlah Uang</td>
             <td style="border-bottom: 1px solid black; vertical-align: middle;">:<b> Rp. {{ number_format($jumlah, 2) }} </b></td>
         </tr>
     </table>

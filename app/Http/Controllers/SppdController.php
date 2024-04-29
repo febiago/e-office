@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use PDF;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Terbilang;
 
 class SppdController extends Controller
 {
@@ -190,6 +191,7 @@ class SppdController extends Controller
                  ->get();
         $jenis = Jenis_sppd::where('id', $data->jenis_sppd_id)->first();
         $jumlah = count($sppd)*$jenis->biaya;
+        $terbilangku = Terbilang::make($jumlah);
 
         $camat = Pegawai::where('jabatan', 'Camat Punung')->first();
         $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->isoFormat(('DD MMMM Y'));
