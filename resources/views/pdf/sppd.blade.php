@@ -22,6 +22,9 @@
             table {
                 border-collapse:collapse;
             }
+            .page-break-a {
+                page-break-inside: avoid;
+            }
         </style>
     </head>
     <body>
@@ -127,6 +130,7 @@
             </tr>
         </table>
         <br>
+        <div class="page-break-a">
         <table border="0">
             <tr>
                 <td width="310"></td>
@@ -156,6 +160,7 @@
                 <td width="220">NIP. {{ $camat->nip }}</td>
             </tr>
         </table>
+        </div>
         @foreach($data as $sppd)
         <div class="page_break"></div>
         <table width="100%">
@@ -425,7 +430,7 @@
             </td>
             <td width="50%" align="center">
                 Lunas Dibayar
-                <br>Pada Tanggal : ..................................... 2024
+                <br>Pada Tanggal : {{ $tgl_spt }}
                 <br>Bendahara Pengeluaran Kec. Punung
                 <br><br><br><br><b><u>DWI YANTA</u></b>
                 <br>NIP. 19700911 201001 1 001
