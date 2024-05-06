@@ -161,7 +161,132 @@ class SppdController extends Controller
           }
         }
 
-        return redirect()->route('sppd.index')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
+        return redirect('/sppd')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
+    }
+
+    public function show($id)
+    {
+        $sppd = Sppd::findOrFail($id);
+        return view('admin.sppd.show', compact('sppd'));
+    }
+
+    public function edit($id)
+    {
+        $data = ['type_menu' => 'sppd'];
+        $sppd = Sppd::where('surat_keluar_id', $id)->firstOrFail();
+        $sppds = Surat_keluar::pluck('no_surat', 'id');
+        $pegawais = Pegawai::pluck('nama', 'id');
+        $jenis = Jenis_sppd::pluck('nama', 'id');
+        $kegiatans = Kegiatan::pluck('sub_kegiatan', 'id');
+
+        // Ambil semua pegawai inti dan hanya pegawai pengikut terkait dengan surat keluar ini
+        $pegawaiInti = $sppd->pegawai;
+        $pegawaiPengikut = Sppd::where('surat_keluar_id', $id)
+                        ->where('jenis', 'pengikut')
+                        ->get(); 
+
+        return view('admin.sppd.edit', $data, compact('sppds', 'pegawais', 'jenis', 'kegiatans', 'sppd', 'pegawaiInti', 'pegawaiPengikut'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $messages = [
+            'pegawai.unique' => 'Perjalanan Dinas Ganda',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'surat_keluar_id' => 'required',
+            'jenis' => 'required',
+            'kegiatan' => 'required',
+            'tgl_berangkat' => 'required|date',
+            'tgl_kembali' => 'required|date',
+            'kendaraan' => 'required',
+            'tujuan' => 'required',
+            'dasar' => 'nullable',
+            'keterangan' => 'nullable',
+            'pegawai_id.*' => [
+                'required',
+                Rule::unique('sppds', 'pegawai_id')->where(function ($query) use ($request) {
+                    return $query->whereDate('tgl_berangkat', $request->tgl_berangkat)
+                                 ->whereNotIn('pegawai_id', $request->pegawai_id);
+                }),
+            ],
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $sppd = Sppd::where('surat_keluar_id', $id)->firstOrFail();
+        $sppd->pegawai_id = $request->pegawai;
+        $sppd->jenis_sppd_id = $request->jenis;
+        $sppd->kegiatan_id = $request->kegiatan;
+        $sppd->tgl_berangkat = $request->tgl_berangkat;
+        $sppd->tgl_kembali = $request->tgl_kembali;
+        $sppd->kendaraan = $request->kendaraan;
+        $sppd->tujuan = $request->tujuan;
+        $sppd->dasar = $request->filled('dasar') ? $request->dasar : '-';
+        $sppd->keterangan = $request->filled('keterangan') ? $request->keterangan : '-';
+        $sppd->save();
+
+
+        // Update pengikut
+        $nama = $request->pegawai_id;
+        $angkutan = $request->angkutan;
+
+        // Check if $nama is not null and is an array
+        if (!empty($nama)) {
+            foreach ($nama as $key => $pengikut) {
+                // Cek apakah entitas sudah ada berdasarkan ID pengikut
+                $existingSppd = Sppd::where('surat_keluar_id', $id)
+                                    ->where('jenis', 'pengikut')
+                                    ->where('pegawai_id', $pengikut)
+                                    ->first();
+
+                if ($existingSppd) {
+                    // Jika entitas sudah ada, lakukan pembaruan (update)
+                    $existingSppd->update([
+                        'jenis_sppd_id' => $request->jenis,
+                        'kegiatan_id' => $request->kegiatan,
+                        'kendaraan' => $angkutan[$key],
+                        'tgl_berangkat' => $request->tgl_berangkat,
+                        'tgl_kembali' => $request->tgl_kembali,
+                        'tujuan' => $request->tujuan,
+                        'dasar' => $request->filled('dasar') ? $request->dasar : '-',
+                        'keterangan' => $request->filled('keterangan') ? $request->keterangan : '-',
+                    ]);
+                } else {
+                    // Jika entitas belum ada, buat entitas baru
+                    $sppd_pengikut = Sppd::create([
+                        'surat_keluar_id' => $id,
+                        'jenis' => 'pengikut',
+                        'pegawai_id' => $pengikut,
+                        'jenis_sppd_id' => $request->jenis,
+                        'kegiatan_id' => $request->kegiatan,
+                        'kendaraan' => $angkutan[$key],
+                        'tgl_berangkat' => $request->tgl_berangkat,
+                        'tgl_kembali' => $request->tgl_kembali,
+                        'tujuan' => $request->tujuan,
+                        'dasar' => $request->filled('dasar') ? $request->dasar : '-',
+                        'keterangan' => $request->filled('keterangan') ? $request->keterangan : '-',
+                    ]);
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Perjalanan Dinas berhasil diperbarui!');
+    }
+
+    public function delete($id)
+    {
+        //delete post by ID
+        Sppd::where('id', $id)->delete();
+
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Dihapus!.',
+        ]); 
     }
 
     public function destroy($id)

@@ -45,7 +45,7 @@
                                             <td>{{ $sppd->tujuan }}</td>
                                             <td class="text-center">
                                                 @if($sppd->jenis == 'inti')
-                                                <a href="javascript:void(0)" id="btn-edit-sppd" data-id="{{ $sppd->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                                <a href="{{ route('sppd.edit', ['sppd' => $sppd->surat_keluar_id]) }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $sppd->surat_keluar_id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                                 @else
@@ -288,72 +288,6 @@
     });
     </script>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">EDIT SURAT MASUK</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <input type="hidden" id="id_ssppd">
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">No Surat</label>
-                            <input type="text" class="form-control" id="no_surat-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat-edit"></div>
-                        </div>
-                        <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Pengirim</label>
-                            <input type="text" class="form-control" id="pengirim-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-pengirim-edit"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3" >
-                            <label for="name" class="control-label">Tanggal Surat</label>
-                            <input id="tgl_surat-edit" type="date" class="form-control" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_surat-edit"></div>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label for="name" class="control-label">Tanggal Diterima</label>
-                            <input id="tgl_diterima-edit" type="date" class="form-control" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_diterima-edit"></div>
-                        </div>
-                        <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Perihal</label>
-                            <input type="text" class="form-control" id="perihal-edit" required>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal-edit"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Ditujukan</label>
-                            <input type="text" class="form-control" id="ditujukan-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ditujukan-edit"></div>
-                        </div>
-                        <div class="form-group col-md-6" >
-                            <label for="name" class="control-label">Keterangan</label>
-                            <input type="text" class="form-control" id="keterangan-edit">
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-keterangan-edit"></div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                    <button type="button" class="btn btn-primary" id="update">UPDATE</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         //button create post event
@@ -487,51 +421,6 @@
                     },
                     success:function(response){ 
 
-                        //show success message
-                        Swal.fire({
-                            type: 'success',
-                            icon: 'success',
-                            title: `${response.message}`,
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-
-                        //remove post on table
-                        $(`#index_${id_sppd}`).remove();
-                    }
-                });
-            }
-        })
-        
-    });
-
-    $(document).on('click', '#btn-delete-sppd', function() {
-
-        let id_sppd = $(this).data('id');
-        let token   = $("meta[name='csrf-token']").attr("content");
-
-        Swal.fire({
-            title: 'Apakah Kamu Yakin?',
-            text: "Ingin menghapus data ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'TIDAK',
-            confirmButtonText: 'YA, HAPUS!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                console.log('test');
-
-                //fetch to delete data
-                $.ajax({
-
-                    url: `/sppd/${id_sppd}`,
-                    type: "DELETE",
-                    cache: false,
-                    data: {
-                        "_token": token
-                    },
-                    success:function(response){ 
                         //show success message
                         Swal.fire({
                             type: 'success',
