@@ -21,6 +21,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SPPD</a>
+                                <a href="{{ route('sppd.export.xls') }}" class="btn btn-md btn-warning mb-3">EXPORT SPPD</a>
                                 <table class="table" id="table-1" width="100%">
                                     <thead>
                                         <tr>

@@ -14,6 +14,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.4",
+        "maatwebsite/excel": "^3.1",
         "riskihajar/terbilang": "2.0"
     },
     "require-dev": {

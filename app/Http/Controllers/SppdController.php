@@ -11,6 +11,8 @@ use Illuminate\Validation\Rule;
 use PDF;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Exports\SppdExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Terbilang;
 
 class SppdController extends Controller
@@ -344,5 +346,11 @@ class SppdController extends Controller
 
         return $pdf->stream('sppd.pdf');
     }
+
+    public function exportXls()
+    {
+        return Excel::download(new SppdExport, 'laporan-sppd.xlsx');
+    }
+
 
 }
