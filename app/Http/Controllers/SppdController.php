@@ -352,5 +352,16 @@ class SppdController extends Controller
         return Excel::download(new SppdExport, 'laporan-sppd.xlsx');
     }
 
+    public function previewExport()
+    {
+        // Ambil data dengan relasi yang dibutuhkan
+        $sppds = Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd', 'kegiatan'])->get();
+        $data = ['type_menu' => 'rekap'];
+    
+        // Kirim data ke view
+        return view('admin.sppd.preview', $data,compact('sppds'));
+    }
+
+
 
 }

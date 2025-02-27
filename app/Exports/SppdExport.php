@@ -14,7 +14,7 @@ class SppdExport implements FromCollection, WithHeadings
     public function collection()
     {
         // Mengambil data dengan relasi
-        return Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd'])
+        return Sppd::with(['pegawai', 'surat_keluar', 'jenis_sppd', 'kegiatan'])
             ->get()
             ->map(function ($sppd) {
                 return [
@@ -25,7 +25,7 @@ class SppdExport implements FromCollection, WithHeadings
                     'perihal' => $sppd->surat_keluar->perihal, // Perihal dari relasi surat_keluar
                     'pangkat' => $sppd->pegawai->pangkat, // Pangkat dari relasi pegawai
                     'tujuan' => $sppd->tujuan,
-                    'sub_kegiatan' = $sppd->kegiatan->sub_kegiatan,
+                    'sub_kegiatan' => $sppd->kegiatan->sub_kegiatan,
                     'tgl_berangkat' => $sppd->tgl_berangkat,
                     'tgl_kembali' => $sppd->tgl_kembali,
                     'biaya' => $sppd->jenis_sppd->biaya,

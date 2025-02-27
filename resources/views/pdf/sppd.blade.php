@@ -52,7 +52,7 @@
             <tr>
                 <td width="60">Dasar &nbsp; &nbsp; &nbsp; &nbsp; :</td>
                 <td>1. </td>
-                <td>Peraturan Daearah Kabupaten Pacitan Nomor 10 Tahun 2023 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2024 </td>
+                <td>Peraturan Daearah Kabupaten Pacitan Nomor 8 Tahun 2024 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2024 </td>
             </tr>
             <tr>
                 <td width="60"></td>
@@ -62,12 +62,12 @@
             <tr>
                 <td width="60"></td>
                 <td>3. </td>
-                <td>Peraturan Bupati Pacitan Nomor 55 Tahun 2023 tentang Standart Biaya Pemerintah Kabupaten Pacitan Tahun Anggaran 2024 </td>
+                <td>Peraturan Bupati Pacitan Nomor 21 Tahun 2024 tentang Standart Biaya Umum Pemerintah Kabupaten Pacitan Tahun Anggaran 2025 </td>
             </tr>
             <tr>
                 <td width="60"></td>
                 <td>4. </td>
-                <td>Peraturan Bupati Pacitan Nomor : 142 Tahun 2023 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2024</td>
+                <td>Peraturan Bupati Pacitan Nomor : 81 Tahun 2024 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025</td>
             </tr>
             <tr>
                 <td width="60"></td>

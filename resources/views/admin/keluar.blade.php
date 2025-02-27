@@ -82,7 +82,7 @@
                             <input type="text" class="form-control text-right" id="no_surat1" name="no_surat" required>
                             <input type="text" class="form-control text-right" id="no_surat2" value="{{ $nomorSurat }}" required>
                         <div class="input-group-append">
-                            <div class="input-group-text">/408.63/2024</div>
+                            <div class="input-group-text">/408.63/2025</div>
                         </div>
                         </div>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat1"></div>
