@@ -58,11 +58,11 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
     Route::get('/sppd/{sppd}/edit/kendaraan', [SppdController::class, 'getKendaraan'])->name('kendaraan-edit');
     Route::get('/sppd/print/{id}', [SppdController::class, 'printPDF'])->name('pdf.sppd');
     Route::get('/export-xls', [SppdController::class, 'exportXls'])->name('sppd.export.xls');
-    Route::get('/rekap', [SppdController::class, 'previewExport'])->name('sppd.preview.export');
+   // Route::get('/rekap', [SppdController::class, 'previewExport'])->name('sppd.preview.export');
 
 
     // Laporan
-   // Route::get('/rekap', [RekapController::class, 'index'])->name('index');
+    Route::get('/rekap', [RekapController::class, 'index'])->name('index');
 
     Route::post('/rekap/filter', [RekapController::class, 'filter'])->name('filter');
 });

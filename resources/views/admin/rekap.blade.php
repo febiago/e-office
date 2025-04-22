@@ -19,6 +19,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
+                                <a href="{{ route('sppd.export.xls') }}" class="btn btn-md btn-warning mb-3">EXPORT SPPD</a>
                                 <form id="filterForm">
                                     <div class="form-row">
                                         <div class="form-group col-md-3" >
@@ -41,7 +42,7 @@
                                                 <th>Kegiatan</th>
                                                 <th>Sub Kegiatan</th>
                                                 <th>Jenis SPPD</th>
-                                                <th>Jumlah</th>
+                                                <th width="10%">Jumlah</th>
                                                 <th>Biaya</th>
                                                 <!-- Kolom lainnya -->
                                             </tr>
@@ -86,37 +87,36 @@
                         var rowspan = 1;
 
                         $.each(response, function(index, sppd) {
-                            if (sppd.nm_kegiatan != previousKegiatan) {
-                                var row = $('<tr>');
-                                row.append($('<td>').text(sppd.nm_kegiatan));
-                                row.append($('<td>').text(sppd.sub_kegiatan));
-                                row.append($('<td>').text(sppd.nama));
-                                row.append($('<td>').text(sppd.jumlah));
-                                row.append($('<td>').text(sppd.total_biaya));
-                                tbody.append(row);
-                                previousKegiatan = sppd.nm_kegiatan;
-                                previousSubKegiatan = sppd.sub_kegiatan;
-                                
-                            } else if (sppd.sub_kegiatan != previousSubKegiatan) {
-                                var dataRow = $('<tr>');
-                                dataRow.append($('<td>'));
-                                dataRow.append($('<td>').text(sppd.sub_kegiatan));
-                                dataRow.append($('<td>').text(sppd.nama));
-                                dataRow.append($('<td>').text(sppd.jumlah));
-                                dataRow.append($('<td>').text(sppd.total_biaya));
-                                tbody.append(dataRow);
-                                previousKegiatan = sppd.nm_kegiatan;
-                                previousSubKegiatan = sppd.sub_kegiatan;
-                            } else {
-                                var rowData = $('<tr>');
-                                rowData.append($('<td>'));
-                                rowData.append($('<td>'));
-                                rowData.append($('<td>').text(sppd.nama));
-                                rowData.append($('<td>').text(sppd.jumlah));
-                                rowData.append($('<td>').text(sppd.total_biaya));
-                                tbody.append(rowData);
-                            }
-                        });
+                        if (sppd.nm_kegiatan != previousKegiatan) {
+                            var row = $('<tr>');
+                            row.append($('<td>').text(sppd.nm_kegiatan));
+                            row.append($('<td>').text(sppd.sub_kegiatan));
+                            row.append($('<td>').text(sppd.nama));
+                            row.append($('<td>').text(sppd.jumlah));
+                            row.append($('<td>').text(parseInt(sppd.total_biaya).toLocaleString('id-ID')));
+                            tbody.append(row);
+                            previousKegiatan = sppd.nm_kegiatan;
+                            previousSubKegiatan = sppd.sub_kegiatan;
+                        } else if (sppd.sub_kegiatan != previousSubKegiatan) {
+                            var dataRow = $('<tr>');
+                            dataRow.append($('<td>'));
+                            dataRow.append($('<td>').text(sppd.sub_kegiatan));
+                            dataRow.append($('<td>').text(sppd.nama));
+                            dataRow.append($('<td>').text(sppd.jumlah));
+                            dataRow.append($('<td>').text(parseInt(sppd.total_biaya).toLocaleString('id-ID')));
+                            tbody.append(dataRow);
+                            previousKegiatan = sppd.nm_kegiatan;
+                            previousSubKegiatan = sppd.sub_kegiatan;
+                        } else {
+                            var rowData = $('<tr>');
+                            rowData.append($('<td>'));
+                            rowData.append($('<td>'));
+                            rowData.append($('<td>').text(sppd.nama));
+                            rowData.append($('<td>').text(sppd.jumlah));
+                            rowData.append($('<td>').text(parseInt(sppd.total_biaya).toLocaleString('id-ID')));
+                            tbody.append(rowData);
+                        }
+                    });
                     }
                 });
             });

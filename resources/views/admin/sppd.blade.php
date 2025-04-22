@@ -21,10 +21,10 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <a href="{{ route('sppd.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SPPD</a>
-                                <a href="{{ route('sppd.preview.export') }}" class="btn btn-md btn-warning mb-3">EXPORT SPPD</a>
                                 <table class="table" id="table-1" width="100%">
                                     <thead>
                                         <tr>
+                                            <th width="4%" class="text-center">No</th>
                                             <th width="15%">No SPT</th>
                                             <th width="10%">Tanggal Berangkat</th>
                                             <th width="15%">Nama</th>
@@ -36,9 +36,11 @@
                                     <tbody id="table-sppd">
                                     @php
                                         use Carbon\Carbon;
+                                        $no = 1;
                                     @endphp
                                     @foreach($sppds as $sppd)
                                         <tr id="index_{{ $sppd->id }}" class="{{ $sppd->jenis == 'inti' ? 'table-active' : 'table-light' }}" >
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $sppd->surat_keluar->no_surat }}</td>
                                             <td>{{ Carbon::parse($sppd->tgl_berangkat)->format('d-m-Y') }}</td>
                                             <td>{{ $sppd->pegawai->nama }}</td>

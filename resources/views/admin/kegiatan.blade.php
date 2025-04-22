@@ -44,7 +44,7 @@
                                             <td>{{ $kegiatan->program }}</td>
                                             <td>{{ $kegiatan->nm_kegiatan }}</td>
                                             <td>{{ $kegiatan->sub_kegiatan }}</td>
-                                            <td>{{ $kegiatan->anggaran }}</td>
+                                            <td>{{ number_format($kegiatan->anggaran, 0, ',', '.') }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-kegiatan" data-id="{{ $kegiatan->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-kegiatan" data-id="{{ $kegiatan->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
