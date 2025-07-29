@@ -52,7 +52,7 @@
             <tr>
                 <td width="60">Dasar &nbsp; &nbsp; &nbsp; &nbsp; :</td>
                 <td>1. </td>
-                <td>Peraturan Daearah Kabupaten Pacitan Nomor 8 Tahun 2024 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2024 </td>
+                <td>Peraturan Daearah Kabupaten Pacitan Nomor 8 Tahun 2024 tentang Pendapatan dan Belanja Daerah Kabupaten Pacitan Tahun Anggaran 2025 </td>
             </tr>
             <tr>
                 <td width="60"></td>
